@@ -6,161 +6,69 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float walkSpeed;
+    public bool smoothTransition = false;
+    public float transitionSpeed = 10f;
+    public float transitionRotationSpeed = 500f;
 
-    [SerializeField]
-    private float lookSenesitivity;
+    Vector3 targetGridPos;
+    Vector3 prevTargetGridPos;
+    Vector3 targetRotation;
 
-    [SerializeField]
-    private float cameraRotationLimit;
-    private float currentCameraRotationX = 0;
-
-    [SerializeField]
-    private Camera theCamera;
-    private Rigidbody myRigid;
-
-
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        myRigid = GetComponent<Rigidbody>();
+        targetGridPos = Vector3Int.RoundToInt(transform.position);
+    }
+    private void FixedUpdate()
+    {
+        MovePlayer();
     }
 
-    public bool testFlag = true;
-    // Update is called once per frame
-    void Update()
+    void MovePlayer()
     {
-        Move();
-        CameraAngle();
-        //CameraRotation();
-        //CharacterRotation();
-
-        /*
-        if (Input.GetKeyDown(KeyCode.UpArrow) && move == false)
+        if(true)
         {
-            if (testFlag) StartCoroutine(moveBlockTranslate(Vector3.left));
-            else StartCoroutine(moveBlockTime(Vector3.left));
-        }*/
+            prevTargetGridPos = targetGridPos;
 
-    }
+            Vector3 targetPosition = targetGridPos;
 
-    //이동
-    private void Move()
-    {
-        //float _moveDirx = Input.GetAxisRaw("Horizontal");
-        float _moveDirz = Input.GetAxisRaw("Vertical");
+            if (targetRotation.y > 270f && targetRotation.y < 361f) targetRotation.y = 0f;
+            if (targetRotation.y < 0f) targetRotation.y = 270f;
 
-        //Vector3 _moveHorizontal = transform.right * _moveDirx;
-        Vector3 _moveVertical = transform.forward * _moveDirz;
-
-        Vector3 _velocity = (/*_moveHorizontal +*/ _moveVertical).normalized * walkSpeed;
-        myRigid.MovePosition(transform.position + _velocity * Time.deltaTime);
-    }
-
-    //마우스로 회전
-    private void CameraRotation()
-    {
-        float _xRotation = Input.GetAxisRaw("Mouse Y");
-        float _cameraRotationX = _xRotation * lookSenesitivity;
-        currentCameraRotationX += _cameraRotationX;
-        currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
-        theCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
-    }
-
-    //카메라 직각 회전
-    bool rotating;
-    Vector3 CLOCKWISE = Vector3.up;
-    Vector3 ANTI_CLOCKWISE = Vector3.down;
-
-    float rotateTime = 0.1f;
-
-    float Round90(float f)
-    {
-        float r = f % 90;
-        return (r < 45) ? f - r : f - r + 90;
-    }
-    private void CameraAngle()
-    {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-            StartCoroutine(MoveBlockTime(CLOCKWISE));
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-            StartCoroutine(MoveBlockTime(ANTI_CLOCKWISE));
-    }
-
-
-    private IEnumerator MoveBlockTime(Vector3 wise)
-    {
-        rotating = true;
-
-        this.transform.Rotate(new Vector3(0, wise.y, 0));
-
-        float elapsedTime = 0.0f;
-
-        Quaternion currentRotation = this.transform.rotation;
-        Vector3 targetEulerAngles = this.transform.rotation.eulerAngles;
-        targetEulerAngles.y += (88.0f) * wise.y;
-
-        Quaternion targetRotation = Quaternion.Euler(targetEulerAngles);
-
-        while (elapsedTime < rotateTime)
-        {
-            transform.rotation = Quaternion.Euler(Vector3.Lerp(currentRotation.eulerAngles, targetRotation.eulerAngles, elapsedTime / rotateTime));
-
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            if(!smoothTransition)
+            {
+                transform.position = targetPosition;
+                transform.rotation = Quaternion.Euler(targetRotation);
+            }
+            else
+            {
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * transitionSpeed);
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionRotationSpeed);
+            }
         }
-
-        targetEulerAngles.y = Round90(targetEulerAngles.y);
-        this.transform.rotation = Quaternion.Euler(targetEulerAngles);
-
-        rotating = false;
-    }
-
-
-    //한 칸씩 이동하는 코드 
-    public bool move = false;
-    private float blockMoveTime;
-    private float blockMoveSpeed;
-    
-    private IEnumerator moveBlockTime(Vector3 dir)
-    {
-        move = true;
-
-        float elapsedTime = 0.0f;
-
-        Vector3 currentPosition = transform.position;
-        Vector3 targetPosition = currentPosition + dir;
-
-        while (elapsedTime < blockMoveTime)
+        else
         {
-            transform.position = Vector3.Lerp(currentPosition, targetPosition, elapsedTime / blockMoveTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            targetGridPos = prevTargetGridPos;
         }
-
-        transform.position = targetPosition;
-
-        move = false;
     }
 
-    private IEnumerator moveBlockTranslate(Vector3 dir)
+    public void RotateLeft() { if (AtRest) targetRotation -= Vector3.up * 90f; }
+    public void RotateRight() { if (AtRest) targetRotation += Vector3.up * 90f; }
+    public void MoveForward() { if (AtRest) targetGridPos += transform.forward; }
+    public void MoveBackward() { if (AtRest) targetGridPos -= transform.forward; }
+        public void MoveLeft() { if (AtRest) targetGridPos -= transform.right; }
+    public void MoveRight() { if (AtRest) targetGridPos += transform.right; }
+
+    bool AtRest
     {
-        move = true;
-
-        Vector3 targetPosition = transform.position + dir;
-
-        while (Vector3.Magnitude(targetPosition - transform.position) >= 0.01f)
+        get
         {
-            transform.Translate(dir * Time.deltaTime * blockMoveSpeed);
-            yield return null;
+            if((Vector3.Distance(transform.position, targetGridPos) <0.05f)&& 
+                Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f)
+                return true;
+            else
+                return false;
         }
-
-        transform.position = targetPosition;
-
-        move = false;
     }
-
 
 }
 
