@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/MainMenu/MainMenu/VirtualJoystick.unity
-=======
 - path: Assets/Scenes/SampleScene.unity
->>>>>>> main
   isLoaded: 1
   isActive: 1
   isSubScene: 0
