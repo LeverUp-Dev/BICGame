@@ -1,9 +1,5 @@
 sceneSetups:
-<<<<<<< HEAD
-- path: Assets/Scenes/PlayMovement.unity
-=======
 - path: Assets/Scenes/SampleScene.unity
->>>>>>> a58065a9ef001776c6e71beae4c680652a964379
   isLoaded: 1
   isActive: 1
   isSubScene: 0
