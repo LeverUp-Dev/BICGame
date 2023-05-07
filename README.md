@@ -1,6 +1,30 @@
 # BICGame
 
-## 대화 편집 시스템 사용 방법
+## 1. 프로젝트 Assets 구조
+
+```
+ASSETS  
+├─Animations : 애니메이션 폴더
+├─Dialogue System : 대화 편집 시스템 관련 폴더
+│  ├─Dialogues : 대화 데이터 저장 폴더
+├─Editor : 유니티 커스텀 에디터 추가 폴더
+│  └─Dialogue System : 대화 편집 시스템 에디터 관련 폴더
+│      ├─Graphs : 대화 편집 시스템 화면 구성 데이터 저장 폴더
+├─Editor Default Resources : 유니티 커스텀 에디터 uss 저장 폴더
+├─Etc : 기타 저장 폴더
+├─Externals : 외부 에셋 저장 폴더
+│  └─Something Demo : 현재 라이센스 확인 필요
+├─Fonts : 폰트 폴더
+├─Map : Map 폴더
+├─Materials : Material 폴더
+├─Prefabs : Prefab 폴더
+├─Scenes : Scene 폴더
+├─Scripts : c# 소스코드 폴더
+├─Sprites : Sprite 폴더
+└─TextMesh Pro : TextMesh Pro 라이브러리 폴더
+```
+
+## 2. 대화 편집 시스템 사용 방법
 
 1. *`Window > DS > Dialogue Graph`* 클릭
 
