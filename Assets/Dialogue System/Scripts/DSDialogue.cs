@@ -18,5 +18,13 @@ namespace DS
         /* Indexes */
         [SerializeField] private int selectedDialogueGroupIndex;
         [SerializeField] private int selectedDialogueIndex;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                DialogueManager.Instance.SetDialogue(dialogue);
+            }
+        }
     }
 }

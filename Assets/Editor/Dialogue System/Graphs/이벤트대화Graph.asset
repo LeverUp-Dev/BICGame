@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2814d92ee5b22f64db4a81b1ead9fd39, type: 3}
+  m_Name: "\uC774\uBCA4\uD2B8\uB300\uD654Graph"
+  m_EditorClassIdentifier: 
+  <FileName>k__BackingField: "\uC774\uBCA4\uD2B8\uB300\uD654"
+  <Groups>k__BackingField:
+  - <ID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
+    <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+    <Position>k__BackingField: {x: 15.000002, y: 87.99999}
+  <Nodes>k__BackingField:
+  - <ID>k__BackingField: b1218816-7777-4e70-ba6d-0647e29c124e
+    <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC774 \uB0B4\uB51B\uC740 \uBC14\uB2E5\uC774
+      \uC0B4\uC9DD \uB0B4\uB824 \uC549\uB354\uB2C8 \uBCBD\uC5D0\uC11C \uD654\uC0B4\uC774
+      \uC3DF\uC544\uC838 \uB098\uC654\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: c62d41f8-e2e5-4e51-a8fa-5fed28f4cb8f
+    <GroupID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 40, y: 149}
+  - <ID>k__BackingField: c62d41f8-e2e5-4e51-a8fa-5fed28f4cb8f
+    <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0\uACB0\uACFC"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uD654\uC0B4\uC5D0 \uBB3B\uC5B4 \uC788\uB358
+      \uB3C5\uC5D0 \uC911\uB3C5\uB418\uC5B4 \uC0AC\uB9DD\uD588\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 568, y: 149}
+  <OldGroupNames>k__BackingField:
+  - "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+  <OldUngroupedNodeNames>k__BackingField: []
+  <OldGroupedNodeNames>k__BackingField:
+    list:
+    - Key: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+      Value:
+      - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
+      - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0\uACB0\uACFC"
