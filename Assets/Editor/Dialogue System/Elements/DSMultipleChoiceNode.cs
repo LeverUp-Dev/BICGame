@@ -13,6 +13,8 @@ namespace DS.Elements
 
     public class DSMultipleChoiceNode : DSNode
     {
+        const short DS_DIALOGUE_CHOICE_LIMIT = 3;
+
         public override void Initialize(string nodeName, DSGraphView dsGraphView, Vector2 position)
         {
             base.Initialize(nodeName, dsGraphView, position);
@@ -46,7 +48,7 @@ namespace DS.Elements
 
                 outputContainer.Add(choicePort);
 
-                if (Choices.Count == 3)
+                if (Choices.Count == DS_DIALOGUE_CHOICE_LIMIT)
                 {
                     mainContainer.ElementAt(1).SetEnabled(false);
                 }
