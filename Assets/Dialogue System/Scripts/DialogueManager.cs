@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject DialogueCanvas;
     public TextMeshProUGUI textDisplay;
     public GameObject continueButton;
+    public GameObject[] choiceButtons;
     public float typingSpeed;
 
     private DSDialogueSO currentDialogue = null;
@@ -52,6 +53,18 @@ public class DialogueManager : MonoBehaviour
     public void SetEnabled(bool isEnabled)
     {
         DialogueCanvas.SetActive(isEnabled);
+
+        if (!isEnabled)
+        {
+            textDisplay.text = "";
+
+            continueButton.GetComponent<TextMeshProUGUI>().text = "";
+
+            foreach (GameObject button in choiceButtons)
+            {
+                button.GetComponent<TextMeshProUGUI>().text = "";
+            }
+        }
     }
 
     public void SetDialogue(DSDialogueSO dialogue)
@@ -64,10 +77,13 @@ public class DialogueManager : MonoBehaviour
 
     public void Type()
     {
+        isLastDialogue = false;
+
         if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
         {
             DSDialogueSO nextDialogue = currentDialogue.Choices[0].NextDialogue;
 
+            // 다음/종료 버튼 문구 설정
             if (nextDialogue == null)
             {
                 continueButton.GetComponent<TextMeshProUGUI>().text = "종료";
@@ -76,7 +92,6 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 continueButton.GetComponent<TextMeshProUGUI>().text = "다음";
-                isLastDialogue = false;
             }
         }
         else
@@ -86,13 +101,18 @@ public class DialogueManager : MonoBehaviour
             {
                 if (nextChoice.NextDialogue == null)
                 {
-                    Debug.LogWarning($"{currentDialogue.DialogueName} 대화에 다음 대화가 지정되지 않은 선택지가 있습니다.");
+                    Debug.LogError($"{currentDialogue.DialogueName} 대화에 다음 대화가 지정되지 않은 선택지가 있습니다.");
                     return;
                 }
             }
 
-            continueButton.GetComponent<TextMeshProUGUI>().text = "다음";
-            isLastDialogue = true;
+            //continueButton.SetActive(false);
+
+            // 선택지 버튼 문구 설정
+            for (int i = 0; i < currentDialogue.Choices.Count; ++i)
+            {
+                choiceButtons[i].GetComponent<TextMeshProUGUI>().text = currentDialogue.Choices[i].Text;
+            }
         }
 
         SetEnabled(true);
@@ -108,7 +128,17 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        continueButton.SetActive(true);
+        if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
+        {
+            continueButton.SetActive(true);
+        }
+        else
+        {
+            for (int i = 0; i < currentDialogue.Choices.Count; ++i)
+            {
+                choiceButtons[i].SetActive(true);
+            }
+        }
     }
 
     public void Next(int choice = 0)
@@ -133,7 +163,17 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        continueButton.SetActive(false);
+        if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
+        {
+            continueButton.SetActive(false);
+        }
+        else
+        {
+            foreach (GameObject button in choiceButtons)
+            {
+                button.SetActive(false);
+            }
+        }
 
         textDisplay.text = "";
 
