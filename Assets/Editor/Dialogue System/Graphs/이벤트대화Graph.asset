@@ -16,10 +16,7 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
     <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: 15, y: 88}
-  - <ID>k__BackingField: 7606646a-b9a1-48dc-b433-61c7a744b701
-    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: 15, y: 407}
+    <Position>k__BackingField: {x: 15.000002, y: 87.99999}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: b1218816-7777-4e70-ba6d-0647e29c124e
     <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
@@ -42,51 +39,8 @@ MonoBehaviour:
     <GroupID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 568, y: 149}
-  - <ID>k__BackingField: 070a0bfc-5fb2-46a0-926b-494819b695c9
-    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790"
-    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uD669\uAE08\uC73C\uB85C \uD654\uB824\uD558\uAC8C
-      \uC7A5\uC2DD\uB41C \uBCF4\uBB3C\uC0C1\uC790\uB97C \uBC1C\uACAC\uD558\uC600\uB2E4.
-      \uC870\uC0AC\uD558\uACA0\uB294\uAC00?"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: "\uC870\uC0AC\uD55C\uB2E4."
-      <NodeID>k__BackingField: 60149e12-68a5-4972-a086-82c8dc3591f4
-    - <Text>k__BackingField: "\uC870\uC0AC\uD558\uC9C0 \uC54A\uACE0 \uC9C0\uB098\uCE5C\uB2E4."
-      <NodeID>k__BackingField: fa530596-0a16-4ab3-9b35-c4499cc04cb1
-    <GroupID>k__BackingField: 7606646a-b9a1-48dc-b433-61c7a744b701
-    <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: 40, y: 564}
-  - <ID>k__BackingField: 60149e12-68a5-4972-a086-82c8dc3591f4
-    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC870\uC0AC"
-    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uBCF4\uBB3C\uC0C1\uC790\uC5D0 \uC124\uCE58\uB418\uC5B4
-      \uC788\uB358 \uD568\uC815\uC744 \uAC74\uB4DC\uB824 \uB3C5\uC5D0 \uC911\uB3C5\uB418\uC5C8\uB2E4."
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 488268d4-a756-4a57-9c15-ad4434bbe4f7
-    <GroupID>k__BackingField: 7606646a-b9a1-48dc-b433-61c7a744b701
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 581, y: 468}
-  - <ID>k__BackingField: fa530596-0a16-4ab3-9b35-c4499cc04cb1
-    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uBB34\uC2DC"
-    <Text>k__BackingField: "\uB2F9\uC2E0\uC744 \uBCF4\uBB3C\uC0C1\uC790\uB97C \uC9C0\uB098\uCE58\uB358
-      \uB3C4\uC911 \uD568\uC815\uC744 \uAC74\uB4DC\uB824 \uB3C5\uC5D0 \uC911\uB3C5\uB418\uC5C8\uB2E4."
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 488268d4-a756-4a57-9c15-ad4434bbe4f7
-    <GroupID>k__BackingField: 7606646a-b9a1-48dc-b433-61c7a744b701
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 581, y: 685}
-  - <ID>k__BackingField: 488268d4-a756-4a57-9c15-ad4434bbe4f7
-    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uACB0\uACFC"
-    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uC0AC\uB9DD\uD558\uC600\uB2E4."
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 7606646a-b9a1-48dc-b433-61c7a744b701
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1087, y: 590}
   <OldGroupNames>k__BackingField:
   - "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
-  - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
   <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
     list:
@@ -94,9 +48,3 @@ MonoBehaviour:
       Value:
       - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
       - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0\uACB0\uACFC"
-    - Key: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
-      Value:
-      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790"
-      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC870\uC0AC"
-      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uBB34\uC2DC"
-      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uACB0\uACFC"
