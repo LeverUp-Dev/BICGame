@@ -6,11 +6,15 @@ namespace DS.Elements
 {
     using Data.Save;
     using Enumerations;
+    using System.Collections;
+    using System.Collections.Generic;
     using Utilities;
     using Windows;
 
     public class DSMultipleChoiceNode : DSNode
     {
+        const short DS_DIALOGUE_CHOICE_LIMIT = 3;
+
         public override void Initialize(string nodeName, DSGraphView dsGraphView, Vector2 position)
         {
             base.Initialize(nodeName, dsGraphView, position);
@@ -43,6 +47,11 @@ namespace DS.Elements
                 Port choicePort = CreateChoicePort(choiceData);
 
                 outputContainer.Add(choicePort);
+
+                if (Choices.Count == DS_DIALOGUE_CHOICE_LIMIT)
+                {
+                    mainContainer.ElementAt(1).SetEnabled(false);
+                }
             });
             addChoiceButton.AddToClassList("ds-node__button");
             mainContainer.Insert(1, addChoiceButton);
@@ -82,6 +91,8 @@ namespace DS.Elements
                 Choices.Remove(choiceData);
 
                 graphView.RemoveElement(choicePort);
+
+                mainContainer.ElementAt(1).SetEnabled(true);
             });
             deleteChoiceButton.AddToClassList("ds-node__button");
 
