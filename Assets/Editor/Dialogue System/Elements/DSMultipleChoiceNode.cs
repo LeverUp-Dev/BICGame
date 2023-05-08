@@ -6,6 +6,8 @@ namespace DS.Elements
 {
     using Data.Save;
     using Enumerations;
+    using System.Collections;
+    using System.Collections.Generic;
     using Utilities;
     using Windows;
 
@@ -43,6 +45,11 @@ namespace DS.Elements
                 Port choicePort = CreateChoicePort(choiceData);
 
                 outputContainer.Add(choicePort);
+
+                if (Choices.Count == 3)
+                {
+                    mainContainer.ElementAt(1).SetEnabled(false);
+                }
             });
             addChoiceButton.AddToClassList("ds-node__button");
             mainContainer.Insert(1, addChoiceButton);
@@ -82,6 +89,8 @@ namespace DS.Elements
                 Choices.Remove(choiceData);
 
                 graphView.RemoveElement(choicePort);
+
+                mainContainer.ElementAt(1).SetEnabled(true);
             });
             deleteChoiceButton.AddToClassList("ds-node__button");
 
