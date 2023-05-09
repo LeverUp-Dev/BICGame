@@ -16,7 +16,10 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
     <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: 15.000002, y: 87.99999}
+    <Position>k__BackingField: {x: 15, y: 88}
+  - <ID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
+    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
+    <Position>k__BackingField: {x: -41, y: 420}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: b1218816-7777-4e70-ba6d-0647e29c124e
     <Name>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
@@ -39,8 +42,50 @@ MonoBehaviour:
     <GroupID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
     <DialogueType>k__BackingField: 0
     <Position>k__BackingField: {x: 568, y: 149}
+  - <ID>k__BackingField: b973ee3c-00fc-471b-add7-48d7e312ced1
+    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC870\uC0AC"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uBCF4\uBB3C\uC0C1\uC790\uC5D0 \uC124\uCE58\uB41C
+      \uD568\uC815\uC744 \uAC74\uB4DC\uB824 \uB3C5\uC5D0 \uC911\uB3C5\uB418\uC5C8\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 327c28e4-651e-455c-a66e-dd20c3a09952
+    <GroupID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 485, y: 481}
+  - <ID>k__BackingField: 327c28e4-651e-455c-a66e-dd20c3a09952
+    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uACB0\uACFC"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uC0AC\uB9DD\uD558\uC600\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 
+    <GroupID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 986, y: 577}
+  - <ID>k__BackingField: d7adc36b-b4e6-46e3-b0a2-3f3d353201ad
+    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uBB34\uC2DC"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uBCF4\uBB3C\uC0C1\uC790\uB97C \uC9C0\uB098\uCE58\uB358
+      \uB3C4\uC911 \uD568\uC815\uC744 \uAC74\uB4DC\uB824 \uB3C5\uC5D0 \uC911\uB3C5\uB418\uC5C8\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: Next Dialogue
+      <NodeID>k__BackingField: 327c28e4-651e-455c-a66e-dd20c3a09952
+    <GroupID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
+    <DialogueType>k__BackingField: 0
+    <Position>k__BackingField: {x: 485, y: 697}
+  - <ID>k__BackingField: 7227b800-26e3-4736-bb8f-8a64e63fa033
+    <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790"
+    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uD669\uAE08\uC73C\uB85C \uD654\uB824\uD558\uAC8C
+      \uC7A5\uC2DD\uB41C \uBCF4\uBB3C\uC0C1\uC790\uB97C  \uBC1C\uACAC\uD558\uC600\uB2E4."
+    <Choices>k__BackingField:
+    - <Text>k__BackingField: "\uC870\uC0AC\uD55C\uB2E4."
+      <NodeID>k__BackingField: b973ee3c-00fc-471b-add7-48d7e312ced1
+    - <Text>k__BackingField: "\uC870\uC0AC\uD558\uC9C0 \uC54A\uACE0 \uC9C0\uB098\uCE5C\uB2E4."
+      <NodeID>k__BackingField: d7adc36b-b4e6-46e3-b0a2-3f3d353201ad
+    <GroupID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
+    <DialogueType>k__BackingField: 1
+    <Position>k__BackingField: {x: -16, y: 577}
   <OldGroupNames>k__BackingField:
   - "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+  - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
   <OldUngroupedNodeNames>k__BackingField: []
   <OldGroupedNodeNames>k__BackingField:
     list:
@@ -48,3 +93,9 @@ MonoBehaviour:
       Value:
       - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
       - "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0\uACB0\uACFC"
+    - Key: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC774\uBCA4\uD2B8"
+      Value:
+      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC870\uC0AC"
+      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uACB0\uACFC"
+      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uBB34\uC2DC"
+      - "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790"
