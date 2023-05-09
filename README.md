@@ -83,38 +83,3 @@ ASSETS
         1. 해당 노드 또는 그룹 클릭 후 *`Delete`*
         2. 해당 노드 또는 그룹 우클릭 후 *`Delete`* 클릭
         3. 해당 노드 또는 그룹 드래그 선택 후 *`Delete`*
-
-## 3. 대화 추가 방법
-
-1. Object에 Collider 추가 후 `is Trigger` 체크
-
-    ![image](https://user-images.githubusercontent.com/44758316/236852725-9c4b2261-639e-4ac5-82bd-601823e414cb.png)
-
-2. Object에 `Assets/Dialogue System/Scripts/DSDialogue.cs` 추가
-
-    ![image](https://user-images.githubusercontent.com/44758316/236852819-8579c53d-69a3-42aa-9a0a-2887e762a3a0.png)
-
-3. DSDialogue 컴포넌트의 `Dialogue Container` 프로퍼티를 눌러 대화 편집 시스템에서 만든 대화 파일 선택
-
-    ![image](https://user-images.githubusercontent.com/44758316/236853160-f38ace94-9475-4d98-89d7-02b13a83e59e.png)
-
-4. 원하는 대화가 그룹인지 아닌지에 따라 적절한 필터 설정
-
-    ![image](https://user-images.githubusercontent.com/44758316/236853294-f4acbdf9-a969-4528-8a2a-96c3b7aa6857.png)
-
-    * `Grouped Dialogues` : 그룹 내에 있는 대화만 보여줌
-    * `Starting Dialogues Only` : 각 대화의 첫 대사만 보여줌 ***(체크 권장)***
-    
-5. (대화가 그룹에 속한 경우만) DSDialogue 컴포넌트의 `Dialogue Group` 프로퍼티를 눌러 원하는 대화가 속한 그룹 선택
-
-    ![image](https://user-images.githubusercontent.com/44758316/236854090-c69ab2e5-4a09-471d-bdf5-41e5ead35bae.png)
-
-6. DSDialogue 컴포넌트의 `Dialogue` 프로퍼티를 눌러 원하는 대화 선택
-
-    ![image](https://user-images.githubusercontent.com/44758316/236854265-553e27d7-21be-457d-8859-db4dd953dda8.png)
-
-    * **만약 `Starting Dialogues Only` 필터를 설정하지 않았다면 대화 중간 대사도 선택이 가능하므로 주의**
-    
-7. DSDialogue를 추가한 해당 Object가 Player 태그를 가진 Object와 충돌하면 설정한 대사 출력
-
-    * **현재 Collision 이벤트가 아닌 Trigger에만 작동하므로 주의**

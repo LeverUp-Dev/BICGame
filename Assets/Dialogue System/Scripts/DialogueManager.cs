@@ -15,7 +15,6 @@ public class DialogueManager : MonoBehaviour
     public GameObject DialogueCanvas;
     public TextMeshProUGUI textDisplay;
     public GameObject continueButton;
-    public GameObject[] choiceButtons;
     public float typingSpeed;
 
     private DSDialogueSO currentDialogue = null;
@@ -50,33 +49,11 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    /*
-     * 대화 UI의 Enabled 상태 설정
-     */
     public void SetEnabled(bool isEnabled)
     {
         DialogueCanvas.SetActive(isEnabled);
-
-        if (!isEnabled)
-        {
-            textDisplay.text = "";
-
-            continueButton.GetComponent<TextMeshProUGUI>().text = "";
-
-            foreach (GameObject button in choiceButtons)
-            {
-                button.GetComponent<TextMeshProUGUI>().text = "";
-            }
-        }
     }
 
-    /*
-     * DialogueManager 동작 순서
-     * 1. DSDialogue를 가지고 있는 Object가 충돌을 감지하면 DialogueManager의 SetDialogue()를 호출해 dialogue 데이터 전달
-     * 2. Dialogue Manager는 대화 UI를 활성화하고 대화 출력
-     * 3. 대화 UI에 있는 다음 또는 선택지 버튼을 클릭하면 Next()를 호출
-     * 4. 마지막 대화까지 출력하고 나서 플레이어가 종료 버튼을 클릭하면 대화 UI 비활성화
-     */
     public void SetDialogue(DSDialogueSO dialogue)
     {
         isLastDialogue = false;
@@ -85,18 +62,12 @@ public class DialogueManager : MonoBehaviour
         Type();
     }
 
-    /*
-     * 대화 UI에 대사를 한 글자씩 출력하는 Coroutine 실행
-     */
     public void Type()
     {
-        isLastDialogue = false;
-
         if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
         {
             DSDialogueSO nextDialogue = currentDialogue.Choices[0].NextDialogue;
 
-            // 다음/종료 버튼 문구 설정
             if (nextDialogue == null)
             {
                 continueButton.GetComponent<TextMeshProUGUI>().text = "종료";
@@ -105,6 +76,7 @@ public class DialogueManager : MonoBehaviour
             else
             {
                 continueButton.GetComponent<TextMeshProUGUI>().text = "다음";
+                isLastDialogue = false;
             }
         }
         else
@@ -114,18 +86,13 @@ public class DialogueManager : MonoBehaviour
             {
                 if (nextChoice.NextDialogue == null)
                 {
-                    Debug.LogError($"{currentDialogue.DialogueName} 대화에 다음 대화가 지정되지 않은 선택지가 있습니다.");
+                    Debug.LogWarning($"{currentDialogue.DialogueName} 대화에 다음 대화가 지정되지 않은 선택지가 있습니다.");
                     return;
                 }
             }
 
-            //continueButton.SetActive(false);
-
-            // 선택지 버튼 문구 설정
-            for (int i = 0; i < currentDialogue.Choices.Count; ++i)
-            {
-                choiceButtons[i].GetComponent<TextMeshProUGUI>().text = currentDialogue.Choices[i].Text;
-            }
+            continueButton.GetComponent<TextMeshProUGUI>().text = "다음";
+            isLastDialogue = true;
         }
 
         SetEnabled(true);
@@ -133,9 +100,6 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(_Type());
     }
 
-    /*
-     * 대사 출력 Coroutine 
-     */
     IEnumerator _Type()
     {
         foreach (char letter in currentDialogue.Text.ToCharArray())
@@ -144,22 +108,9 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
-        {
-            continueButton.SetActive(true);
-        }
-        else
-        {
-            for (int i = 0; i < currentDialogue.Choices.Count; ++i)
-            {
-                choiceButtons[i].SetActive(true);
-            }
-        }
+        continueButton.SetActive(true);
     }
 
-    /*
-     * 다음 대사로 데이터를 바꾼 뒤 Type() 호출
-     */
     public void Next(int choice = 0)
     {
         // isLastDialogue가 true면 이미 마지막 대화를 출력한 상태이므로 SetActive(false) 수행 후 종료
@@ -182,22 +133,10 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        // 대사 출력이 끝나기 전까진 다음 또는 선택지 버튼을 모두 비활성화
-        if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
-        {
-            continueButton.SetActive(false);
-        }
-        else
-        {
-            foreach (GameObject button in choiceButtons)
-            {
-                button.SetActive(false);
-            }
-        }
+        continueButton.SetActive(false);
 
         textDisplay.text = "";
 
-        // 다음 대사로 데이터 변경
         currentDialogue = currentDialogue.Choices[choice].NextDialogue;
 
         if (currentDialogue == null)
