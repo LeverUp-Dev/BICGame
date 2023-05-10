@@ -12,6 +12,7 @@ public class PlayerInput : MonoBehaviour
     public KeyCode right = KeyCode.D;
     public KeyCode turnLeft = KeyCode.Q;
     public KeyCode turnRight = KeyCode.E;
+    public KeyCode shift = KeyCode.LeftShift;
 
     PlayerController controller;
 
@@ -24,12 +25,22 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetKeyUp(forward)) controller.MoveForward();
+        if (Input.GetKey(forward) && Input.GetKey(shift))
+        {
+            if (Input.GetKey(right)) controller.MoveDiagonalRightForward();
+            else if (Input.GetKey(left)) controller.MoveDiagonalLeftForward();
+            else controller.MoveDoubleForward();
+        }
+        if (Input.GetKeyUp(forward) && !Input.GetKey(shift)) controller.MoveForward();
+        //if (Input.GetKey(forward) && Input.GetKey(right) && Input.GetKey(shift)) controller.MoveDiagonalRightForward();
+        //if (Input.GetKey(forward) && Input.GetKey(left) && Input.GetKey(shift)) controller.MoveDiagonalLeftForward();
         if (Input.GetKeyUp(back)) controller.MoveBackward();
-        if (Input.GetKeyUp(left)) controller.MoveLeft();
-        if (Input.GetKeyUp(right)) controller.MoveRight();
-        if (Input.GetKeyUp(turnLeft)) controller.RotateLeft();
-        if (Input.GetKeyUp(turnRight)) controller.RotateRight();
+        if (Input.GetKeyUp(left) && Input.GetKey(shift)) controller.MoveLeft();
+        if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.MoveRight();
+        if (Input.GetKeyUp(left)) controller.RotateLeft();
+        if (Input.GetKeyUp(right)) controller.RotateRight();
+
+
 
 
     }
