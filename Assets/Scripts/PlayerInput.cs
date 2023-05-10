@@ -31,10 +31,9 @@ public class PlayerInput : MonoBehaviour
             else if (Input.GetKey(left)) controller.MoveDiagonalLeftForward();
             else controller.MoveDoubleForward();
         }
+        if (Input.GetKeyUp(back) && Input.GetKey(shift)) controller.MoveBackward();
         if (Input.GetKeyUp(forward) && !Input.GetKey(shift)) controller.MoveForward();
-        //if (Input.GetKey(forward) && Input.GetKey(right) && Input.GetKey(shift)) controller.MoveDiagonalRightForward();
-        //if (Input.GetKey(forward) && Input.GetKey(left) && Input.GetKey(shift)) controller.MoveDiagonalLeftForward();
-        if (Input.GetKeyUp(back)) controller.MoveBackward();
+        if (Input.GetKeyUp(back) && !Input.GetKey(shift)) controller.RotateBack();
         if (Input.GetKeyUp(left) && Input.GetKey(shift)) controller.MoveLeft();
         if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.MoveRight();
         if (Input.GetKeyUp(left)) controller.RotateLeft();

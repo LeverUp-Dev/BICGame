@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
 
     public void RotateLeft() { if (AtRest) targetRotation -= Vector3.up * 90f; }
     public void RotateRight() { if (AtRest) targetRotation += Vector3.up * 90f; }
+    public void RotateBack() { if (AtRest) targetRotation += Vector3.up * 180f; }
     public void MoveForward() { if (AtRest) targetGridPos += transform.forward;  }
     public void MoveDoubleForward() { if (AtRest) targetGridPos += transform.forward * 2; }
     public void MoveBackward() { if (AtRest) targetGridPos -= transform.forward; }
