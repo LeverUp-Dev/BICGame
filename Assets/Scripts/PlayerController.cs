@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public bool smoothTransition = false;
     public float transitionSpeed = 10f;
     public float transitionRotationSpeed = 500f;
+    public bool IsBorder;
 
     Vector3 targetGridPos;
     Vector3 prevTargetGridPos;
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
             Vector3 targetPosition = targetGridPos;
 
-            if (targetRotation.y > 270f && targetRotation.y < 361f) targetRotation.y = 0f;
+            if (targetRotation.y > 270f) targetRotation.y = 0f;
             if (targetRotation.y < 0f) targetRotation.y = 270f;
 
             if(!smoothTransition)
@@ -54,13 +55,12 @@ public class PlayerController : MonoBehaviour
     public void RotateLeft() { if (AtRest) targetRotation -= Vector3.up * 90f; }
     public void RotateRight() { if (AtRest) targetRotation += Vector3.up * 90f; }
     public void RotateBack() { if (AtRest) targetRotation += Vector3.up * 180f; }
-    public void MoveForward() { if (AtRest) targetGridPos += transform.forward;  }
-    public void MoveDoubleForward() { if (AtRest) targetGridPos += transform.forward * 2; }
-    public void MoveBackward() { if (AtRest) targetGridPos -= transform.forward; }
-    public void MoveLeft() { if (AtRest) targetGridPos -= transform.right; }
-    public void MoveRight() { if (AtRest) targetGridPos += transform.right; }
-    public void MoveDiagonalRightForward() {if (AtRest) targetGridPos += (transform.forward + transform.right); }
-    public void MoveDiagonalLeftForward() { if (AtRest) targetGridPos += (transform.forward - transform.right); }
+    public void MoveForward() { if (AtRest) targetGridPos += transform.forward*2;  }
+    public void MoveBackward() { if (AtRest) targetGridPos -= transform.forward*2; }
+    public void MoveLeft() { if (AtRest) targetGridPos -= transform.right*2; }
+    public void MoveRight() { if (AtRest) targetGridPos += transform.right*2; }
+    public void MoveDiagonalRightForward() {if (AtRest) targetGridPos += (transform.forward + transform.right)*2; }
+    public void MoveDiagonalLeftForward() { if (AtRest) targetGridPos += (transform.forward - transform.right)*2; }
 
     bool AtRest
     {
