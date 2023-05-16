@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     Vector3 prevTargetGridPos;
     Vector3 targetRotation;
 
+    GameObject nearObject;
+
     private void Start()
     {
         targetGridPos = Vector3Int.RoundToInt(transform.position);
@@ -77,6 +79,14 @@ public class PlayerController : MonoBehaviour
             else
                 return false;
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Fog")
+            nearObject = other.gameObject;
+        Debug.Log("∏ ¿Ã «— ƒ≠ π‡«Ù¡¸");
+        Destroy(nearObject);
     }
 
 }
