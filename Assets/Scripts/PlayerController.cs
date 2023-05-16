@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
     {
         if (other.tag == "Fog")
             nearObject = other.gameObject;
-        Debug.Log("¸ÊÀÌ ÇÑ Ä­ ¹àÇôÁü");
         Destroy(nearObject);
     }
 
