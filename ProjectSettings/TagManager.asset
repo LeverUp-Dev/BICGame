@@ -5,15 +5,16 @@ TagManager:
   serializedVersion: 2
   tags:
   - FieldItem
+  - Fog
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Icon
   - Water
   - UI
   - Wall
-  - 
+  - Fog
   - 
   - 
   - 

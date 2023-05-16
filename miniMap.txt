@@ -1,0 +1,24 @@
+*PlayerController 스크립트 마지막 부분에 안개가 사라지게 하는 코드 부분 추가
+
+추가한 코드
+void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Fog")
+            nearObject = other.gameObject;
+        Debug.Log("맵이 한 칸 밝혀짐");
+        Destroy(nearObject);
+    }
+
+*텍스처 폴더 생성 
+폴더안에 미니맵 캠을 투영한 텍스쳐 생성
+
+*SampleScene에 Minimap UI와 Stage Fog_1 Empty 생성
+
+-Minimap UI의 자식 UI는 미니맵 외곽선 UI (Minimap Outline)
+-미니맵 외곽선 UI (Minimap Outline) 자식 UI인 Minimap_Shape는 미니맵 Raw Image이다.
+
+-Stage Fog_1는 안개용 box 오브젝트를 관리하기 쉽게 묶어놓은 Empty임
+
+
+
+ 
