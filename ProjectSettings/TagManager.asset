@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FieldItem
   - Fog
+  - Wall
   layers:
   - Default
   - TransparentFX
