@@ -59,6 +59,20 @@ public class CGrid : MonoBehaviour
         }
     }
 
+    public CNode GetNodeFromWorldPosition(Vector3 position)
+    {
+        int x = (int)(GridXSize * (position.x / maxMapWidth + 0.5));
+        int y = (int)(GridYSize * (-(position.z / maxMapHeight) + 0.5));
+
+        if (x < 0 || x >= GridXSize)
+            return null;
+
+        if (y < 0 || y >= GridYSize)
+            return null;
+
+        return Grid[x, y];
+    }
+
     void OnDrawGizmos()
     {
         if (Grid != null && visible)
