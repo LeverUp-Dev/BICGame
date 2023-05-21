@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class CGrid : MonoBehaviour
 {
-    CNode[,] grid;
+    public static CGrid instance;
+
+    public CNode[,] Grid { get; private set; }
 
     public LayerMask unwalkableMask;
     public bool visible;
@@ -12,8 +14,8 @@ public class CGrid : MonoBehaviour
     public int maxMapWidth;
     public int maxMapHeight;
 
-    public int GridXSize { get; set; }
-    public int GridYSize { get; set; }
+    public int GridXSize { get; private set; }
+    public int GridYSize { get; private set; }
 
     public int gridNodeDiameter;
     float gridNodeRadius;
@@ -21,6 +23,14 @@ public class CGrid : MonoBehaviour
 
     void Awake()
     {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+
+        // ¾À ÀüÈ¯ ½Ã¿¡ ½Ì±ÛÅæ °´Ã¼°¡ ÆÄ±«µÇÁö ¾Êµµ·Ï À¯Áö
+        DontDestroyOnLoad(gameObject);
+
         GenerateGrid();
     }
 
@@ -31,7 +41,7 @@ public class CGrid : MonoBehaviour
         GridXSize = maxMapWidth / gridNodeDiameter + (maxMapWidth % gridNodeDiameter >= gridNodeRadius ? 1 : 0);
         GridYSize = maxMapHeight / gridNodeDiameter + (maxMapHeight % gridNodeDiameter >= gridNodeRadius ? 1 : 0);
 
-        grid = new CNode[GridXSize, GridYSize];
+        Grid = new CNode[GridXSize, GridYSize];
 
         Vector3 topLeftNodePosition = transform.position + (Vector3.left * maxMapWidth / 2f) + (Vector3.forward * maxMapHeight / 2f);
         topLeftNodePosition.x += gridNodeRadius;
@@ -44,16 +54,16 @@ public class CGrid : MonoBehaviour
                 Vector3 position = new Vector3(topLeftNodePosition.x + j * gridNodeDiameter, 0, topLeftNodePosition.z - i * gridNodeDiameter);
                 bool walkable = !Physics.CheckSphere(position, gridNodeRadius, unwalkableMask);
 
-                grid[i, j] = new CNode(position, walkable);
+                Grid[i, j] = new CNode(position, walkable);
             }
         }
     }
 
     void OnDrawGizmos()
     {
-        if (grid != null && visible)
+        if (Grid != null && visible)
         {
-            foreach (CNode node in grid)
+            foreach (CNode node in Grid)
             {
                 Gizmos.color = node.Walkable ? Color.white : Color.red;
                 Gizmos.DrawCube(node.Position, Vector3.one * (gridNodeDiameter - gridLineWidth));
