@@ -15,12 +15,13 @@ public class PlayerController : MonoBehaviour
     public LayerMask layermask;
     public float transitionMegnification = 2;
 
+    private bool isBlock; 
     Vector3 targetGridPos;
     Vector3 prevTargetGridPos;
     Vector3 targetRotation;
 
 
-    private float length = 1.9f;
+    private float length = 1.99f;
     GameObject nearObject;
 
     private void Start()
@@ -29,12 +30,14 @@ public class PlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        /*
-        
-        if (Physics.Raycast(targetGridPos, transform.forward, out RaycastHit hit, length, layermask))
+        isBlock = !Physics.Raycast(targetGridPos, -transform.right, length, layermask)
+            && !Physics.Raycast(targetGridPos, transform.right, length, layermask)
+            && !Physics.Raycast(targetGridPos, -transform.forward, length, layermask)
+            && !Physics.Raycast(targetGridPos, transform.forward, length, layermask);
+        if (Physics.Raycast(targetGridPos, -transform.right, out RaycastHit hit1, length, layermask))
         {
-            Debug.Log(hit.transform.name);
-        }*/
+            Debug.Log(hit1.transform.name);
+        }
         MovePlayer();
         //Debug.DrawRay(targetGridPos, transform.forward * length, Color.red);
     }
@@ -46,28 +49,20 @@ public class PlayerController : MonoBehaviour
             if (targetRotation.y > 360f) targetRotation.y = 90f;
             else targetRotation.y = 0f;
         }
-        if (targetRotation.y < 0f) targetRotation.y = 270f;
+        else if (targetRotation.y < 0f) targetRotation.y = 270f;
 
-        if (!Physics.Raycast(targetGridPos, transform.forward, length, layermask))
+        if (!smoothTransition)transform.rotation = Quaternion.Euler(targetRotation);
+        else transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionRotationSpeed);
+
+        if (isBlock)
         {
             Vector3 targetPosition = targetGridPos;
             prevTargetGridPos = targetGridPos;
 
-            if (!smoothTransition)
-            {
-                transform.position = targetPosition;
-                transform.rotation = Quaternion.Euler(targetRotation);
-            }
-            else
-            {
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * transitionSpeed);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionRotationSpeed);
-            }
+            if (!smoothTransition) transform.position = targetPosition;
+            else transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * transitionSpeed);
         }        
-        else
-        {
-            targetGridPos = prevTargetGridPos;
-        }
+        else targetGridPos = prevTargetGridPos;
     }
 
 
