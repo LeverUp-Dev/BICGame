@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     Vector3 targetRotation;
 
 
-    private float length = 0.99f;
+    private float length = 2.5f;
     GameObject nearObject;
 
     private void Start()
@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(hit1.transform.name);
         }
         MovePlayer();
-        //Debug.DrawRay(targetGridPos, transform.forward * length, Color.red);
+        Debug.DrawRay(targetGridPos, transform.forward * length, Color.red);
     }
 
     void MovePlayer()
