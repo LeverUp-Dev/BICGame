@@ -919,7 +919,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10257,7 +10257,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -19699,7 +19699,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c997776c646e444d87fc195d4e2d7dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22000,7 +22000,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 51225d9aef799f345ac4b8a04b49c987, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 51225d9aef799f345ac4b8a04b49c987, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22736,7 +22736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unwalkableMask:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1088
   visible: 0
   maxMapWidth: 100
   maxMapHeight: 100

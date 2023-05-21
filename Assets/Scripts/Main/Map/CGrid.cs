@@ -44,8 +44,8 @@ public class CGrid : MonoBehaviour
         Grid = new CNode[GridXSize, GridYSize];
 
         Vector3 topLeftNodePosition = transform.position + (Vector3.left * maxMapWidth / 2f) + (Vector3.forward * maxMapHeight / 2f);
-        topLeftNodePosition.x += gridNodeRadius;
-        topLeftNodePosition.z -= gridNodeRadius;
+        /*topLeftNodePosition.x += gridNodeRadius;
+        topLeftNodePosition.z -= gridNodeRadius;*/
 
         for (int i = 0; i < GridYSize; ++i)
         {
