@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     Vector3 targetRotation;
 
 
-    private float length = 1.99f;
+    private float length = 0.99f;
     GameObject nearObject;
 
     private void Start()
