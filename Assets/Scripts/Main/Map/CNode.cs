@@ -6,13 +6,17 @@ public class CNode
     public int GridX { get; set; }
     public int GridY { get; set; }
     public bool Walkable { get; set; }
-    
+
+    public bool Hallway { get; set; }
+
     public CNode(Vector3 position, int x, int y, bool walkable)
     {
         WorldPosition = position;
         GridX = x;
         GridY = y;
         Walkable = walkable;
+
+        Hallway = false;
     }
 
     public bool isDiagonal(CNode to)

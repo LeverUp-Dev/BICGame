@@ -77,7 +77,8 @@ public class CGrid : MonoBehaviour
         {
             foreach (CNode node in Grid)
             {
-                Gizmos.color = node.Walkable ? Color.white : Color.red;
+                //Gizmos.color = node.Walkable ? Color.white : Color.red;
+                Gizmos.color = node.Hallway ? Color.blue : (node.Walkable ? Color.white : Color.red);
                 Gizmos.DrawCube(node.WorldPosition, Vector3.one * (gridNodeDiameter - gridLineWidth));
             }
         }
