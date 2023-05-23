@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6163122811240114543}
   - component: {fileID: 5595316726072296486}
   - component: {fileID: 6310431074056697818}
+  - component: {fileID: -4435480446338775140}
   m_Layer: 6
   m_Name: Wall_Door
   m_TagString: Wall
@@ -83,3 +84,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-4435480446338775140
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7520104035877014947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4989685688112594639, guid: afc6969f468e48d429dbf7f745df9e82, type: 3}
