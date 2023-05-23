@@ -5,6 +5,8 @@ using UnityEngine;
 public class Minimap : MonoBehaviour
 {
     public GameObject fogPrefab;
+    public Transform miniMapFogParent;
+    public int fogHeight;
 
     void Awake()
     {
@@ -13,10 +15,10 @@ public class Minimap : MonoBehaviour
             for (int j = 0; j < CGrid.instance.GridXSize; j++)
             {
                 CNode node = CGrid.instance.Grid[i, j];
-                GameObject fogInstance = Instantiate(fogPrefab, node.WorldPosition, Quaternion.identity);
+                GameObject fogInstance = Instantiate(fogPrefab, node.WorldPosition + Vector3.up * fogHeight, Quaternion.identity);
                 fogInstance.transform.localScale *= CGrid.instance.gridNodeDiameter;
+                fogInstance.transform.SetParent(miniMapFogParent);
             }
         }
-
     }
 }
