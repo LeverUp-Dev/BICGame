@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CGrid : MonoBehaviour
@@ -54,15 +52,15 @@ public class CGrid : MonoBehaviour
                 Vector3 position = new Vector3(topLeftNodePosition.x + j * gridNodeDiameter, 0, topLeftNodePosition.z - i * gridNodeDiameter);
                 bool walkable = !Physics.CheckSphere(position, gridNodeRadius, unwalkableMask);
 
-                Grid[i, j] = new CNode(position, walkable);
+                Grid[i, j] = new CNode(position, j, i, walkable);
             }
         }
     }
 
     public CNode GetNodeFromWorldPosition(Vector3 position)
     {
-        int x = (int)(GridXSize * (position.x / maxMapWidth + 0.5));
-        int y = (int)(GridYSize * (-(position.z / maxMapHeight) + 0.5));
+        int x = Mathf.RoundToInt(GridXSize * (position.x / maxMapWidth + 0.5f));
+        int y = Mathf.RoundToInt(GridYSize * (-(position.z / maxMapHeight) + 0.5f));
 
         if (x < 0 || x >= GridXSize)
             return null;
@@ -70,7 +68,7 @@ public class CGrid : MonoBehaviour
         if (y < 0 || y >= GridYSize)
             return null;
 
-        return Grid[x, y];
+        return Grid[y, x];
     }
 
     void OnDrawGizmos()
@@ -80,7 +78,7 @@ public class CGrid : MonoBehaviour
             foreach (CNode node in Grid)
             {
                 Gizmos.color = node.Walkable ? Color.white : Color.red;
-                Gizmos.DrawCube(node.Position, Vector3.one * (gridNodeDiameter - gridLineWidth));
+                Gizmos.DrawCube(node.WorldPosition, Vector3.one * (gridNodeDiameter - gridLineWidth));
             }
         }
     }
