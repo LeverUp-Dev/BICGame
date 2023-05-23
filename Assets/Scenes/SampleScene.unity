@@ -2089,7 +2089,7 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  transitionMegnification: 4
+  transitionMegnification: 2
 --- !u!4 &444148491
 Transform:
   m_ObjectHideFlags: 0
