@@ -64,6 +64,13 @@ namespace RandomMap
                 Generate();
             }
 
+            /*AStarPathfinder astar = new AStarPathfinder();
+
+            Instantiate(unitRoomObject, new Vector3(-33, 0, -48), Quaternion.identity);
+            Instantiate(unitRoomObject, new Vector3(18, 0, -63), Quaternion.identity);
+
+            astar.FindPath(CGrid.instance.GetNodeFromWorldPosition(new Vector3(-33, 0, -48)), CGrid.instance.GetNodeFromWorldPosition(new Vector3(18, 0, -63)));*/
+
             /*Triangle tri = new Triangle(new Room(new Vector3(44, 0, -45)), new Room(new Vector3(-15, 0, -47)), new Room(new Vector3(44, 0, -9)));
             DrawTriangle(tri);
             DrawCircumCircle(tri);*/

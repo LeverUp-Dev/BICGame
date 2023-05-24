@@ -65,8 +65,8 @@ public class CGrid : MonoBehaviour
 
     public CNode GetNodeFromWorldPosition(Vector3 position)
     {
-        int x = Mathf.RoundToInt(GridXSize * (position.x / maxMapWidth + 0.5f));
-        int y = Mathf.RoundToInt(GridYSize * (-(position.z / maxMapHeight) + 0.5f));
+        int x = (int)(GridXSize * (position.x / maxMapWidth + 0.5f));
+        int y = (int)(GridYSize * (-(position.z / maxMapHeight) + 0.5f));
 
         if (x < 0 || x >= GridXSize)
             return null;
