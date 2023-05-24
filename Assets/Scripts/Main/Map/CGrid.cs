@@ -36,14 +36,20 @@ public class CGrid : MonoBehaviour
     {
         gridNodeRadius = gridNodeDiameter / 2f;
 
-        GridXSize = maxMapWidth / gridNodeDiameter + (maxMapWidth % gridNodeDiameter >= gridNodeRadius ? 1 : 0);
-        GridYSize = maxMapHeight / gridNodeDiameter + (maxMapHeight % gridNodeDiameter >= gridNodeRadius ? 1 : 0);
+        GridXSize = Mathf.CeilToInt(maxMapWidth / gridNodeDiameter);
+        GridYSize = Mathf.CeilToInt(maxMapHeight / gridNodeDiameter);
 
-        Grid = new CNode[GridXSize, GridYSize];
+        GridXSize += GridXSize % 2 == 0 ? 1 : 0;
+        GridYSize += GridYSize % 2 == 0 ? 1 : 0;
+
+        maxMapWidth = GridXSize * gridNodeDiameter;
+        maxMapHeight = GridYSize * gridNodeDiameter;
+
+        Grid = new CNode[GridYSize, GridXSize];
 
         Vector3 topLeftNodePosition = transform.position + (Vector3.left * maxMapWidth / 2f) + (Vector3.forward * maxMapHeight / 2f);
-        /*topLeftNodePosition.x += gridNodeRadius;
-        topLeftNodePosition.z -= gridNodeRadius;*/
+        topLeftNodePosition.x += gridNodeRadius;
+        topLeftNodePosition.z -= gridNodeRadius;
 
         for (int i = 0; i < GridYSize; ++i)
         {
