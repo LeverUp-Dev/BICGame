@@ -2,7 +2,7 @@ namespace RandomMap.Enumerations
 {
     public enum RoomType
     {
-        General,
+        Unit,
         VectorOnly
     }
 }

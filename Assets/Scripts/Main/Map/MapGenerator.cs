@@ -23,8 +23,6 @@ namespace RandomMap
 
         public LayerMask roomLayerMask;
 
-        public int maxWidth;
-        public int maxHeight;
         public int maxRoomCount;
 
         public float cycleHallwayCreationChance;
@@ -51,7 +49,20 @@ namespace RandomMap
             }
 
             if (run)
+            {
+                // 랜덤 맵을 생성하기에 그리드 맵이 충분히 넓은지 확인
+                CGrid grid = CGrid.instance;
+                float mapArea = (grid.maxMapWidth + roomMinimumDistance * 2) * (grid.maxMapHeight + roomMinimumDistance * 2);
+                float roomArea = Mathf.PI * Mathf.Pow(roomMinimumDistance, 2);
+
+                if (mapArea / roomArea < maxRoomCount)
+                {
+                    Debug.LogError("그리드 맵의 넓이가 랜덤 맵을 생성하기에 충분하지 않습니다. 그리드를 넓히거나 생성할 방의 수를 줄여주세요.");
+                    return;
+                }
+
                 Generate();
+            }
 
             /*Triangle tri = new Triangle(new Room(new Vector3(44, 0, -45)), new Room(new Vector3(-15, 0, -47)), new Room(new Vector3(44, 0, -9)));
             DrawTriangle(tri);
@@ -158,6 +169,9 @@ namespace RandomMap
         #region 들로네 삼각분할 메소드
         Triangle SuperTriangle()
         {
+            int maxWidth = CGrid.instance.maxMapWidth;
+            int maxHeight = CGrid.instance.maxMapHeight;
+
             // vertex가 SuperTriangle에 너무 가까이 생성되면 제대로 수행되지 않아 offset으로 거리 조절
             float offset = 1.1f;
 

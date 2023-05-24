@@ -1,4 +1,5 @@
-using System.Collections;
+#define ONLY_STRAIGHT
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,8 +116,8 @@ namespace RandomMap.AStar
 
             closedList.Add(target);
 
-            int topLeftX = target.Node.GridX - 1 < 0 ? 0 : target.Node.GridX - 1;
-            int topLeftY = target.Node.GridY - 1 < 0 ? 0 : target.Node.GridY - 1;
+            int topLeftX = target.Node.GridX - 1;
+            int topLeftY = target.Node.GridY - 1;
 
             // target 노드 주변의 8개 노드에 대해 F Cost 조사
             for (int i = topLeftY; i < topLeftY + 3; ++i)
@@ -124,7 +125,7 @@ namespace RandomMap.AStar
                 for (int j = topLeftX; j < topLeftX + 3; ++j)
                 {
                     // 그리드를 벗어난 경우 처리
-                    if (i >= grid.GridYSize || j >= grid.GridXSize)
+                    if (i < 0 || i >= grid.GridYSize || j < 0 || j >= grid.GridXSize)
                         continue;
 
                     // 타겟 노드인 경우 처리
@@ -133,11 +134,22 @@ namespace RandomMap.AStar
 
                     CNode node = grid.Grid[i, j];
 
+#if ONLY_STRAIGHT
+                    // 상하좌우로만 이동 가능하도록 처리
+                    if (target.Node.isDiagonal(node))
+                        continue;
+#endif
+
                     // 이동이 불가능한 노드일 경우 처리
                     if (!node.Walkable)
                         continue;
 
+#if ONLY_STRAIGHT
+                    int gCost = target.GCost + STRAIGHT_COST;
+#else
                     int gCost = target.GCost + (target.Node.isDiagonal(node) ? DIAGONAL_COST : STRAIGHT_COST);
+#endif
+
                     int hCost = Mathf.Abs(end.GridX - node.GridX) * STRAIGHT_COST + Mathf.Abs(end.GridY - node.GridY) * STRAIGHT_COST;
                     int fCost = gCost + hCost;
 
