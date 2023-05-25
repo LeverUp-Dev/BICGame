@@ -63,6 +63,17 @@ public class CGrid : MonoBehaviour
         }
     }
 
+    public void UpdateGrid()
+    {
+        for (int i = 0; i < GridYSize; ++i)
+        {
+            for (int j = 0; j < GridXSize; ++j)
+            {
+                Grid[i, j].Walkable = !Physics.CheckSphere(Grid[i, j].WorldPosition, gridNodeRadius, unwalkableMask);
+            }
+        }
+    }
+
     public CNode GetNodeFromWorldPosition(Vector3 position)
     {
         int x = (int)(GridXSize * (position.x / maxMapWidth + 0.5f));

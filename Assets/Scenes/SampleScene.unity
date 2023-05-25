@@ -7270,7 +7270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6163122811240114543, guid: a05bb2404a1f89b46b132ca99b329d09, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6163122811240114543, guid: a05bb2404a1f89b46b132ca99b329d09, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9679,7 +9679,10 @@ MonoBehaviour:
   maxRoomCount: 10
   cycleHallwayCreationChance: 12.5
   roomMinimumDistance: 30
-  unitRoomObject: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
+  unitRoomPrefab: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
+  floorPrefab: {fileID: 3283072707569961198, guid: f56067ef68e47cf40bad32d162b28745, type: 3}
+  wallPrefab: {fileID: 1031089278214705640, guid: 9189d36b52a17a04099b434c4d8ee17a, type: 3}
+  doorWallPrefab: {fileID: 7520104035877014947, guid: a05bb2404a1f89b46b132ca99b329d09, type: 3}
   floor: 1
   debugLine: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
 --- !u!4 &2024657823

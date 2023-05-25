@@ -16,6 +16,7 @@ namespace RandomMap
     using RandomMap.DS;
     using RandomMap.Elements;
     using RandomMap.AStar;
+    using RandomMap.Enumerations;
 
     public class MapGenerator : MonoBehaviour
     {
@@ -28,10 +29,14 @@ namespace RandomMap
         public float cycleHallwayCreationChance;
         public int roomMinimumDistance;
 
-        public GameObject unitRoomObject;
+        public GameObject unitRoomPrefab;
+        public GameObject floorPrefab;
+        public GameObject wallPrefab;
+        public GameObject doorWallPrefab;
 
         public int floor;
 
+        GameObject MapHierarchyRoot;
         List<Room> rooms;
 
         public GameObject debugLine;
@@ -78,6 +83,9 @@ namespace RandomMap
 
         void Generate()
         {
+            MapHierarchyRoot = new GameObject("Map");
+            MapHierarchyRoot.transform.SetParent(transform);
+
             rooms = new List<Room>();
 
             // 1. 랜덤으로 방 위치 생성
@@ -106,9 +114,23 @@ namespace RandomMap
                 }
 
                 if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomLayerMask))
+                {
                     --i;
+                    continue;
+                }
+
+                // TODO 컴포넌트 창에서 확률 조정 가능하도록 수정
+                RoomType roomType;
+                int random = Random.Range(0, 10);
+
+                if (random == 0)
+                    roomType = RoomType.R3x3;
+                else if (random <= 3)
+                    roomType = RoomType.R2x2;
                 else
-                    rooms.Add(new Room(i, randomPos, 0, Instantiate(unitRoomObject, randomPos, Quaternion.identity)));
+                    roomType = RoomType.R1x1;
+
+                rooms.Add(new Room(i, randomPos, roomType, Instantiate(unitRoomPrefab, randomPos, Quaternion.identity)));
             }
 
             // 2. 들로네 삼각분할 수행 (참고 : https://www.gorillasun.de/blog/bowyer-watson-algorithm-for-delaunay-triangulation/)
@@ -156,6 +178,7 @@ namespace RandomMap
             // 6. A* 알고리즘 수행
             AStarPathfinder astar = new AStarPathfinder();
             CGrid grid = CGrid.instance;
+            List<List<AStarNode>> hallwayPaths = new List<List<AStarNode>>();
 
             for (int i = 0; i < maxRoomCount; ++i)
             {
@@ -164,12 +187,18 @@ namespace RandomMap
                     if (mstTree[i, j] != null)
                     {
                         Edge edge = mstTree[i, j];
-                        astar.FindPath(grid.GetNodeFromWorldPosition(edge.p1.Position), grid.GetNodeFromWorldPosition(edge.p2.Position));
+                        hallwayPaths.Add(astar.FindPath(grid.GetNodeFromWorldPosition(edge.p1.Position), grid.GetNodeFromWorldPosition(edge.p2.Position)));
 
                         mstTree[j, i] = null;
                     }
                 }
             }
+
+            // 7. 맵 오브젝트 생성
+            InstantiateRooms();
+
+            // 8. 그리드 정보 업데이트
+            CGrid.instance.UpdateGrid();
 #endif
         }
 
@@ -353,6 +382,83 @@ namespace RandomMap
             return mstTree;
         }
         #endregion
+
+        void InstantiateRooms()
+        {
+            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
+            MeshRenderer wallMesh = wallPrefab.GetComponent<MeshRenderer>();
+            MeshRenderer doorWallMesh = doorWallPrefab.GetComponent<MeshRenderer>();
+
+            // TODO 벽의 회전과 스케일 값 통일 필요
+            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.x) / 2;
+            float wallHalfWidth = Mathf.RoundToInt(wallMesh.bounds.size.z) / 2;
+            float doorWallHalfWidth = Mathf.RoundToInt(doorWallMesh.bounds.size.x) / 2;
+
+            Vector3[] wallPositionsA = new Vector3[]
+            {
+                Vector3.left,
+                Vector3.back,
+                Vector3.left,
+                Vector3.back
+            };
+            Vector3[] wallPositionsB = new Vector3[]
+            {
+                Vector3.forward * doorWallHalfWidth,
+                Vector3.right * doorWallHalfWidth,
+                Vector3.back * doorWallHalfWidth,
+                Vector3.left * doorWallHalfWidth
+            };
+            Quaternion[] doorWallRotations = new Quaternion[]
+            {
+                Quaternion.Euler(-90, 0, 0),
+                Quaternion.Euler(-90, 90, 0),
+                Quaternion.Euler(-90, 0, 0),
+                Quaternion.Euler(-90, 90, 0)
+            };
+
+            foreach (Room room in rooms)
+            {
+                if (room.Type == RoomType.Unit || room.Type == RoomType.VectorOnly)
+                    continue;
+
+                GameObject roomHierarchyRoot = new GameObject($"Room{room.ID}");
+                roomHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
+
+                // 바닥 배치
+                int eachSideWallNum = (int)room.Type;
+                float floorOffset = floorHalfWidth * (eachSideWallNum - 1);
+
+                Vector3 start = room.Position + Vector3.left * floorOffset + Vector3.forward * floorOffset;
+                for (int i = 0; i < eachSideWallNum; ++i)
+                {
+                    for (int j = 0; j < eachSideWallNum; ++j)
+                    {
+                        Vector3 position = start + Vector3.right * floorHalfWidth * 2 * j;
+                        Instantiate(floorPrefab, position, Quaternion.Euler(-90, 0, 0), roomHierarchyRoot.transform);
+                    }
+
+                    start += 2 * floorHalfWidth * Vector3.back;
+                }
+
+                // 벽 배치
+                float wallOffset = wallHalfWidth * (eachSideWallNum - 1);
+                float doorWallOffset = doorWallHalfWidth * (eachSideWallNum - 1);
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    for (int j = 0; j < eachSideWallNum; ++j)
+                    {
+                        Vector3 position = room.Position +
+                            wallPositionsA[i] * doorWallOffset + // 첫 번째 벽 배치 위치
+                            2 * doorWallHalfWidth * j * -wallPositionsA[i] + // 현재 벽 배치 위치
+                            wallPositionsB[i] * eachSideWallNum; // 방 중앙에서부터 벽까지의 x축(앞뒤 벽) 또는 z축(좌우 벽) 거리
+
+                        Instantiate(doorWallPrefab, position, doorWallRotations[i], roomHierarchyRoot.transform);
+                    }
+                }
+            }
+        }
+
         void DrawEdge(Edge edge)
         {
             DrawEdge(edge.p1.Position, edge.p2.Position);
