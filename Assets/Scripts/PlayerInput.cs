@@ -41,9 +41,5 @@ public class PlayerInput : MonoBehaviour
         if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.MoveRight();
         if (Input.GetKeyUp(left)) controller.RotateLeft();
         if (Input.GetKeyUp(right)) controller.RotateRight();
-
-
-
-
     }
 }
