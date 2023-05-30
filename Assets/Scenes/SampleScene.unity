@@ -2089,7 +2089,7 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 64
-  transitionMegnification: 3
+  transitionMegnification: 1
 --- !u!4 &444148491
 Transform:
   m_ObjectHideFlags: 0
@@ -2098,7 +2098,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444148488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.15, z: 0}
+  m_LocalPosition: {x: 0, y: 1.4, z: 0}
   m_LocalScale: {x: 0.86742, y: 0.86742, z: 0.86742}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2120,9 +2120,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2.3455753
+  m_Height: 1.7
   m_Direction: 1
-  m_Center: {x: 0, y: 1.28, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &444148493
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3655,7 +3655,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843361645}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.2399998, y: 1.33, z: 1.9750117}
+  m_LocalPosition: {x: 5.88, y: 1.33, z: 2.05}
   m_LocalScale: {x: 0.99999994, y: 2.3099997, z: 0.99999994}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4458,7 +4458,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 375
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -4478,7 +4478,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7647156, z: 0}
+  m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6688,7 +6688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1416021751
 Transform:
   m_ObjectHideFlags: 0
@@ -7331,7 +7331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1555059537
 Transform:
   m_ObjectHideFlags: 0
@@ -9624,9 +9624,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1088
   visible: 0
-  maxMapWidth: 150
-  maxMapHeight: 150
-  gridNodeDiameter: 3
+  maxMapWidth: 100
+  maxMapHeight: 100
+  gridNodeDiameter: 1
   gridLineWidth: 0.1
 --- !u!4 &2014127572
 Transform:
@@ -9672,17 +9672,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00685c035dd5794f95fafa042560382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  run: 0
-  roomLayerMask:
-    serializedVersion: 2
-    m_Bits: 8192
+  run: 1
   maxRoomCount: 10
   cycleHallwayCreationChance: 12.5
-  roomMinimumDistance: 30
+  roomMinimumDistance: 15
   unitRoomPrefab: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
-  floorPrefab: {fileID: 3283072707569961198, guid: f56067ef68e47cf40bad32d162b28745, type: 3}
-  wallPrefab: {fileID: 1031089278214705640, guid: 9189d36b52a17a04099b434c4d8ee17a, type: 3}
-  doorWallPrefab: {fileID: 7520104035877014947, guid: a05bb2404a1f89b46b132ca99b329d09, type: 3}
+  floorPrefab: {fileID: 2257071114153180819, guid: e33982dee59c5594faec2ecdfa1af397, type: 3}
+  wall2mPrefab: {fileID: 1651038059524489522, guid: b447c09df0645ec4e809ba1ad21f018e, type: 3}
+  wall4mPrefab: {fileID: 6393771974643360804, guid: 239a0c81ad9e80c4ca7c3dab0cc28ac1, type: 3}
+  doorWallPrefab: {fileID: 4466716413063337330, guid: 6a0e5fb2d53a7ea44b486a17f827294a, type: 3}
+  vaultPrefab: {fileID: 8316645854577498639, guid: 2a74dc85c35d78a469af0ef3190ec71f, type: 3}
+  vaultColumnPrefab: {fileID: 2045371106763026896, guid: 55c16c33c8b6e804c829471f43f25206, type: 3}
   floor: 1
   debugLine: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
 --- !u!4 &2024657823

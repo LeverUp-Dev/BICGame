@@ -10,4 +10,13 @@ namespace RandomMap.Enumerations
         R5x5,
         VectorOnly
     }
+
+    public enum Directions
+    {
+        NONE,
+        UP,
+        RIGHT,
+        DOWN,
+        LEFT
+    }
 }

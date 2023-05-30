@@ -22,8 +22,6 @@ namespace RandomMap
     {
         public bool run;
 
-        public LayerMask roomLayerMask;
-
         public int maxRoomCount;
 
         public float cycleHallwayCreationChance;
@@ -31,8 +29,12 @@ namespace RandomMap
 
         public GameObject unitRoomPrefab;
         public GameObject floorPrefab;
-        public GameObject wallPrefab;
+        public GameObject hallwayFloorPrefab;
+        public GameObject wall2mPrefab;
+        public GameObject wall4mPrefab;
         public GameObject doorWallPrefab;
+        public GameObject vaultPrefab;
+        public GameObject vaultColumnPrefab;
 
         public int floor;
 
@@ -57,7 +59,7 @@ namespace RandomMap
             {
                 // 랜덤 맵을 생성하기에 그리드 맵이 충분히 넓은지 확인
                 CGrid grid = CGrid.instance;
-                float mapArea = (grid.maxMapWidth + roomMinimumDistance * 2) * (grid.maxMapHeight + roomMinimumDistance * 2);
+                float mapArea = grid.maxMapWidth * grid.maxMapHeight;
                 float roomArea = Mathf.PI * Mathf.Pow(roomMinimumDistance, 2);
 
                 if (mapArea / roomArea < maxRoomCount)
@@ -84,17 +86,21 @@ namespace RandomMap
         void Generate()
         {
             MapHierarchyRoot = new GameObject("Map");
+            // 전체 방 수 * (바닥 수 + 벽 수) * 2
+            MapHierarchyRoot.transform.hierarchyCapacity = maxRoomCount * ((int)RoomType.R4x4 * (int)RoomType.R4x4 + (int)RoomType.R4x4 * 4) * 2;
             MapHierarchyRoot.transform.SetParent(transform);
 
             rooms = new List<Room>();
 
             // 1. 랜덤으로 방 위치 생성
+            LayerMask roomPositionLayer = LayerMask.GetMask("RoomPosition");
             for (int i = 0; i < maxRoomCount; ++i)
             {
-                int randomX = Random.Range(0, CGrid.instance.GridXSize);
-                int randomZ = Random.Range(0, CGrid.instance.GridYSize);
+                // 방 중앙이 그리드 끝으로 설정되면 방이 그리드 바깥으로 벗어나므로 여유 공간 설정
+                int randomX = Random.Range(10, CGrid.instance.GridXSize - 10);
+                int randomZ = Random.Range(10, CGrid.instance.GridYSize - 10);
 
-                CNode node = CGrid.instance.Grid[randomX, randomZ];
+                CNode node = i == 0 ? CGrid.instance.GetNodeFromWorldPosition(Vector3.zero) : CGrid.instance.Grid[randomX, randomZ];
                 Vector3 randomPos = node.WorldPosition;
                 bool isDuplicated = false;
                 
@@ -112,8 +118,8 @@ namespace RandomMap
                         break;
                     }
                 }
-
-                if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomLayerMask))
+                
+                if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomPositionLayer))
                 {
                     --i;
                     continue;
@@ -124,11 +130,11 @@ namespace RandomMap
                 int random = Random.Range(0, 10);
 
                 if (random == 0)
-                    roomType = RoomType.R3x3;
+                    roomType = RoomType.R4x4;
                 else if (random <= 3)
-                    roomType = RoomType.R2x2;
+                    roomType = RoomType.R3x3;
                 else
-                    roomType = RoomType.R1x1;
+                    roomType = RoomType.R2x2;
 
                 rooms.Add(new Room(i, randomPos, roomType, Instantiate(unitRoomPrefab, randomPos, Quaternion.identity)));
             }
@@ -175,7 +181,10 @@ namespace RandomMap
                 }
             }
 
-            // 6. A* 알고리즘 수행
+            // 6. 맵 오브젝트 생성
+            InstantiateRooms();
+
+            // 7. A* 알고리즘 수행
             AStarPathfinder astar = new AStarPathfinder();
             CGrid grid = CGrid.instance;
             List<List<AStarNode>> hallwayPaths = new List<List<AStarNode>>();
@@ -194,11 +203,11 @@ namespace RandomMap
                 }
             }
 
-            // 7. 맵 오브젝트 생성
-            InstantiateRooms();
+            // 8. 불필요한 문 제거
+            RemoveUselessDoors();
 
-            // 8. 그리드 정보 업데이트
-            CGrid.instance.UpdateGrid();
+            // 9. 복도 생성
+            InstantiateHallways(hallwayPaths);
 #endif
         }
 
@@ -383,10 +392,11 @@ namespace RandomMap
         }
         #endregion
 
-        void InstantiateRooms()
+        #region 맵 오브젝트 생성 메소드
+        void InstantiateRoomsOrigin()
         {
             MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
-            MeshRenderer wallMesh = wallPrefab.GetComponent<MeshRenderer>();
+            MeshRenderer wallMesh = wall2mPrefab.GetComponent<MeshRenderer>();
             MeshRenderer doorWallMesh = doorWallPrefab.GetComponent<MeshRenderer>();
 
             // TODO 벽의 회전과 스케일 값 통일 필요
@@ -457,7 +467,324 @@ namespace RandomMap
                     }
                 }
             }
+
+            CGrid.instance.UpdateGrid();
         }
+
+        void InstantiateRooms()
+        {
+            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
+
+            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.z) / 2;
+            Vector3[] wallDirections = new Vector3[]
+            {
+                Vector3.forward,
+                Vector3.right,
+                Vector3.back,
+                Vector3.left
+            };
+
+            foreach (Room room in rooms)
+            {
+                Destroy(room.Instance);
+
+                if (room.Type == RoomType.Unit || room.Type == RoomType.VectorOnly)
+                    continue;
+
+                GameObject roomHierarchyRoot = new GameObject($"Room{room.ID}");
+                GameObject floorsHierarchyRoot = new GameObject("floors");
+                GameObject wallsHierarchyRoot = new GameObject("walls");
+
+                roomHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
+                floorsHierarchyRoot.transform.SetParent(roomHierarchyRoot.transform);
+                wallsHierarchyRoot.transform.SetParent(roomHierarchyRoot.transform);
+
+                int eachSideWallNum = (int)room.Type;
+                float offset = floorHalfWidth * eachSideWallNum;
+
+                // 바닥 배치
+                Vector3 first = room.Position + Vector3.left * offset + Vector3.back * offset;
+                Vector3 start = first;
+                for (int i = 0; i < eachSideWallNum; ++i)
+                {
+                    for (int j = 0; j < eachSideWallNum; ++j)
+                    {
+                        Vector3 position = start + 2 * floorHalfWidth * j * Vector3.right;
+                        Instantiate(floorPrefab, position, Quaternion.identity, floorsHierarchyRoot.transform);
+                    }
+
+                    start += 2 * floorHalfWidth * Vector3.forward;
+                }
+
+                // 벽 배치
+                int rotation = 0;
+                start = first;
+
+                for (int i = 0; i < 4; ++i)
+                {
+                    for (int j = 0; j < eachSideWallNum; ++j)
+                    {
+                        Vector3 position = start + 2 * floorHalfWidth * j * wallDirections[i];
+                        Instantiate(doorWallPrefab, position, Quaternion.Euler(0, rotation, 0), wallsHierarchyRoot.transform);
+                    }
+
+                    start += 2 * floorHalfWidth * eachSideWallNum * wallDirections[i];
+                    rotation += 90;
+                }
+            }
+
+            CGrid.instance.UpdateGrid();
+        }
+
+        void RemoveUselessDoors()
+        {
+            CGrid grid = CGrid.instance;
+
+            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
+            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.z) / 2;
+            
+            for (int i = 0; i < MapHierarchyRoot.transform.childCount; ++i)
+            {
+                Transform walls = MapHierarchyRoot.transform.GetChild(i).GetChild(1);
+
+                for (int j = walls.childCount - 1; j >= 0; --j)
+                {
+                    Transform wall = walls.GetChild(j);
+                    Vector3 center = wall.position;
+
+                    switch (wall.rotation.eulerAngles.y)
+                    {
+                        case 0:
+                            center.z += floorHalfWidth;
+                            break;
+
+                        case 90:
+                            center.x += floorHalfWidth;
+                            break;
+
+                        case 180:
+                            center.z -= floorHalfWidth;
+                            break;
+
+                        case 270:
+                            center.x -= floorHalfWidth;
+                            break;
+                    }
+
+                    // 복도가 연결된 문이 아니면 벽으로 변경
+                    CNode node = grid.GetNodeFromWorldPosition(center);
+                    if (!node.Hallway)
+                    {
+                        GameObject obj = Instantiate(wall2mPrefab, wall.position, wall.rotation, walls);
+                        Destroy(wall.gameObject);
+                    }
+                }
+            }
+        }
+
+        void InstantiateHallways(List<List<AStarNode>> hallwayPaths)
+        {
+            GameObject hallwayHierarchyRoot = new GameObject("Hallways");
+            hallwayHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
+
+            int gridNodeDiameter = CGrid.instance.gridNodeDiameter;
+            LayerMask floorLayer = LayerMask.GetMask("Floor");
+
+            float[] scales = new float[2];
+            Vector3[] positions = new Vector3[2];
+
+            foreach (List<AStarNode> path in hallwayPaths)
+            {
+                CNode startNode = null;
+                Directions startDirection = Directions.NONE;
+                int straight = 0;
+                
+                for (int i = 0; i < path.Count; ++i)
+                {
+                    CNode node = path[i].Node;
+
+                    if (i + 1 == path.Count)
+                        break;
+
+                    bool isReached = false;
+                    if (Physics.CheckSphere(node.WorldPosition, gridNodeDiameter / 2f, floorLayer))
+                    {
+                        if (startNode == null)
+                            continue;
+
+                        isReached = true;
+                    }
+
+                    Directions dir = node.getDirection(path[i + 1].Node);
+                    if (startNode == null || startDirection == Directions.NONE)
+                    {
+                        startNode = node;
+                        startDirection = dir;
+                    }
+                    
+                    ++straight;
+                    
+                    if (startDirection != dir || straight == 4 || isReached)
+                    {
+                        int rotation = 0;
+
+                        scales[0] = 1;
+                        scales[1] = 1;
+
+                        Directions dirFromStartToBefore = startNode.getDirection(path[i - straight].Node);
+
+                        if (isReached)
+                        {
+                            dir = dirFromStartToBefore;
+                        }
+
+                        switch (startDirection)
+                        {
+                            case Directions.UP:
+                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.back * gridNodeDiameter;
+                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.back * gridNodeDiameter;
+
+                                if (dirFromStartToBefore == Directions.LEFT)
+                                {
+                                    positions[0] += gridNodeDiameter * 2 * Vector3.forward;
+                                }
+                                else if (dirFromStartToBefore == Directions.RIGHT)
+                                {
+                                    positions[1] += gridNodeDiameter * 2 * Vector3.forward;
+                                }
+
+                                if (startDirection != dir)
+                                {
+                                    if (dir == Directions.LEFT)
+                                    {
+                                        scales[0] = (straight - 1) / 4f;
+                                        scales[1] = straight / 4f;
+                                    }
+                                    else
+                                    {
+                                        scales[0] = straight / 4f;
+                                        scales[1] = (straight - 1) / 4f;
+                                    }
+                                }
+                                break;
+
+                            case Directions.RIGHT:
+                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
+                                positions[1] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.back * gridNodeDiameter;
+                                rotation = 90;
+
+                                if (dirFromStartToBefore == Directions.UP)
+                                {
+                                    positions[0] += gridNodeDiameter * 2 * Vector3.right;
+                                }
+                                else if (dirFromStartToBefore == Directions.DOWN)
+                                {
+                                    positions[1] += gridNodeDiameter * 2 * Vector3.right;
+                                }
+
+                                if (startDirection != dir)
+                                {
+                                    if (dir == Directions.UP)
+                                    {
+                                        scales[0] = (straight - 1) / 4f;
+                                        scales[1] = straight / 4f;
+                                    }
+                                    else
+                                    {
+                                        scales[0] = straight / 4f;
+                                        scales[1] = (straight - 1) / 4f;
+                                    }
+                                }
+                                break;
+
+                            case Directions.DOWN:
+                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
+                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
+                                rotation = 180;
+
+                                if (dirFromStartToBefore == Directions.LEFT)
+                                {
+                                    positions[0] += gridNodeDiameter * 2 * Vector3.back;
+                                }
+                                else if (dirFromStartToBefore == Directions.RIGHT)
+                                {
+                                    positions[1] += gridNodeDiameter * 2 * Vector3.back;
+                                }
+
+                                if (startDirection != dir)
+                                {
+                                    if (dir == Directions.LEFT)
+                                    {
+                                        scales[0] = (straight - 1) / 4f;
+                                        scales[1] = straight / 4f;
+                                    }
+                                    else
+                                    {
+                                        scales[0] = straight / 4f;
+                                        scales[1] = (straight - 1) / 4f;
+                                    }
+                                }
+                                break;
+
+                            case Directions.LEFT:
+                                positions[0] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
+                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.back * gridNodeDiameter;
+                                rotation = 270;
+
+                                if (dirFromStartToBefore == Directions.UP)
+                                {
+                                    positions[0] += gridNodeDiameter * 2 * Vector3.left;
+                                }
+                                else if (dirFromStartToBefore == Directions.DOWN)
+                                {
+                                    positions[1] += gridNodeDiameter * 2 * Vector3.left;
+                                }
+
+                                if (startDirection != dir)
+                                {
+                                    if (dir == Directions.UP)
+                                    {
+                                        scales[0] = (straight - 1) / 4f;
+                                        scales[1] = straight / 4f;
+                                    }
+                                    else
+                                    {
+                                        scales[0] = straight / 4f;
+                                        scales[1] = (straight - 1) / 4f;
+                                    }
+                                }
+                                break;
+                        }
+
+                        for (int j = 0; j < 2; ++j)
+                        {
+                            GameObject hallwayWall = Instantiate(wall2mPrefab, positions[j], Quaternion.Euler(0, rotation, 0), hallwayHierarchyRoot.transform);
+                            hallwayWall.transform.localScale = new Vector3(1, 1, scales[j]);
+                        }
+
+                        if (isReached)
+                        {
+                            startNode = null;
+                            straight = 0;
+                            startDirection = Directions.NONE;
+                        }
+                        else
+                        {
+                            startNode = node;
+                            straight = 1;
+                            startDirection = node.getDirection(path[i + 1].Node);
+                        }
+                    }
+
+                    Vector3 hallwayFloorPosition = node.WorldPosition + gridNodeDiameter / 2f * Vector3.left + gridNodeDiameter / 2f * Vector3.back;
+                    GameObject hallwayFloor = Instantiate(hallwayFloorPrefab, hallwayFloorPosition, Quaternion.identity, hallwayHierarchyRoot.transform);
+                    hallwayFloor.transform.localScale = new Vector3(0.3f, 1, 0.3f);
+                }
+            }
+
+            CGrid.instance.UpdateGrid();
+        }
+        #endregion
 
         void DrawEdge(Edge edge)
         {

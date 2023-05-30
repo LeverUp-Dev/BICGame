@@ -1,3 +1,4 @@
+using RandomMap.Enumerations;
 using UnityEngine;
 
 public class CNode
@@ -25,5 +26,16 @@ public class CNode
         int dy = to.GridY - GridY;
 
         return dx != 0 && dy != 0;
+    }
+
+    public Directions getDirection(CNode to)
+    {
+        int dx = to.GridX - GridX;
+        int dy = to.GridY - GridY;
+
+        if (dx == 0)
+            return dy == -1 ? Directions.UP : Directions.DOWN;
+        else
+            return dx == 1 ? Directions.RIGHT : Directions.LEFT;
     }
 }
