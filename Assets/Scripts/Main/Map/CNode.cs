@@ -4,8 +4,8 @@ using UnityEngine;
 public class CNode
 {
     public Vector3 WorldPosition { get; }
-    public int GridX { get; set; }
-    public int GridY { get; set; }
+    public int GridX { get; private set; }
+    public int GridY { get; private set; }
     public bool Walkable { get; set; }
 
     public bool Hallway { get; set; }
@@ -50,15 +50,15 @@ public class CNode
         switch (dir)
         {
             case Directions.UP:
-                ++x;
+                --y;
                 break;
 
             case Directions.RIGHT:
-                ++y;
+                ++x;
                 break;
 
             case Directions.DOWN:
-                --y;
+                ++y;
                 break;
 
             case Directions.LEFT:

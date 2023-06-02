@@ -28,26 +28,23 @@ namespace RandomMap
         public int roomMinimumDistance;
 
         public GameObject unitRoomPrefab;
-        public GameObject floorPrefab;
-        public GameObject hallwayFloorPrefab;
-        public GameObject wall2mPrefab;
-        public GameObject wall4mPrefab;
-        public GameObject doorWallPrefab;
-        public GameObject vaultPrefab;
-        public GameObject vaultColumnPrefab;
+        public GameObject wallNodePrefab;
+        public GameObject floorNodePrefab;
+        public GameObject hallwayFloorNodePrefab;
 
         public int floor;
 
-        GameObject MapHierarchyRoot;
+        GameObject mapHierarchyRoot;
         List<Room> rooms;
 
         public GameObject debugLine;
+
 #if DEBUG_DRAW
         List<GameObject> lines;
         List<GameObject> circles;
         List<GameObject> edges;
 #endif
-        List<GameObject> edges;
+
         void Awake()
         {
             if (cycleHallwayCreationChance < 0 || cycleHallwayCreationChance > 100)
@@ -70,74 +67,17 @@ namespace RandomMap
 
                 Generate();
             }
-
-            /*AStarPathfinder astar = new AStarPathfinder();
-
-            Instantiate(unitRoomObject, new Vector3(-33, 0, -48), Quaternion.identity);
-            Instantiate(unitRoomObject, new Vector3(18, 0, -63), Quaternion.identity);
-
-            astar.FindPath(CGrid.instance.GetNodeFromWorldPosition(new Vector3(-33, 0, -48)), CGrid.instance.GetNodeFromWorldPosition(new Vector3(18, 0, -63)));*/
-
-            /*Triangle tri = new Triangle(new Room(new Vector3(44, 0, -45)), new Room(new Vector3(-15, 0, -47)), new Room(new Vector3(44, 0, -9)));
-            DrawTriangle(tri);
-            DrawCircumCircle(tri);*/
         }
 
         void Generate()
         {
-            MapHierarchyRoot = new GameObject("Map");
-            // 전체 방 수 * (바닥 수 + 벽 수) * 2
-            MapHierarchyRoot.transform.hierarchyCapacity = maxRoomCount * ((int)RoomType.R4x4 * (int)RoomType.R4x4 + (int)RoomType.R4x4 * 4) * 2;
-            MapHierarchyRoot.transform.SetParent(transform);
+            mapHierarchyRoot = new GameObject("Map");
+            mapHierarchyRoot.transform.SetParent(transform);
 
             rooms = new List<Room>();
 
             // 1. 랜덤으로 방 위치 생성
-            LayerMask roomPositionLayer = LayerMask.GetMask("RoomPosition");
-            for (int i = 0; i < maxRoomCount; ++i)
-            {
-                // 방 중앙이 그리드 끝으로 설정되면 방이 그리드 바깥으로 벗어나므로 여유 공간 설정
-                int randomX = Random.Range(10, CGrid.instance.GridXSize - 10);
-                int randomZ = Random.Range(10, CGrid.instance.GridYSize - 10);
-
-                CNode node = i == 0 ? CGrid.instance.GetNodeFromWorldPosition(Vector3.zero) : CGrid.instance.Grid[randomX, randomZ];
-                Vector3 randomPos = node.WorldPosition;
-                bool isDuplicated = false;
-                
-                if (!node.Walkable)
-                {
-                    --i;
-                    continue;
-                }
-
-                for (int j = 0; j < i; ++j)
-                {
-                    if (randomPos.Equals(rooms[j].Position))
-                    {
-                        isDuplicated = true;
-                        break;
-                    }
-                }
-                
-                if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomPositionLayer))
-                {
-                    --i;
-                    continue;
-                }
-
-                // TODO 컴포넌트 창에서 확률 조정 가능하도록 수정
-                RoomType roomType;
-                int random = Random.Range(0, 10);
-
-                if (random == 0)
-                    roomType = RoomType.R4x4;
-                else if (random <= 3)
-                    roomType = RoomType.R3x3;
-                else
-                    roomType = RoomType.R2x2;
-
-                rooms.Add(new Room(i, randomPos, roomType, Instantiate(unitRoomPrefab, randomPos, Quaternion.identity)));
-            }
+            InitializeRandomRooms();
 
             // 2. 들로네 삼각분할 수행 (참고 : https://www.gorillasun.de/blog/bowyer-watson-algorithm-for-delaunay-triangulation/)
 #if DEBUG_DRAW
@@ -146,43 +86,16 @@ namespace RandomMap
             List<Triangle> triangulatedList = Triangulate(rooms);
 
             // 3. 만들어진 삼각분할을 그래프로 변환
-            int[,] triangulatedGraph = new int[maxRoomCount, maxRoomCount];
-            
-            foreach (Triangle triangle in triangulatedList)
-            {
-                triangulatedGraph[triangle.R1.ID, triangle.R2.ID] = 1;
-                triangulatedGraph[triangle.R1.ID, triangle.R3.ID] = 1;
-                triangulatedGraph[triangle.R2.ID, triangle.R1.ID] = 1;
-                triangulatedGraph[triangle.R2.ID, triangle.R3.ID] = 1;
-                triangulatedGraph[triangle.R3.ID, triangle.R1.ID] = 1;
-                triangulatedGraph[triangle.R3.ID, triangle.R2.ID] = 1;
-            }
+            int[,] triangulatedGraph = TriangulatedToGraph(triangulatedList);
 
             // 4. 그래프를 Minimum Spanning Tree로 변환
             Edge[,] mstTree = GraphToMST(triangulatedGraph, triangulatedList[0].R1);
 
             // 5. 선택되지 않은 간선 중 랜덤으로 선택해 MST Tree에 추가 (순환 복도 생성)
-            for (int i = 0; i < maxRoomCount; ++i)
-            {
-                for (int j = 0; j < maxRoomCount; ++j)
-                {
-                    if (mstTree[i, j] == null && triangulatedGraph[i, j] == 1)
-                    {
-                        // 일정 확률로 탈락된 간선 추가
-                        if (cycleHallwayCreationChance != 0)
-                        {
-                            if (Random.Range(0, (int)(100 / cycleHallwayCreationChance)) == 0)
-                            {
-                                if (mstTree[j, i] == null)
-                                    mstTree[i, j] = new Edge(rooms[i], rooms[j]);
-                            }
-                        }
-                    }
-                }
-            }
+            AddCycledEdgeToMST(triangulatedGraph, mstTree);
 
-            // 6. 맵 오브젝트 생성
-            InstantiateRooms();
+            // 6. 방 오브젝트 생성 (복도 경로가 방의 벽 위치를 연달아 지나가는 경우를 방지하기 위해 벽을 일부만 생성)
+            InstantiateRooms(false, true);
 
             // 7. A* 알고리즘 수행
             AStarPathfinder astar = new AStarPathfinder();
@@ -203,12 +116,62 @@ namespace RandomMap
                 }
             }
 
-            // 8. 불필요한 문 제거
-            RemoveUselessDoors();
+            // 8. (6)에서 생성하지 않았던 벽 추가
+            InstantiateRooms(true, false);
 
             // 9. 복도 생성
             InstantiateHallways(hallwayPaths);
 #endif
+        }
+
+        void InitializeRandomRooms()
+        {
+            LayerMask roomPositionLayer = LayerMask.GetMask("RoomPosition");
+
+            for (int i = 0; i < maxRoomCount; ++i)
+            {
+                // 방 중앙이 그리드 끝으로 설정되면 방이 그리드 바깥으로 벗어나므로 여유 공간 설정
+                int randomX = Random.Range(10, CGrid.instance.GridXSize - 10);
+                int randomZ = Random.Range(10, CGrid.instance.GridYSize - 10);
+
+                CNode node = i == 0 ? CGrid.instance.GetNodeFromWorldPosition(Vector3.zero) : CGrid.instance.Grid[randomX, randomZ];
+                Vector3 randomPos = node.WorldPosition;
+                bool isDuplicated = false;
+
+                if (!node.Walkable)
+                {
+                    --i;
+                    continue;
+                }
+
+                for (int j = 0; j < i; ++j)
+                {
+                    if (randomPos.Equals(rooms[j].Position))
+                    {
+                        isDuplicated = true;
+                        break;
+                    }
+                }
+
+                if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomPositionLayer))
+                {
+                    --i;
+                    continue;
+                }
+
+                // TODO 컴포넌트 창에서 확률 조정 가능하도록 수정
+                RoomType roomType;
+                int random = Random.Range(0, 10);
+
+                if (random == 0)
+                    roomType = RoomType.R17x17;
+                else if (random <= 3)
+                    roomType = RoomType.R13x13;
+                else
+                    roomType = RoomType.R9x9;
+
+                rooms.Add(new Room(i, randomPos, roomType, Instantiate(unitRoomPrefab, randomPos, Quaternion.identity), mapHierarchyRoot.transform));
+            }
         }
 
         #region 들로네 삼각분할 메소드
@@ -333,6 +296,25 @@ namespace RandomMap
 
             return uniqueEdges;
         }
+
+        int[,] TriangulatedToGraph(List<Triangle> triangulatedList)
+        {
+            int[,] triangulatedGraph = new int[maxRoomCount, maxRoomCount];
+
+            for (int i = 0; i < triangulatedList.Count; ++i)
+            {
+                Triangle triangle = triangulatedList[i];
+
+                triangulatedGraph[triangle.R1.ID, triangle.R2.ID] = 1;
+                triangulatedGraph[triangle.R1.ID, triangle.R3.ID] = 1;
+                triangulatedGraph[triangle.R2.ID, triangle.R1.ID] = 1;
+                triangulatedGraph[triangle.R2.ID, triangle.R3.ID] = 1;
+                triangulatedGraph[triangle.R3.ID, triangle.R1.ID] = 1;
+                triangulatedGraph[triangle.R3.ID, triangle.R2.ID] = 1;
+            }
+
+            return triangulatedGraph;
+        }
         #endregion
 
         #region MST 메소드
@@ -390,478 +372,159 @@ namespace RandomMap
 
             return mstTree;
         }
+
+        void AddCycledEdgeToMST(int[,] triangulatedGraph, Edge[,] mstTree)
+        {
+            for (int i = 0; i < maxRoomCount; ++i)
+            {
+                for (int j = 0; j < maxRoomCount; ++j)
+                {
+                    if (mstTree[i, j] == null && triangulatedGraph[i, j] == 1)
+                    {
+                        // 일정 확률로 탈락된 간선 추가
+                        if (cycleHallwayCreationChance != 0)
+                        {
+                            if (Random.Range(0, (int)(100 / cycleHallwayCreationChance)) == 0)
+                            {
+                                if (mstTree[j, i] == null)
+                                    mstTree[i, j] = new Edge(rooms[i], rooms[j]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
         #endregion
 
         #region 맵 오브젝트 생성 메소드
-        void InstantiateRoomsOrigin()
+        /*
+         * checkedBorder : true면 첫 노드에 벽을 세우지 않고 시작, false면 벽을 세우고 시작. 이후 하나씩 건너뛰며 벽 생성
+         * createFloor : 바닥 생성 여부
+         */
+        void InstantiateRooms(bool checkedBorder, bool createFloor)
         {
-            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
-            MeshRenderer wallMesh = wall2mPrefab.GetComponent<MeshRenderer>();
-            MeshRenderer doorWallMesh = doorWallPrefab.GetComponent<MeshRenderer>();
-
-            // TODO 벽의 회전과 스케일 값 통일 필요
-            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.x) / 2;
-            float wallHalfWidth = Mathf.RoundToInt(wallMesh.bounds.size.z) / 2;
-            float doorWallHalfWidth = Mathf.RoundToInt(doorWallMesh.bounds.size.x) / 2;
-
-            Vector3[] wallPositionsA = new Vector3[]
+            for (int i = 0; i < rooms.Count; ++i)
             {
-                Vector3.left,
-                Vector3.back,
-                Vector3.left,
-                Vector3.back
-            };
-            Vector3[] wallPositionsB = new Vector3[]
-            {
-                Vector3.forward * doorWallHalfWidth,
-                Vector3.right * doorWallHalfWidth,
-                Vector3.back * doorWallHalfWidth,
-                Vector3.left * doorWallHalfWidth
-            };
-            Quaternion[] doorWallRotations = new Quaternion[]
-            {
-                Quaternion.Euler(-90, 0, 0),
-                Quaternion.Euler(-90, 90, 0),
-                Quaternion.Euler(-90, 0, 0),
-                Quaternion.Euler(-90, 90, 0)
-            };
+                Room room = rooms[i];
 
-            foreach (Room room in rooms)
-            {
-                if (room.Type == RoomType.Unit || room.Type == RoomType.VectorOnly)
-                    continue;
+                // 방의 최소 간격을 유지할 때 사용했던 Instance 제거
+                Destroy(room.positionInstance);
 
-                GameObject roomHierarchyRoot = new GameObject($"Room{room.ID}");
-                roomHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
-
-                // 바닥 배치
-                int eachSideWallNum = (int)room.Type;
-                float floorOffset = floorHalfWidth * (eachSideWallNum - 1);
-
-                Vector3 start = room.Position + Vector3.left * floorOffset + Vector3.forward * floorOffset;
-                for (int i = 0; i < eachSideWallNum; ++i)
-                {
-                    for (int j = 0; j < eachSideWallNum; ++j)
-                    {
-                        Vector3 position = start + Vector3.right * floorHalfWidth * 2 * j;
-                        Instantiate(floorPrefab, position, Quaternion.Euler(-90, 0, 0), roomHierarchyRoot.transform);
-                    }
-
-                    start += 2 * floorHalfWidth * Vector3.back;
-                }
-
-                // 벽 배치
-                float wallOffset = wallHalfWidth * (eachSideWallNum - 1);
-                float doorWallOffset = doorWallHalfWidth * (eachSideWallNum - 1);
-
-                for (int i = 0; i < 4; ++i)
-                {
-                    for (int j = 0; j < eachSideWallNum; ++j)
-                    {
-                        Vector3 position = room.Position +
-                            wallPositionsA[i] * doorWallOffset + // 첫 번째 벽 배치 위치
-                            2 * doorWallHalfWidth * j * -wallPositionsA[i] + // 현재 벽 배치 위치
-                            wallPositionsB[i] * eachSideWallNum; // 방 중앙에서부터 벽까지의 x축(앞뒤 벽) 또는 z축(좌우 벽) 거리
-
-                        Instantiate(doorWallPrefab, position, doorWallRotations[i], roomHierarchyRoot.transform);
-                    }
-                }
+                // 벽 생성
+                InstantiateCheckedBorderAndFloors(room, checkedBorder, createFloor);
             }
-
-            CGrid.instance.UpdateGrid();
         }
 
-        void InstantiateRooms()
+        void InstantiateCheckedBorderAndFloors(Room room, bool checkedBorder, bool createFloor)
         {
-            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
+            if (room.Type == RoomType.VectorOnly)
+                return;
 
-            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.z) / 2;
-            Vector3[] wallDirections = new Vector3[]
+            int nodeDiameter = CGrid.instance.gridNodeDiameter;
+            float nodeRadius = nodeDiameter / 2f;
+
+            Vector3 offsetBack = Vector3.back * nodeRadius;
+            Vector3 offsetLeft = Vector3.left * nodeRadius;
+            Vector3 offset = offsetBack + offsetLeft;
+
+            // 좌상단부터 벽과 바닥 배치
+            int eachSideNodeNum = (int)room.Type;
+            float roomRadius = nodeRadius * eachSideNodeNum;
+
+            CNode start = CGrid.instance.GetNodeFromWorldPosition(room.Position + Vector3.left * roomRadius + Vector3.forward * roomRadius);
+            CNode node = start;
+
+            for (int j = 0; j < eachSideNodeNum; ++j)
             {
-                Vector3.forward,
-                Vector3.right,
-                Vector3.back,
-                Vector3.left
-            };
-
-            foreach (Room room in rooms)
-            {
-                Destroy(room.Instance);
-
-                if (room.Type == RoomType.Unit || room.Type == RoomType.VectorOnly)
-                    continue;
-
-                GameObject roomHierarchyRoot = new GameObject($"Room{room.ID}");
-                GameObject floorsHierarchyRoot = new GameObject("floors");
-                GameObject wallsHierarchyRoot = new GameObject("walls");
-
-                roomHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
-                floorsHierarchyRoot.transform.SetParent(roomHierarchyRoot.transform);
-                wallsHierarchyRoot.transform.SetParent(roomHierarchyRoot.transform);
-
-                int eachSideWallNum = (int)room.Type;
-                float offset = floorHalfWidth * eachSideWallNum;
-
-                // 바닥 배치
-                Vector3 first = room.Position + Vector3.left * offset + Vector3.back * offset;
-                Vector3 start = first;
-                for (int i = 0; i < eachSideWallNum; ++i)
+                for (int k = 0; k < eachSideNodeNum; ++k)
                 {
-                    for (int j = 0; j < eachSideWallNum; ++j)
+                    // 방 테두리에 벽 생성
+                    if (j == 0 || j + 1 == eachSideNodeNum || k == 0 || k + 1 == eachSideNodeNum)
                     {
-                        Vector3 position = start + 2 * floorHalfWidth * j * Vector3.right;
-                        Instantiate(floorPrefab, position, Quaternion.identity, floorsHierarchyRoot.transform);
+                        if (node.Hallway)
+                        {
+                            /* 문 생성 필요 */
+                        }
+                        else
+                        {
+                            if (!checkedBorder)
+                            {
+                                Instantiate(wallNodePrefab, node.WorldPosition + offsetBack, Quaternion.identity, room.FloorsHierarchyRoot.transform);
+                                node.Walkable = false;
+                            }
+                        }
                     }
 
-                    start += 2 * floorHalfWidth * Vector3.forward;
+                    if (createFloor)
+                        Instantiate(floorNodePrefab, node.WorldPosition + offset, Quaternion.identity, room.FloorsHierarchyRoot.transform);
+
+                    node = node.GetNext(Directions.RIGHT);
+
+                    checkedBorder = !checkedBorder;
                 }
 
-                // 벽 배치
-                int rotation = 0;
-                start = first;
-
-                for (int i = 0; i < 4; ++i)
-                {
-                    for (int j = 0; j < eachSideWallNum; ++j)
-                    {
-                        Vector3 position = start + 2 * floorHalfWidth * j * wallDirections[i];
-                        Instantiate(doorWallPrefab, position, Quaternion.Euler(0, rotation, 0), wallsHierarchyRoot.transform);
-                    }
-
-                    start += 2 * floorHalfWidth * eachSideWallNum * wallDirections[i];
-                    rotation += 90;
-                }
-            }
-
-            CGrid.instance.UpdateGrid();
-        }
-
-        void RemoveUselessDoors()
-        {
-            CGrid grid = CGrid.instance;
-
-            MeshRenderer floorMesh = floorPrefab.GetComponent<MeshRenderer>();
-            float floorHalfWidth = Mathf.RoundToInt(floorMesh.bounds.size.z) / 2;
-            
-            for (int i = 0; i < MapHierarchyRoot.transform.childCount; ++i)
-            {
-                Transform walls = MapHierarchyRoot.transform.GetChild(i).GetChild(1);
-
-                for (int j = walls.childCount - 1; j >= 0; --j)
-                {
-                    Transform wall = walls.GetChild(j);
-                    Vector3 center = wall.position;
-
-                    switch (wall.rotation.eulerAngles.y)
-                    {
-                        case 0:
-                            center.z += floorHalfWidth;
-                            break;
-
-                        case 90:
-                            center.x += floorHalfWidth;
-                            break;
-
-                        case 180:
-                            center.z -= floorHalfWidth;
-                            break;
-
-                        case 270:
-                            center.x -= floorHalfWidth;
-                            break;
-                    }
-
-                    // 복도가 연결된 문이 아니면 벽으로 변경
-                    CNode node = grid.GetNodeFromWorldPosition(center);
-                    if (!node.Hallway)
-                    {
-                        GameObject obj = Instantiate(wall2mPrefab, wall.position, wall.rotation, walls);
-                        Destroy(wall.gameObject);
-                    }
-                }
+                node = start = start.GetNext(Directions.DOWN);
             }
         }
 
         void InstantiateHallways(List<List<AStarNode>> hallwayPaths)
         {
-            GameObject hallwayHierarchyRoot = new GameObject("Hallways");
-            hallwayHierarchyRoot.transform.SetParent(MapHierarchyRoot.transform);
+            CGrid grid = CGrid.instance;
 
-            int gridNodeDiameter = CGrid.instance.gridNodeDiameter;
+            int nodeDiameter = grid.gridNodeDiameter;
+            float nodeRadius = nodeDiameter / 2f;
+
+            Vector3 offsetBack = Vector3.back * nodeRadius;
+            Vector3 offsetLeft = Vector3.left * nodeRadius;
+            Vector3 offset = offsetBack + offsetLeft;
+
             LayerMask floorLayer = LayerMask.GetMask("Floor");
 
-            int[] scales = new int[2];
-            Vector3[] positions = new Vector3[2];
+            GameObject hallwayHierarchyRoot = new GameObject("Hallways");
+            hallwayHierarchyRoot.transform.SetParent(mapHierarchyRoot.transform);
 
             foreach (List<AStarNode> path in hallwayPaths)
             {
-                CNode startNode = null;
-                Directions startDirection = Directions.NONE;
-                int straight = 0;
-                
                 for (int i = 0; i < path.Count; ++i)
                 {
                     CNode node = path[i].Node;
 
-                    if (i + 1 == path.Count)
-                        break;
+                    // 방 안의 노드일 경우 continue (바닥의 크기가 노드보다 살짝 커 0.1f만큼 조정함)
+                    if (Physics.CheckSphere(node.WorldPosition, nodeRadius - 0.1f, floorLayer))
+                        continue;
 
-                    // 만약 해당 노드에 방의 바닥이 있다면 더 이상 복도를 만들 필요가 없으므로 isReached로 처리
-                    bool isReached = false;
-                    if (Physics.CheckSphere(node.WorldPosition, gridNodeDiameter / 2f, floorLayer))
+                    // 주변 8개의 노드를 조사해 벽이 필요한 장소에만 생성
+                    for (int j = node.GridY - 1; j <= node.GridY + 1; ++j)
                     {
-                        // 복도 경로가 방의 중앙에서 출발하므로 처음엔 isReached를 세팅하는 대신 다음 노드로 진행
-                        if (startNode == null)
-                            continue;
-
-                        isReached = true;
-                    }
-
-                    Directions dir = node.GetDirection(path[i + 1].Node);
-                    if (startNode == null || startDirection == Directions.NONE)
-                    {
-                        startNode = node;
-                        startDirection = dir;
-                    }
-                    
-                    // 시작 노드로부터 직선으로 몇 칸까지 이동하는지 확인
-                    ++straight;
-                    
-                    // 아래의 경우 복도 생성 수행
-                    // 1) 노드가 다른 방향으로 꺾인 경우
-                    // 2) 한 방향으로 4칸 이동한 경우
-                    // 3) 목표 방에 도착한 경우
-                    if (startDirection != dir || straight == 4 || isReached)
-                    {
-                        int rotation = 0;
-
-                        scales[0] = 1;
-                        scales[1] = 1;
-
-                        // 복도를 세우기 시작할 노드와 그 이전 노드가 꺾여 있는 상태라면 벽의 위치와 스케일을 조정해야 하므로 방향 조사
-                        Directions dirFromStartToBefore = startNode.GetDirection(path[i - straight].Node);
-                        
-                        // straight == 4일 때 시작 부분의 복도가 꺾이지 않았음에도 dirFromStartToBefore와 dir이 다른 케이스(LEFT RIGHT 등)가 있어
-                        // 수직 또는 수평일 경우 같은 방향으로 처리
-                        if ((int)dirFromStartToBefore * (int)startDirection == 3 || (int)dirFromStartToBefore * (int)startDirection == 8)
-                            dir = dirFromStartToBefore;
-
-                        if (isReached)
-                            dir = dirFromStartToBefore;
-
-                        // 복도가 꺾인 상태에 따라 위치와 스케일 조정
-                        switch (startDirection)
+                        for (int k = node.GridX - 1; k <= node.GridX + 1; ++k)
                         {
-                            case Directions.UP:
-                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.back * gridNodeDiameter;
-                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.back * gridNodeDiameter;
+                            CNode currentNode = grid.Grid[j, k];
 
-                                if (dirFromStartToBefore == Directions.LEFT)
-                                {
-                                    positions[0] += gridNodeDiameter * 2 * Vector3.forward;
-                                }
-                                else if (dirFromStartToBefore == Directions.RIGHT)
-                                {
-                                    positions[1] += gridNodeDiameter * 2 * Vector3.forward;
-                                }
+                            // 본인 노드 제외
+                            if (node.GridX == k && node.GridY == j)
+                                continue;
 
-                                if (startDirection != dir)
-                                {
-                                    if (dir == Directions.LEFT)
-                                    {
-                                        scales[0] = straight - 1;
-                                        scales[1] = straight + 1;
-                                    }
-                                    else
-                                    {
-                                        scales[0] = straight + 1;
-                                        scales[1] = straight - 1;
-                                    }
-                                }
-                                break;
+                            // 복도 노드이거나 이미 벽이 설치된 경우 제외
+                            if (currentNode.Hallway || !currentNode.Walkable)
+                                continue;
 
-                            case Directions.RIGHT:
-                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
-                                positions[1] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.back * gridNodeDiameter;
-                                rotation = 90;
+                            // 복도 벽 생성
+                            Instantiate(wallNodePrefab, currentNode.WorldPosition + offsetBack, Quaternion.identity, hallwayHierarchyRoot.transform);
 
-                                if (dirFromStartToBefore == Directions.UP)
-                                {
-                                    positions[0] += gridNodeDiameter * 2 * Vector3.right;
-                                }
-                                else if (dirFromStartToBefore == Directions.DOWN)
-                                {
-                                    positions[1] += gridNodeDiameter * 2 * Vector3.right;
-                                }
+                            // 복도 바닥 생성
+                            Instantiate(hallwayFloorNodePrefab, currentNode.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
 
-                                if (startDirection != dir)
-                                {
-                                    if (dir == Directions.UP)
-                                    {
-                                        scales[0] = straight - 1;
-                                        scales[1] = straight + 1;
-                                    }
-                                    else
-                                    {
-                                        scales[0] = straight + 1;
-                                        scales[1] = straight - 1;
-                                    }
-                                }
-                                break;
-
-                            case Directions.DOWN:
-                                positions[0] = startNode.WorldPosition + Vector3.left * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
-                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
-                                rotation = 180;
-
-                                if (dirFromStartToBefore == Directions.LEFT)
-                                {
-                                    positions[0] += gridNodeDiameter * 2 * Vector3.back;
-                                }
-                                else if (dirFromStartToBefore == Directions.RIGHT)
-                                {
-                                    positions[1] += gridNodeDiameter * 2 * Vector3.back;
-                                }
-
-                                if (startDirection != dir)
-                                {
-                                    if (dir == Directions.LEFT)
-                                    {
-                                        scales[0] = straight - 1;
-                                        scales[1] = straight + 1;
-                                    }
-                                    else
-                                    {
-                                        scales[0] = straight + 1;
-                                        scales[1] = straight - 1;
-                                    }
-                                }
-                                break;
-
-                            case Directions.LEFT:
-                                positions[0] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.forward * gridNodeDiameter;
-                                positions[1] = startNode.WorldPosition + Vector3.right * gridNodeDiameter + Vector3.back * gridNodeDiameter;
-                                rotation = 270;
-
-                                if (dirFromStartToBefore == Directions.UP)
-                                {
-                                    positions[0] += gridNodeDiameter * 2 * Vector3.left;
-                                }
-                                else if (dirFromStartToBefore == Directions.DOWN)
-                                {
-                                    positions[1] += gridNodeDiameter * 2 * Vector3.left;
-                                }
-
-                                if (startDirection != dir)
-                                {
-                                    if (dir == Directions.UP)
-                                    {
-                                        scales[0] = straight - 1;
-                                        scales[1] = straight + 1;
-                                    }
-                                    else
-                                    {
-                                        scales[0] = straight + 1;
-                                        scales[1] = straight - 1;
-                                    }
-                                }
-                                break;
-                        }
-
-                        // 벽을 세울 장소에 다른 복도가 포함되어 있는지 확인 후 스케일과 다음 시작 노드 조정
-                        int maxOffset = 0;
-                        for (int j = 0; j < 2; ++j)
-                        {
-                            CNode wallNode = CGrid.instance.GetNodeFromWorldPosition(positions[j]);
-                            int hallwayStart = 0;
-                            int hallwayCount = 0;
-                            bool isCountingHallway = false;
-
-                            // 벽울 세울 노드 중 복도 노드가 시작되는 지점과 복도 노드의 개수를 파악해 값 조정
-                            // ex) □■■□ (□ : 일반 노드, ■ : 복도 노드)의 경우
-                            //      ㄴ hallwayStart = 1
-                            //      ㄴ hallwayCount = 2
-                            for (int k = 0; k < scales[j]; ++k)
-                            {
-                                if (wallNode.Hallway)
-                                {
-                                    if (!isCountingHallway)
-                                    {
-                                        hallwayStart = k;
-                                        isCountingHallway = true;
-                                    }
-
-                                    ++hallwayCount;
-                                }
-                                else
-                                {
-                                    if (isCountingHallway)
-                                        break;
-                                }
-
-                                wallNode = wallNode.GetNext(startDirection);
-                            }
-
-                            if (isCountingHallway)
-                            {
-                                int offset = scales[j] - (hallwayStart + hallwayCount);
-
-                                if (offset > maxOffset)
-                                    maxOffset = offset;
-
-                                scales[j] = hallwayStart;
-                            }
-
-                            if (scales[j] > 0)
-                            {
-                                GameObject hallwayWall = Instantiate(wall2mPrefab, positions[j], Quaternion.Euler(0, rotation, 0), hallwayHierarchyRoot.transform);
-                                hallwayWall.transform.localScale = new Vector3(1, 1, scales[j] / 4f);
-                            }
-                        }
-
-                        if (maxOffset > 0)
-                            i -= maxOffset - 1;
-
-                        if (isReached)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            startNode = node;
-                            straight = 1;
-                            startDirection = node.GetDirection(path[i + 1].Node);
+                            currentNode.Walkable = false;
                         }
                     }
 
-                    // 복도 바닥 생성
-                    Vector3 hallwayFloorPosition = node.WorldPosition + gridNodeDiameter / 2f * Vector3.left + gridNodeDiameter / 2f * Vector3.back;
-                    GameObject hallwayFloor = Instantiate(hallwayFloorPrefab, hallwayFloorPosition, Quaternion.identity, hallwayHierarchyRoot.transform);
-                    hallwayFloor.transform.localScale = new Vector3(0.3f, 1, 0.3f);
+                    // 본인 노드에 바닥 생성
+                    Instantiate(floorNodePrefab, node.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
                 }
             }
-
-            CGrid.instance.UpdateGrid();
         }
         #endregion
 
-        void DrawEdge(Edge edge)
-        {
-            DrawEdge(edge.p1.Position, edge.p2.Position);
-        }
-
-        void DrawEdge(Vector3 p1, Vector3 p2)
-        {
-            if (edges == null)
-                edges = new List<GameObject>();
-
-            GameObject obj = Instantiate(debugLine);
-            LineRenderer lr = obj.GetComponent<LineRenderer>();
-            lr.positionCount = 2;
-            lr.SetPosition(0, p1);
-            lr.SetPosition(1, p2);
-            edges.Add(obj);
-        }
         #region 디버깅용 도형 출력 메소드
 #if DEBUG_DRAW
         void DrawEdge(Edge edge)

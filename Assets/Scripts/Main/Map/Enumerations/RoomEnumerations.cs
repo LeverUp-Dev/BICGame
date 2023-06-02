@@ -4,13 +4,12 @@ namespace RandomMap.Enumerations
 {
     public enum RoomType
     {
-        Unit,
-        R1x1,
-        R2x2,
-        R3x3,
-        R4x4,
-        R5x5,
-        VectorOnly
+        VectorOnly,
+        R5x5 = 5,
+        R9x9 = 9,
+        R13x13 = 13,
+        R17x17 = 17,
+        R21x21 = 21
     }
 
     public enum Directions

@@ -12,9 +12,13 @@ namespace RandomMap
         public Vector3 Position { get; set; }
         public RoomType Type { get; }
 
-        public GameObject Instance { get; }
+        public GameObject RoomHierarchyRoot { get; private set; }
+        public GameObject WallsHierarchyRoot { get; set; }
+        public GameObject FloorsHierarchyRoot { get; set; }
 
         public List<Edge> Edges { get; set; }
+
+        public GameObject positionInstance;
 
         public Room(Vector3 position)
         {
@@ -22,12 +26,20 @@ namespace RandomMap
             Type = RoomType.VectorOnly;
         }
 
-        public Room(int id, Vector3 position, RoomType type, GameObject instance)
+        public Room(int id, Vector3 position, RoomType type, GameObject instance, Transform parent)
         {
             ID = id;
             Position = position;
             Type = type;
-            Instance = instance;
+            positionInstance = instance;
+
+            RoomHierarchyRoot = new GameObject("Room" + id);
+            WallsHierarchyRoot = new GameObject("walls");
+            FloorsHierarchyRoot = new GameObject("floors");
+
+            RoomHierarchyRoot.transform.SetParent(parent);
+            WallsHierarchyRoot.transform.SetParent(RoomHierarchyRoot.transform);
+            FloorsHierarchyRoot.transform.SetParent(RoomHierarchyRoot.transform);
 
             Edges = new List<Edge>();
         }
