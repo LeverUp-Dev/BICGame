@@ -590,7 +590,7 @@ namespace RandomMap
             int gridNodeDiameter = CGrid.instance.gridNodeDiameter;
             LayerMask floorLayer = LayerMask.GetMask("Floor");
 
-            float[] scales = new float[2];
+            int[] scales = new int[2];
             Vector3[] positions = new Vector3[2];
 
             foreach (List<AStarNode> path in hallwayPaths)
@@ -606,24 +606,31 @@ namespace RandomMap
                     if (i + 1 == path.Count)
                         break;
 
+                    // 만약 해당 노드에 방의 바닥이 있다면 더 이상 복도를 만들 필요가 없으므로 isReached로 처리
                     bool isReached = false;
                     if (Physics.CheckSphere(node.WorldPosition, gridNodeDiameter / 2f, floorLayer))
                     {
+                        // 복도 경로가 방의 중앙에서 출발하므로 처음엔 isReached를 세팅하는 대신 다음 노드로 진행
                         if (startNode == null)
                             continue;
 
                         isReached = true;
                     }
 
-                    Directions dir = node.getDirection(path[i + 1].Node);
+                    Directions dir = node.GetDirection(path[i + 1].Node);
                     if (startNode == null || startDirection == Directions.NONE)
                     {
                         startNode = node;
                         startDirection = dir;
                     }
                     
+                    // 시작 노드로부터 직선으로 몇 칸까지 이동하는지 확인
                     ++straight;
                     
+                    // 아래의 경우 복도 생성 수행
+                    // 1) 노드가 다른 방향으로 꺾인 경우
+                    // 2) 한 방향으로 4칸 이동한 경우
+                    // 3) 목표 방에 도착한 경우
                     if (startDirection != dir || straight == 4 || isReached)
                     {
                         int rotation = 0;
@@ -631,13 +638,18 @@ namespace RandomMap
                         scales[0] = 1;
                         scales[1] = 1;
 
-                        Directions dirFromStartToBefore = startNode.getDirection(path[i - straight].Node);
+                        // 복도를 세우기 시작할 노드와 그 이전 노드가 꺾여 있는 상태라면 벽의 위치와 스케일을 조정해야 하므로 방향 조사
+                        Directions dirFromStartToBefore = startNode.GetDirection(path[i - straight].Node);
+                        
+                        // straight == 4일 때 시작 부분의 복도가 꺾이지 않았음에도 dirFromStartToBefore와 dir이 다른 케이스(LEFT RIGHT 등)가 있어
+                        // 수직 또는 수평일 경우 같은 방향으로 처리
+                        if ((int)dirFromStartToBefore * (int)startDirection == 3 || (int)dirFromStartToBefore * (int)startDirection == 8)
+                            dir = dirFromStartToBefore;
 
                         if (isReached)
-                        {
                             dir = dirFromStartToBefore;
-                        }
 
+                        // 복도가 꺾인 상태에 따라 위치와 스케일 조정
                         switch (startDirection)
                         {
                             case Directions.UP:
@@ -657,13 +669,13 @@ namespace RandomMap
                                 {
                                     if (dir == Directions.LEFT)
                                     {
-                                        scales[0] = (straight - 1) / 4f;
-                                        scales[1] = straight / 4f;
+                                        scales[0] = straight - 1;
+                                        scales[1] = straight + 1;
                                     }
                                     else
                                     {
-                                        scales[0] = straight / 4f;
-                                        scales[1] = (straight - 1) / 4f;
+                                        scales[0] = straight + 1;
+                                        scales[1] = straight - 1;
                                     }
                                 }
                                 break;
@@ -686,13 +698,13 @@ namespace RandomMap
                                 {
                                     if (dir == Directions.UP)
                                     {
-                                        scales[0] = (straight - 1) / 4f;
-                                        scales[1] = straight / 4f;
+                                        scales[0] = straight - 1;
+                                        scales[1] = straight + 1;
                                     }
                                     else
                                     {
-                                        scales[0] = straight / 4f;
-                                        scales[1] = (straight - 1) / 4f;
+                                        scales[0] = straight + 1;
+                                        scales[1] = straight - 1;
                                     }
                                 }
                                 break;
@@ -715,13 +727,13 @@ namespace RandomMap
                                 {
                                     if (dir == Directions.LEFT)
                                     {
-                                        scales[0] = (straight - 1) / 4f;
-                                        scales[1] = straight / 4f;
+                                        scales[0] = straight - 1;
+                                        scales[1] = straight + 1;
                                     }
                                     else
                                     {
-                                        scales[0] = straight / 4f;
-                                        scales[1] = (straight - 1) / 4f;
+                                        scales[0] = straight + 1;
+                                        scales[1] = straight - 1;
                                     }
                                 }
                                 break;
@@ -744,38 +756,85 @@ namespace RandomMap
                                 {
                                     if (dir == Directions.UP)
                                     {
-                                        scales[0] = (straight - 1) / 4f;
-                                        scales[1] = straight / 4f;
+                                        scales[0] = straight - 1;
+                                        scales[1] = straight + 1;
                                     }
                                     else
                                     {
-                                        scales[0] = straight / 4f;
-                                        scales[1] = (straight - 1) / 4f;
+                                        scales[0] = straight + 1;
+                                        scales[1] = straight - 1;
                                     }
                                 }
                                 break;
                         }
 
+                        // 벽을 세울 장소에 다른 복도가 포함되어 있는지 확인 후 스케일과 다음 시작 노드 조정
+                        int maxOffset = 0;
                         for (int j = 0; j < 2; ++j)
                         {
-                            GameObject hallwayWall = Instantiate(wall2mPrefab, positions[j], Quaternion.Euler(0, rotation, 0), hallwayHierarchyRoot.transform);
-                            hallwayWall.transform.localScale = new Vector3(1, 1, scales[j]);
+                            CNode wallNode = CGrid.instance.GetNodeFromWorldPosition(positions[j]);
+                            int hallwayStart = 0;
+                            int hallwayCount = 0;
+                            bool isCountingHallway = false;
+
+                            // 벽울 세울 노드 중 복도 노드가 시작되는 지점과 복도 노드의 개수를 파악해 값 조정
+                            // ex) □■■□ (□ : 일반 노드, ■ : 복도 노드)의 경우
+                            //      ㄴ hallwayStart = 1
+                            //      ㄴ hallwayCount = 2
+                            for (int k = 0; k < scales[j]; ++k)
+                            {
+                                if (wallNode.Hallway)
+                                {
+                                    if (!isCountingHallway)
+                                    {
+                                        hallwayStart = k;
+                                        isCountingHallway = true;
+                                    }
+
+                                    ++hallwayCount;
+                                }
+                                else
+                                {
+                                    if (isCountingHallway)
+                                        break;
+                                }
+
+                                wallNode = wallNode.GetNext(startDirection);
+                            }
+
+                            if (isCountingHallway)
+                            {
+                                int offset = scales[j] - (hallwayStart + hallwayCount);
+
+                                if (offset > maxOffset)
+                                    maxOffset = offset;
+
+                                scales[j] = hallwayStart;
+                            }
+
+                            if (scales[j] > 0)
+                            {
+                                GameObject hallwayWall = Instantiate(wall2mPrefab, positions[j], Quaternion.Euler(0, rotation, 0), hallwayHierarchyRoot.transform);
+                                hallwayWall.transform.localScale = new Vector3(1, 1, scales[j] / 4f);
+                            }
                         }
+
+                        if (maxOffset > 0)
+                            i -= maxOffset - 1;
 
                         if (isReached)
                         {
-                            startNode = null;
-                            straight = 0;
-                            startDirection = Directions.NONE;
+                            break;
                         }
                         else
                         {
                             startNode = node;
                             straight = 1;
-                            startDirection = node.getDirection(path[i + 1].Node);
+                            startDirection = node.GetDirection(path[i + 1].Node);
                         }
                     }
 
+                    // 복도 바닥 생성
                     Vector3 hallwayFloorPosition = node.WorldPosition + gridNodeDiameter / 2f * Vector3.left + gridNodeDiameter / 2f * Vector3.back;
                     GameObject hallwayFloor = Instantiate(hallwayFloorPrefab, hallwayFloorPosition, Quaternion.identity, hallwayHierarchyRoot.transform);
                     hallwayFloor.transform.localScale = new Vector3(0.3f, 1, 0.3f);

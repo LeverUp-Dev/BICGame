@@ -20,7 +20,7 @@ public class CNode
         Hallway = false;
     }
 
-    public bool isDiagonal(CNode to)
+    public bool IsDiagonal(CNode to)
     {
         int dx = to.GridX - GridX;
         int dy = to.GridY - GridY;
@@ -28,7 +28,8 @@ public class CNode
         return dx != 0 && dy != 0;
     }
 
-    public Directions getDirection(CNode to)
+    // to 노드가 상하좌우 중 어떤 방향에 존재하는지 반환
+    public Directions GetDirection(CNode to)
     {
         int dx = to.GridX - GridX;
         int dy = to.GridY - GridY;
@@ -37,5 +38,40 @@ public class CNode
             return dy == -1 ? Directions.UP : Directions.DOWN;
         else
             return dx == 1 ? Directions.RIGHT : Directions.LEFT;
+    }
+
+    public CNode GetNext(Directions dir)
+    {
+        CGrid grid = CGrid.instance;
+
+        int x = GridX;
+        int y = GridY;
+
+        switch (dir)
+        {
+            case Directions.UP:
+                ++x;
+                break;
+
+            case Directions.RIGHT:
+                ++y;
+                break;
+
+            case Directions.DOWN:
+                --y;
+                break;
+
+            case Directions.LEFT:
+                --x;
+                break;
+
+            default:
+                return this;
+        }
+
+        if (x < 0 || x >= grid.GridXSize || y < 0 || y >= grid.GridYSize)
+            return null;
+
+        return grid.Grid[y, x];
     }
 }

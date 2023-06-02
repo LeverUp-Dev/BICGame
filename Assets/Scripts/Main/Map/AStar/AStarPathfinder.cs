@@ -136,7 +136,7 @@ namespace RandomMap.AStar
 
 #if ONLY_STRAIGHT
                     // 상하좌우로만 이동 가능하도록 처리
-                    if (target.Node.isDiagonal(node))
+                    if (target.Node.IsDiagonal(node))
                         continue;
 #endif
 
