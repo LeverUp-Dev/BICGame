@@ -7331,7 +7331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1555059537
 Transform:
   m_ObjectHideFlags: 0
@@ -9677,12 +9677,9 @@ MonoBehaviour:
   cycleHallwayCreationChance: 12.5
   roomMinimumDistance: 15
   unitRoomPrefab: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
-  floorPrefab: {fileID: 2257071114153180819, guid: e33982dee59c5594faec2ecdfa1af397, type: 3}
-  wall2mPrefab: {fileID: 1651038059524489522, guid: b447c09df0645ec4e809ba1ad21f018e, type: 3}
-  wall4mPrefab: {fileID: 6393771974643360804, guid: 239a0c81ad9e80c4ca7c3dab0cc28ac1, type: 3}
-  doorWallPrefab: {fileID: 4466716413063337330, guid: 6a0e5fb2d53a7ea44b486a17f827294a, type: 3}
-  vaultPrefab: {fileID: 8316645854577498639, guid: 2a74dc85c35d78a469af0ef3190ec71f, type: 3}
-  vaultColumnPrefab: {fileID: 2045371106763026896, guid: 55c16c33c8b6e804c829471f43f25206, type: 3}
+  wallNodePrefab: {fileID: 1651038059524489522, guid: 1e9db4e4e42a1ef4dafcdf739fd6ad40, type: 3}
+  floorNodePrefab: {fileID: 2257071114153180819, guid: fd4e3f9bee306a742afb35cc2a5fd41e, type: 3}
+  hallwayFloorNodePrefab: {fileID: 205556138245513074, guid: f1aa57c97fec0f74fa239cb093da0296, type: 3}
   floor: 1
   debugLine: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
 --- !u!4 &2024657823
