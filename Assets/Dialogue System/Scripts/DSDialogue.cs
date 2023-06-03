@@ -6,6 +6,8 @@ namespace DS
 
     public class DSDialogue : MonoBehaviour
     {
+        [SerializeField] private bool isTrigger;
+
         /* Dialogue Scriptable Objects */
         [SerializeField] private DSDialogueContainerSO dialogueContainer;
         [SerializeField] private DSDialogueGroupSO dialogueGroup;
@@ -21,9 +23,12 @@ namespace DS
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Player")
+            if (isTrigger)
             {
-                DialogueManager.Instance.SetDialogue(dialogue);
+                if (other.gameObject.tag == "Player")
+                {
+                    DialogueManager.Instance.SetDialogue(dialogue);
+                }
             }
         }
     }

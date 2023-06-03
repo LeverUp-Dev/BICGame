@@ -3674,6 +3674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e174909b3763384181e0b12def7215d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrigger: 1
   dialogueContainer: {fileID: 11400000, guid: ea29db3748d74e444be34ef7c0c71e2d, type: 2}
   dialogueGroup: {fileID: 11400000, guid: cdb30b41a07e34944831b7b878c07efe, type: 2}
   dialogue: {fileID: 11400000, guid: 37cc0c1831723554b9e09a0787391104, type: 2}

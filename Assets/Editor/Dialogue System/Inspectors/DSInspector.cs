@@ -9,6 +9,8 @@ namespace DS.Inspectors
     [CustomEditor(typeof(DSDialogue))]
     public class DSInspector : Editor
     {
+        private SerializedProperty isTriggerProperty;
+
         /* Dialogue Scriptable Objects */
         private SerializedProperty dialogueContainerProperty;
         private SerializedProperty dialogueGroupProperty;
@@ -24,6 +26,8 @@ namespace DS.Inspectors
 
         private void OnEnable()
         {
+            isTriggerProperty = serializedObject.FindProperty("isTrigger");
+
             dialogueContainerProperty = serializedObject.FindProperty("dialogueContainer");
             dialogueGroupProperty = serializedObject.FindProperty("dialogueGroup");
             dialogueProperty = serializedObject.FindProperty("dialogue");
@@ -38,6 +42,8 @@ namespace DS.Inspectors
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+
+            DrawPlayFiltersArea();
 
             DrawDialogueContainerArea();
 
@@ -105,6 +111,15 @@ namespace DS.Inspectors
         
 
         #region Draw Methods
+        private void DrawPlayFiltersArea()
+        {
+            DSInspectorUtility.DrawHeader("Play Filters");
+
+            isTriggerProperty.DrawPropertyField();
+
+            DSInspectorUtility.DrawSpace();
+        }
+
         private void DrawDialogueContainerArea()
         {
             DSInspectorUtility.DrawHeader("Dialogue Container");
