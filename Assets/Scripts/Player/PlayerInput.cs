@@ -1,3 +1,4 @@
+using Hypocrites.Enumerations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,20 +30,22 @@ namespace Hypocrites.Player
         {
             if (Input.GetKey(forward) && Input.GetKey(shift))
             {
-                if (Input.GetKey(right)) controller.MoveDiagonalRightForward();
-                else if (Input.GetKey(left)) controller.MoveDiagonalLeftForward();
-                else controller.MoveForward();
+                if (Input.GetKey(right)) controller.Move(Directions.RIGHT | Directions.UP);
+                else if (Input.GetKey(left)) controller.Move(Directions.LEFT | Directions.UP);
+                else controller.Move(Directions.UP);
             }
+
             if (Input.GetKeyUp(back))
             {
-                if (Input.GetKey(shift)) controller.MoveBackward();
-                else controller.RotateBack();
+                if (Input.GetKey(shift)) controller.Move(Directions.DOWN);
+                else controller.Rotate(Directions.DOWN);
             }
-            if (Input.GetKeyUp(forward) && !Input.GetKey(shift)) controller.MoveForward();
-            if (Input.GetKeyUp(left) && Input.GetKey(shift)) controller.MoveLeft();
-            if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.MoveRight();
-            if (Input.GetKeyUp(left)) controller.RotateLeft();
-            if (Input.GetKeyUp(right)) controller.RotateRight();
+
+            if (Input.GetKeyUp(forward) && !Input.GetKey(shift)) controller.Move(Directions.UP);
+            if (Input.GetKeyUp(left) && Input.GetKey(shift)) controller.Move(Directions.LEFT);
+            if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.Move(Directions.RIGHT);
+            if (Input.GetKeyUp(left)) controller.Rotate(Directions.LEFT);
+            if (Input.GetKeyUp(right)) controller.Rotate(Directions.RIGHT);
         }
     }
 }

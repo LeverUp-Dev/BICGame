@@ -1,4 +1,4 @@
-using Hypocrites.Map.Enumerations;
+using Hypocrites.Enumerations;
 using UnityEngine;
 
 namespace Hypocrites.Grid

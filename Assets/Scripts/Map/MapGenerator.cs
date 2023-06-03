@@ -18,6 +18,7 @@ namespace Hypocrites.Map
     using Hypocrites.Map.AStar;
     using Hypocrites.Map.Enumerations;
     using Hypocrites.Grid;
+    using Hypocrites.Enumerations;
 
     public class MapGenerator : MonoBehaviour
     {

@@ -1,3 +1,4 @@
+using Hypocrites.Enumerations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,26 +71,53 @@ namespace Hypocrites.Player
             else targetGridPos = prevTargetGridPos;
         }
 
-
-        public void RotateLeft() { if (AtRest) targetRotation -= Vector3.up * 90f; }
-        public void RotateRight() { if (AtRest) targetRotation += Vector3.up * 90f; }
-        public void RotateBack() { if (AtRest) targetRotation += Vector3.up * 180f; }
-        public void MoveForward() { if (AtRest) targetGridPos += transform.forward * transitionMegnification; }
-        public void MoveBackward() { if (AtRest) targetGridPos -= transform.forward * transitionMegnification; }
-        public void MoveLeft() { if (AtRest) targetGridPos -= transform.right * transitionMegnification; }
-        public void MoveRight() { if (AtRest) targetGridPos += transform.right * transitionMegnification; }
-        public void MoveDiagonalRightForward() { if (AtRest) targetGridPos += (transform.forward + transform.right) * transitionMegnification; }
-        public void MoveDiagonalLeftForward() { if (AtRest) targetGridPos += (transform.forward - transform.right) * transitionMegnification; }
-
         bool AtRest
         {
             get
             {
-                if ((Vector3.Distance(transform.position, targetGridPos) < 0.05f) &&
-                    Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f)
-                    return true;
-                else
-                    return false;
+                return Vector3.Distance(transform.position, targetGridPos) < 0.05f &&
+                       Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f;
+            }
+        }
+
+        public void Rotate(Directions dir)
+        {
+            Vector3 rotation = Vector3.zero;
+
+            if (AtRest)
+            {
+                if (dir.Contains(Directions.RIGHT))
+                    rotation += Vector3.up * 90f;
+
+                if (dir.Contains(Directions.LEFT))
+                    rotation -= Vector3.up * 90f;
+
+                if (dir.Contains(Directions.DOWN))
+                    rotation += Vector3.up * 180f;
+
+                targetRotation += rotation;
+            }
+        }
+
+        public void Move(Directions dir)
+        {
+            Vector3 movement = Vector3.zero;
+
+            if (AtRest)
+            {
+                if (dir.Contains(Directions.UP))
+                    movement += transform.forward * transitionMegnification;
+
+                if (dir.Contains(Directions.RIGHT))
+                    movement += transform.right * transitionMegnification;
+
+                if (dir.Contains(Directions.DOWN))
+                    movement -= transform.forward * transitionMegnification;
+
+                if (dir.Contains(Directions.LEFT))
+                    movement -= transform.right * transitionMegnification;
+
+                targetGridPos += movement;
             }
         }
 
