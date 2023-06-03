@@ -9620,14 +9620,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63d87989721a9b41a67e7c579530d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unwalkableMask:
+  <Visible>k__BackingField: 0
+  <UnwalkableMask>k__BackingField:
     serializedVersion: 2
     m_Bits: 1088
-  visible: 0
-  maxMapWidth: 100
-  maxMapHeight: 100
-  gridNodeDiameter: 1
-  gridLineWidth: 0.1
+  <MaxMapWidth>k__BackingField: 120
+  <MaxMapHeight>k__BackingField: 120
+  <GridNodeDiameter>k__BackingField: 1
+  <GridLineWidth>k__BackingField: 0.1
 --- !u!4 &2014127572
 Transform:
   m_ObjectHideFlags: 0
@@ -9672,16 +9672,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b00685c035dd5794f95fafa042560382, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  run: 1
-  maxRoomCount: 10
-  cycleHallwayCreationChance: 12.5
-  roomMinimumDistance: 15
-  unitRoomPrefab: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
-  wallNodePrefab: {fileID: 1651038059524489522, guid: 1e9db4e4e42a1ef4dafcdf739fd6ad40, type: 3}
-  floorNodePrefab: {fileID: 2257071114153180819, guid: fd4e3f9bee306a742afb35cc2a5fd41e, type: 3}
-  hallwayFloorNodePrefab: {fileID: 205556138245513074, guid: f1aa57c97fec0f74fa239cb093da0296, type: 3}
-  floor: 1
-  debugLine: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
+  <Run>k__BackingField: 1
+  <MaxRoomCount>k__BackingField: 10
+  <CycleHallwayCreationChance>k__BackingField: 12.5
+  <RoomMinimumDistance>k__BackingField: 15
+  <UnitRoomPrefab>k__BackingField: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
+  <WallNodePrefab>k__BackingField: {fileID: 1651038059524489522, guid: 1e9db4e4e42a1ef4dafcdf739fd6ad40, type: 3}
+  <FloorNodePrefab>k__BackingField: {fileID: 2257071114153180819, guid: fd4e3f9bee306a742afb35cc2a5fd41e, type: 3}
+  <HallwayFloorNodePrefab>k__BackingField: {fileID: 205556138245513074, guid: f1aa57c97fec0f74fa239cb093da0296, type: 3}
+  <DebugLinePrefab>k__BackingField: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
+  <Floor>k__BackingField: 1
 --- !u!4 &2024657823
 Transform:
   m_ObjectHideFlags: 0

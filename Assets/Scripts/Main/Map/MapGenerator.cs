@@ -20,24 +20,35 @@ namespace RandomMap
 
     public class MapGenerator : MonoBehaviour
     {
-        public bool run;
-
-        public int maxRoomCount;
-
-        public float cycleHallwayCreationChance;
-        public int roomMinimumDistance;
-
-        public GameObject unitRoomPrefab;
-        public GameObject wallNodePrefab;
-        public GameObject floorNodePrefab;
-        public GameObject hallwayFloorNodePrefab;
-
-        public int floor;
-
         GameObject mapHierarchyRoot;
         List<Room> rooms;
 
-        public GameObject debugLine;
+        /* Inspector Values */
+        [field: SerializeField]
+        public bool Run { get; private set; }
+
+        [field: SerializeField]
+        public int MaxRoomCount { get; private set; }
+
+        [field: SerializeField]
+        public float CycleHallwayCreationChance { get; private set; }
+        [field: SerializeField]
+        public int RoomMinimumDistance { get; private set; }
+
+        [field: SerializeField]
+        public GameObject UnitRoomPrefab { get; private set; }
+        [field: SerializeField]
+        public GameObject WallNodePrefab { get; private set; }
+        [field: SerializeField]
+        public GameObject FloorNodePrefab { get; private set; }
+        [field: SerializeField]
+        public GameObject HallwayFloorNodePrefab { get; private set; }
+
+        [field: SerializeField]
+        public GameObject DebugLinePrefab { get; private set; }
+
+        [field: SerializeField]
+        public int Floor { get; private set; }
 
 #if DEBUG_DRAW
         List<GameObject> lines;
@@ -47,19 +58,19 @@ namespace RandomMap
 
         void Awake()
         {
-            if (cycleHallwayCreationChance < 0 || cycleHallwayCreationChance > 100)
+            if (CycleHallwayCreationChance < 0 || CycleHallwayCreationChance > 100)
             {
-                cycleHallwayCreationChance = 12.5f;
+                CycleHallwayCreationChance = 12.5f;
             }
 
-            if (run)
+            if (Run)
             {
                 // 랜덤 맵을 생성하기에 그리드 맵이 충분히 넓은지 확인
                 CGrid grid = CGrid.instance;
-                float mapArea = grid.maxMapWidth * grid.maxMapHeight;
-                float roomArea = Mathf.PI * Mathf.Pow(roomMinimumDistance, 2);
+                float mapArea = grid.MaxMapWidth * grid.MaxMapHeight;
+                float roomArea = Mathf.PI * Mathf.Pow(RoomMinimumDistance, 2);
 
-                if (mapArea / roomArea < maxRoomCount)
+                if (mapArea / roomArea < MaxRoomCount)
                 {
                     Debug.LogError("그리드 맵의 넓이가 랜덤 맵을 생성하기에 충분하지 않습니다. 그리드를 넓히거나 생성할 방의 수를 줄여주세요.");
                     return;
@@ -102,9 +113,9 @@ namespace RandomMap
             CGrid grid = CGrid.instance;
             List<List<AStarNode>> hallwayPaths = new List<List<AStarNode>>();
 
-            for (int i = 0; i < maxRoomCount; ++i)
+            for (int i = 0; i < MaxRoomCount; ++i)
             {
-                for (int j = 0; j < maxRoomCount; ++j)
+                for (int j = 0; j < MaxRoomCount; ++j)
                 {
                     if (mstTree[i, j] != null)
                     {
@@ -128,7 +139,7 @@ namespace RandomMap
         {
             LayerMask roomPositionLayer = LayerMask.GetMask("RoomPosition");
 
-            for (int i = 0; i < maxRoomCount; ++i)
+            for (int i = 0; i < MaxRoomCount; ++i)
             {
                 // 방 중앙이 그리드 끝으로 설정되면 방이 그리드 바깥으로 벗어나므로 여유 공간 설정
                 int randomX = Random.Range(10, CGrid.instance.GridXSize - 10);
@@ -153,7 +164,7 @@ namespace RandomMap
                     }
                 }
 
-                if (isDuplicated || Physics.CheckSphere(randomPos, roomMinimumDistance, roomPositionLayer))
+                if (isDuplicated || Physics.CheckSphere(randomPos, RoomMinimumDistance, roomPositionLayer))
                 {
                     --i;
                     continue;
@@ -170,15 +181,15 @@ namespace RandomMap
                 else
                     roomType = RoomType.R9x9;
 
-                rooms.Add(new Room(i, randomPos, roomType, Instantiate(unitRoomPrefab, randomPos, Quaternion.identity), mapHierarchyRoot.transform));
+                rooms.Add(new Room(i, randomPos, roomType, Instantiate(UnitRoomPrefab, randomPos, Quaternion.identity), mapHierarchyRoot.transform));
             }
         }
 
         #region 들로네 삼각분할 메소드
         Triangle SuperTriangle()
         {
-            int maxWidth = CGrid.instance.maxMapWidth;
-            int maxHeight = CGrid.instance.maxMapHeight;
+            int maxWidth = CGrid.instance.MaxMapWidth;
+            int maxHeight = CGrid.instance.MaxMapHeight;
 
             // vertex가 SuperTriangle에 너무 가까이 생성되면 제대로 수행되지 않아 offset으로 거리 조절
             float offset = 1.1f;
@@ -299,7 +310,7 @@ namespace RandomMap
 
         int[,] TriangulatedToGraph(List<Triangle> triangulatedList)
         {
-            int[,] triangulatedGraph = new int[maxRoomCount, maxRoomCount];
+            int[,] triangulatedGraph = new int[MaxRoomCount, MaxRoomCount];
 
             for (int i = 0; i < triangulatedList.Count; ++i)
             {
@@ -320,11 +331,11 @@ namespace RandomMap
         #region MST 메소드
         Edge[,] GraphToMST(int[,] graph, Room first)
         {
-            Edge[,] mstTree = new Edge[maxRoomCount, maxRoomCount];
-            MinHeap<Edge> heap = new MinHeap<Edge>(maxRoomCount * (maxRoomCount + 1) / 2);
+            Edge[,] mstTree = new Edge[MaxRoomCount, MaxRoomCount];
+            MinHeap<Edge> heap = new MinHeap<Edge>(MaxRoomCount * (MaxRoomCount + 1) / 2);
 
             // 최소 힙에 첫 정점과 인접한 간선 추가
-            for (int i = 0; i < maxRoomCount; ++i)
+            for (int i = 0; i < MaxRoomCount; ++i)
             {
                 if (graph[first.ID, i] == 1)
                 {
@@ -341,7 +352,7 @@ namespace RandomMap
                 // 이미 MST Tree에 추가된 정점들일 경우 패스
                 bool isP1Set = false;
                 bool isP2Set = false;
-                for (int i = 0; i < maxRoomCount; ++i)
+                for (int i = 0; i < MaxRoomCount; ++i)
                 {
                     if (mstTree[min.p1.ID, i] != null)
                         isP1Set = true;
@@ -360,7 +371,7 @@ namespace RandomMap
                 mstTree[min.p1.ID, min.p2.ID] = min;
 
                 // 추가된 정점과 인접한 간선 추가
-                for (int i = 0; i < maxRoomCount; ++i)
+                for (int i = 0; i < MaxRoomCount; ++i)
                 {
                     if (graph[min.p2.ID, i] == 1)
                     {
@@ -375,16 +386,16 @@ namespace RandomMap
 
         void AddCycledEdgeToMST(int[,] triangulatedGraph, Edge[,] mstTree)
         {
-            for (int i = 0; i < maxRoomCount; ++i)
+            for (int i = 0; i < MaxRoomCount; ++i)
             {
-                for (int j = 0; j < maxRoomCount; ++j)
+                for (int j = 0; j < MaxRoomCount; ++j)
                 {
                     if (mstTree[i, j] == null && triangulatedGraph[i, j] == 1)
                     {
                         // 일정 확률로 탈락된 간선 추가
-                        if (cycleHallwayCreationChance != 0)
+                        if (CycleHallwayCreationChance != 0)
                         {
-                            if (Random.Range(0, (int)(100 / cycleHallwayCreationChance)) == 0)
+                            if (Random.Range(0, (int)(100 / CycleHallwayCreationChance)) == 0)
                             {
                                 if (mstTree[j, i] == null)
                                     mstTree[i, j] = new Edge(rooms[i], rooms[j]);
@@ -420,8 +431,7 @@ namespace RandomMap
             if (room.Type == RoomType.VectorOnly)
                 return;
 
-            int nodeDiameter = CGrid.instance.gridNodeDiameter;
-            float nodeRadius = nodeDiameter / 2f;
+            float nodeRadius = CGrid.instance.GridNodeRadius;
 
             Vector3 offsetBack = Vector3.back * nodeRadius;
             Vector3 offsetLeft = Vector3.left * nodeRadius;
@@ -449,14 +459,14 @@ namespace RandomMap
                         {
                             if (!checkedBorder)
                             {
-                                Instantiate(wallNodePrefab, node.WorldPosition + offsetBack, Quaternion.identity, room.FloorsHierarchyRoot.transform);
+                                Instantiate(WallNodePrefab, node.WorldPosition + offsetBack, Quaternion.identity, room.FloorsHierarchyRoot.transform);
                                 node.Walkable = false;
                             }
                         }
                     }
 
                     if (createFloor)
-                        Instantiate(floorNodePrefab, node.WorldPosition + offset, Quaternion.identity, room.FloorsHierarchyRoot.transform);
+                        Instantiate(FloorNodePrefab, node.WorldPosition + offset, Quaternion.identity, room.FloorsHierarchyRoot.transform);
 
                     node = node.GetNext(Directions.RIGHT);
 
@@ -471,8 +481,7 @@ namespace RandomMap
         {
             CGrid grid = CGrid.instance;
 
-            int nodeDiameter = grid.gridNodeDiameter;
-            float nodeRadius = nodeDiameter / 2f;
+            float nodeRadius = grid.GridNodeRadius;
 
             Vector3 offsetBack = Vector3.back * nodeRadius;
             Vector3 offsetLeft = Vector3.left * nodeRadius;
@@ -509,17 +518,17 @@ namespace RandomMap
                                 continue;
 
                             // 복도 벽 생성
-                            Instantiate(wallNodePrefab, currentNode.WorldPosition + offsetBack, Quaternion.identity, hallwayHierarchyRoot.transform);
+                            Instantiate(WallNodePrefab, currentNode.WorldPosition + offsetBack, Quaternion.identity, hallwayHierarchyRoot.transform);
 
                             // 복도 바닥 생성
-                            Instantiate(hallwayFloorNodePrefab, currentNode.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
+                            Instantiate(HallwayFloorNodePrefab, currentNode.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
 
                             currentNode.Walkable = false;
                         }
                     }
 
                     // 본인 노드에 바닥 생성
-                    Instantiate(floorNodePrefab, node.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
+                    Instantiate(FloorNodePrefab, node.WorldPosition + offset, Quaternion.identity, hallwayHierarchyRoot.transform);
                 }
             }
         }

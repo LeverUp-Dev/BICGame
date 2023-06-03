@@ -16,7 +16,7 @@ public class Minimap : MonoBehaviour
             {
                 CNode node = CGrid.instance.Grid[i, j];
                 GameObject fogInstance = Instantiate(fogPrefab, node.WorldPosition + Vector3.up * fogHeight, Quaternion.identity);
-                fogInstance.transform.localScale *= CGrid.instance.gridNodeDiameter;
+                fogInstance.transform.localScale *= CGrid.instance.GridNodeDiameter;
                 fogInstance.transform.SetParent(miniMapFogParent);
             }
         }
