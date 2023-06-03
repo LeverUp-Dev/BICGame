@@ -44,7 +44,7 @@ namespace Hypocrites.Grid
 
         public CNode GetNext(Directions dir)
         {
-            CGrid grid = CGrid.instance;
+            CGrid grid = CGrid.Instance;
 
             int x = GridX;
             int y = GridY;

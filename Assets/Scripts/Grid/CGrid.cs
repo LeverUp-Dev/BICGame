@@ -4,7 +4,7 @@ namespace Hypocrites.Grid
 {
     public class CGrid : MonoBehaviour
     {
-        public static CGrid instance;
+        public static CGrid Instance { get; private set; }
 
         public CNode[,] Grid { get; private set; }
 
@@ -31,8 +31,8 @@ namespace Hypocrites.Grid
 
         void Awake()
         {
-            if (instance == null)
-                instance = this;
+            if (Instance == null)
+                Instance = this;
             else
                 Destroy(gameObject);
 

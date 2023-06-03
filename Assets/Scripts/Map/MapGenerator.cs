@@ -68,7 +68,7 @@ namespace Hypocrites.Map
             if (Run)
             {
                 // 랜덤 맵을 생성하기에 그리드 맵이 충분히 넓은지 확인
-                CGrid grid = CGrid.instance;
+                CGrid grid = CGrid.Instance;
 
                 if (grid == null)
                 {
@@ -117,7 +117,7 @@ namespace Hypocrites.Map
 
             // 7. A* 알고리즘 수행
             AStarPathfinder astar = new AStarPathfinder();
-            CGrid grid = CGrid.instance;
+            CGrid grid = CGrid.Instance;
             List<List<AStarNode>> hallwayPaths = new List<List<AStarNode>>();
 
             for (int i = 0; i < MaxRoomCount; ++i)
@@ -149,10 +149,10 @@ namespace Hypocrites.Map
             for (int i = 0; i < MaxRoomCount; ++i)
             {
                 // 방 중앙이 그리드 끝으로 설정되면 방이 그리드 바깥으로 벗어나므로 여유 공간 설정
-                int randomX = Random.Range(10, CGrid.instance.GridXSize - 10);
-                int randomZ = Random.Range(10, CGrid.instance.GridYSize - 10);
+                int randomX = Random.Range(10, CGrid.Instance.GridXSize - 10);
+                int randomZ = Random.Range(10, CGrid.Instance.GridYSize - 10);
 
-                CNode node = i == 0 ? CGrid.instance.GetNodeFromWorldPosition(Vector3.zero) : CGrid.instance.Grid[randomX, randomZ];
+                CNode node = i == 0 ? CGrid.Instance.GetNodeFromWorldPosition(Vector3.zero) : CGrid.Instance.Grid[randomX, randomZ];
                 Vector3 randomPos = node.WorldPosition;
                 bool isDuplicated = false;
 
@@ -195,8 +195,8 @@ namespace Hypocrites.Map
         #region 들로네 삼각분할 메소드
         Triangle SuperTriangle()
         {
-            int maxWidth = CGrid.instance.MaxMapWidth;
-            int maxHeight = CGrid.instance.MaxMapHeight;
+            int maxWidth = CGrid.Instance.MaxMapWidth;
+            int maxHeight = CGrid.Instance.MaxMapHeight;
 
             // vertex가 SuperTriangle에 너무 가까이 생성되면 제대로 수행되지 않아 offset으로 거리 조절
             float offset = 1.1f;
@@ -438,7 +438,7 @@ namespace Hypocrites.Map
             if (room.Type == RoomType.VectorOnly)
                 return;
 
-            float nodeRadius = CGrid.instance.GridNodeRadius;
+            float nodeRadius = CGrid.Instance.GridNodeRadius;
 
             Vector3 offsetBack = Vector3.back * nodeRadius;
             Vector3 offsetLeft = Vector3.left * nodeRadius;
@@ -448,7 +448,7 @@ namespace Hypocrites.Map
             int eachSideNodeNum = (int)room.Type;
             float roomRadius = nodeRadius * eachSideNodeNum;
 
-            CNode start = CGrid.instance.GetNodeFromWorldPosition(room.Position + Vector3.left * roomRadius + Vector3.forward * roomRadius);
+            CNode start = CGrid.Instance.GetNodeFromWorldPosition(room.Position + Vector3.left * roomRadius + Vector3.forward * roomRadius);
             CNode node = start;
 
             for (int j = 0; j < eachSideNodeNum; ++j)
@@ -486,7 +486,7 @@ namespace Hypocrites.Map
 
         void InstantiateHallways(List<List<AStarNode>> hallwayPaths)
         {
-            CGrid grid = CGrid.instance;
+            CGrid grid = CGrid.Instance;
 
             float nodeRadius = grid.GridNodeRadius;
 

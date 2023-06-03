@@ -24,7 +24,7 @@ namespace Hypocrites.Map.AStar
 
         public void Prepare()
         {
-            grid = CGrid.instance;
+            grid = CGrid.Instance;
 
             if (openedHeap == null)
                 openedHeap = new MinHeap<AStarNode>(grid.GridXSize * grid.GridYSize);
@@ -115,7 +115,7 @@ namespace Hypocrites.Map.AStar
 
         void SearchNearNodes(AStarNode target, CNode end)
         {
-            CGrid grid = CGrid.instance;
+            CGrid grid = CGrid.Instance;
 
             closedList.Add(target);
 

@@ -12,13 +12,13 @@ namespace Hypocrites.MiniMap
 
         void Awake()
         {
-            for (int i = 0; i < CGrid.instance.GridYSize; i++)
+            for (int i = 0; i < CGrid.Instance.GridYSize; i++)
             {
-                for (int j = 0; j < CGrid.instance.GridXSize; j++)
+                for (int j = 0; j < CGrid.Instance.GridXSize; j++)
                 {
-                    CNode node = CGrid.instance.Grid[i, j];
+                    CNode node = CGrid.Instance.Grid[i, j];
                     GameObject fogInstance = Instantiate(fogPrefab, node.WorldPosition + Vector3.up * fogHeight, Quaternion.identity);
-                    fogInstance.transform.localScale *= CGrid.instance.GridNodeDiameter;
+                    fogInstance.transform.localScale *= CGrid.Instance.GridNodeDiameter;
                     fogInstance.transform.SetParent(miniMapFogParent);
                 }
             }
