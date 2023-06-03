@@ -2,39 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIMover : MonoBehaviour
+namespace Hypocrites.MainMenu
 {
-    private RectTransform rectTransform;
-
-    private void Awake()
+    public class UIMover : MonoBehaviour
     {
-        rectTransform = GetComponent<RectTransform>();
-    }
+        private RectTransform rectTransform;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetMouseButton(0))
+        private void Awake()
         {
-            rectTransform.anchoredPosition = Input.mousePosition;
+            rectTransform = GetComponent<RectTransform>();
         }
 
-        //transform.localScale
-
-        if (Input.GetKey(KeyCode.UpArrow)) 
+        // Start is called before the first frame update
+        void Start()
         {
-            rectTransform.sizeDelta = rectTransform.sizeDelta * 1.1f;
+
         }
 
-        if (Input.GetKey(KeyCode.DownArrow))
+        // Update is called once per frame
+        void Update()
         {
-            rectTransform.sizeDelta = rectTransform.sizeDelta * 0.9f;
+            if (Input.GetMouseButton(0))
+            {
+                rectTransform.anchoredPosition = Input.mousePosition;
+            }
+
+            //transform.localScale
+
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                rectTransform.sizeDelta = rectTransform.sizeDelta * 1.1f;
+            }
+
+            if (Input.GetKey(KeyCode.DownArrow))
+            {
+                rectTransform.sizeDelta = rectTransform.sizeDelta * 0.9f;
+            }
         }
     }
 }
