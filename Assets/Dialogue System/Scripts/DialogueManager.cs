@@ -10,44 +10,31 @@ using DS.ScriptableObjects;
 
 public class DialogueManager : MonoBehaviour
 {
-    private static DialogueManager instance = null;
+    public static DialogueManager Instance { get; private set; }
 
-    public GameObject DialogueCanvas;
-    public TextMeshProUGUI textDisplay;
-    public GameObject continueButton;
-    public GameObject[] choiceButtons;
-    public float typingSpeed;
+    [field: SerializeField] public GameObject DialogueCanvas { get; private set; }
+    [field: SerializeField] public TextMeshProUGUI TextDisplay { get; private set; }
+    [field: SerializeField] public GameObject ContinueButton { get; private set; }
+    [field: SerializeField] public GameObject[] ChoiceButtons { get; private set; }
+    [field: SerializeField] public float TypingSpeed { get; private set; }
+
+    public bool IsTyping { get; private set; }
 
     private DSDialogueSO currentDialogue = null;
     private bool isLastDialogue = false;
 
-    public static DialogueManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                return null;
-            }
-
-            return instance;
-        }
-    }
+    private object key = new object();
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-
-            // Scene 전환 시 파괴되지 않게 하려면 활성화
-            // DontDestroyOnLoad(gameObject);
-        }
+        if (Instance == null)
+            Instance = this;
         else
-        {
-            // Scene 이동 후 해당 scene의 Hierarchy에 DialogueManager가 있다면 이전 scene의 DialogueManager를 사용하기 위해 Destroy 수행
             Destroy(gameObject);
-        }
+
+        DontDestroyOnLoad(gameObject);
+
+        IsTyping = false;
     }
 
     /*
@@ -55,16 +42,19 @@ public class DialogueManager : MonoBehaviour
      */
     public void SetEnabled(bool isEnabled)
     {
+        IsTyping = isEnabled;
         DialogueCanvas.SetActive(isEnabled);
 
         if (!isEnabled)
         {
-            textDisplay.text = "";
+            TextDisplay.text = "";
 
-            continueButton.GetComponent<TextMeshProUGUI>().text = "";
+            ContinueButton.SetActive(false);
+            ContinueButton.GetComponent<TextMeshProUGUI>().text = "";
 
-            foreach (GameObject button in choiceButtons)
+            foreach (GameObject button in ChoiceButtons)
             {
+                button.SetActive(false);
                 button.GetComponent<TextMeshProUGUI>().text = "";
             }
         }
@@ -79,6 +69,9 @@ public class DialogueManager : MonoBehaviour
      */
     public void SetDialogue(DSDialogueSO dialogue)
     {
+        if (IsTyping)
+            return;
+
         isLastDialogue = false;
         currentDialogue = dialogue;
 
@@ -99,12 +92,12 @@ public class DialogueManager : MonoBehaviour
             // 다음/종료 버튼 문구 설정
             if (nextDialogue == null)
             {
-                continueButton.GetComponent<TextMeshProUGUI>().text = "종료";
+                ContinueButton.GetComponent<TextMeshProUGUI>().text = "종료";
                 isLastDialogue = true;
             }
             else
             {
-                continueButton.GetComponent<TextMeshProUGUI>().text = "다음";
+                ContinueButton.GetComponent<TextMeshProUGUI>().text = "다음";
             }
         }
         else
@@ -124,7 +117,7 @@ public class DialogueManager : MonoBehaviour
             // 선택지 버튼 문구 설정
             for (int i = 0; i < currentDialogue.Choices.Count; ++i)
             {
-                choiceButtons[i].GetComponent<TextMeshProUGUI>().text = currentDialogue.Choices[i].Text;
+                ChoiceButtons[i].GetComponent<TextMeshProUGUI>().text = currentDialogue.Choices[i].Text;
             }
         }
 
@@ -140,19 +133,19 @@ public class DialogueManager : MonoBehaviour
     {
         foreach (char letter in currentDialogue.Text.ToCharArray())
         {
-            textDisplay.text += letter;
+            TextDisplay.text += letter;
             yield return new WaitForSeconds(0.02f);
         }
 
         if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
         {
-            continueButton.SetActive(true);
+            ContinueButton.SetActive(true);
         }
         else
         {
             for (int i = 0; i < currentDialogue.Choices.Count; ++i)
             {
-                choiceButtons[i].SetActive(true);
+                ChoiceButtons[i].SetActive(true);
             }
         }
     }
@@ -185,17 +178,17 @@ public class DialogueManager : MonoBehaviour
         // 대사 출력이 끝나기 전까진 다음 또는 선택지 버튼을 모두 비활성화
         if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)
         {
-            continueButton.SetActive(false);
+            ContinueButton.SetActive(false);
         }
         else
         {
-            foreach (GameObject button in choiceButtons)
+            foreach (GameObject button in ChoiceButtons)
             {
                 button.SetActive(false);
             }
         }
 
-        textDisplay.text = "";
+        TextDisplay.text = "";
 
         // 다음 대사로 데이터 변경
         currentDialogue = currentDialogue.Choices[choice].NextDialogue;

@@ -1,4 +1,5 @@
 using Hypocrites.Enumerations;
+using Hypocrites.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -118,6 +119,8 @@ namespace Hypocrites.Player
                     movement -= transform.right * transitionMegnification;
 
                 targetGridPos += movement;
+                
+                EventManager.Instance.Roll(PlayerConstants.TEMP_STAT_LUCK);
             }
         }
 

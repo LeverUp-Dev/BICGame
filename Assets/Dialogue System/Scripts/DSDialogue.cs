@@ -25,11 +25,16 @@ namespace DS
         {
             if (isTrigger)
             {
-                if (other.gameObject.tag == "Player")
+                if (other.gameObject.CompareTag("Player"))
                 {
                     DialogueManager.Instance.SetDialogue(dialogue);
                 }
             }
+        }
+
+        public DSDialogueContainerSO GetDialogueContainer()
+        {
+            return dialogueContainer;
         }
     }
 }

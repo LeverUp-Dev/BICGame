@@ -18,16 +18,21 @@ namespace Hypocrites.Player
         public KeyCode shift = KeyCode.LeftShift;
 
         PlayerController controller;
+        DialogueManager dialogueManager;
 
         // Start is called before the first frame update
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
+            dialogueManager = DialogueManager.Instance;
         }
 
         // Update is called once per frame
         private void Update()
         {
+            if (dialogueManager.IsTyping)
+                return;
+
             if (Input.GetKey(forward) && Input.GetKey(shift))
             {
                 if (Input.GetKey(right)) controller.Move(Directions.RIGHT | Directions.UP);

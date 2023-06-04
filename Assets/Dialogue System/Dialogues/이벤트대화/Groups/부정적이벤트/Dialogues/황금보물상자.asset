@@ -17,8 +17,8 @@ MonoBehaviour:
     \uC7A5\uC2DD\uB41C \uBCF4\uBB3C\uC0C1\uC790\uB97C  \uBC1C\uACAC\uD558\uC600\uB2E4."
   <Choices>k__BackingField:
   - <Text>k__BackingField: "\uC870\uC0AC\uD55C\uB2E4."
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 50a3c21a3e5cd624ca680ab95c03be7c, type: 2}
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: c33c75297470cb446b43aad8cc1f542f, type: 2}
   - <Text>k__BackingField: "\uC870\uC0AC\uD558\uC9C0 \uC54A\uACE0 \uC9C0\uB098\uCE5C\uB2E4."
-    <NextDialogue>k__BackingField: {fileID: 11400000, guid: bb0ef8de5a2a8d7418a1032ef5cd8fce, type: 2}
+    <NextDialogue>k__BackingField: {fileID: 11400000, guid: 28ee3de4c9801ed41a8df6393d248bf3, type: 2}
   <DialogueType>k__BackingField: 1
   <IsStartingDialogue>k__BackingField: 1

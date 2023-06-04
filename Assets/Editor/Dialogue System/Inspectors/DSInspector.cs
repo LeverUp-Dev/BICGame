@@ -113,7 +113,7 @@ namespace DS.Inspectors
         #region Draw Methods
         private void DrawPlayFiltersArea()
         {
-            DSInspectorUtility.DrawHeader("Play Filters");
+            DSInspectorUtility.DrawHeader("Play");
 
             isTriggerProperty.DrawPropertyField();
 

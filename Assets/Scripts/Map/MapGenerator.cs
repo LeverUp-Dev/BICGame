@@ -26,31 +26,19 @@ namespace Hypocrites.Map
         List<Room> rooms;
 
         /* Inspector Values */
-        [field: SerializeField]
-        public bool Run { get; private set; }
+        [field: SerializeField] public bool Run { get; private set; }
 
-        [field: SerializeField]
-        public int MaxRoomCount { get; private set; }
+        [field: SerializeField] public int MaxRoomCount { get; private set; }
+        [field: SerializeField] public float CycleHallwayCreationChance { get; private set; }
+        [field: SerializeField] public int RoomMinimumDistance { get; private set; }
 
-        [field: SerializeField]
-        public float CycleHallwayCreationChance { get; private set; }
-        [field: SerializeField]
-        public int RoomMinimumDistance { get; private set; }
+        [field: SerializeField] public GameObject UnitRoomPrefab { get; private set; }
+        [field: SerializeField] public GameObject WallNodePrefab { get; private set; }
+        [field: SerializeField] public GameObject FloorNodePrefab { get; private set; }
+        [field: SerializeField] public GameObject HallwayFloorNodePrefab { get; private set; }
+        [field: SerializeField] public GameObject DebugLinePrefab { get; private set; }
 
-        [field: SerializeField]
-        public GameObject UnitRoomPrefab { get; private set; }
-        [field: SerializeField]
-        public GameObject WallNodePrefab { get; private set; }
-        [field: SerializeField]
-        public GameObject FloorNodePrefab { get; private set; }
-        [field: SerializeField]
-        public GameObject HallwayFloorNodePrefab { get; private set; }
-
-        [field: SerializeField]
-        public GameObject DebugLinePrefab { get; private set; }
-
-        [field: SerializeField]
-        public int Floor { get; private set; }
+        [field: SerializeField] public int Floor { get; private set; }
 
 #if DEBUG_DRAW
         List<GameObject> lines;

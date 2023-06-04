@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 04814f2e5f83a3f45a4f785fec9c4083, type: 3}
-  m_Name: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+  m_Name: "\uBD80\uC815\uC801\uC774\uBCA4\uD2B8"
   m_EditorClassIdentifier: 
-  <GroupName>k__BackingField: "\uB3C5\uD654\uC0B4\uD568\uC815\uC774\uBCA4\uD2B8"
+  <GroupName>k__BackingField: "\uBD80\uC815\uC801\uC774\uBCA4\uD2B8"
