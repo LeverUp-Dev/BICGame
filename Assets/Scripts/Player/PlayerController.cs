@@ -11,6 +11,7 @@ using UnityEngine.Rendering;
 
 namespace Hypocrites.Player
 {
+    [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
     {
         public bool smoothTransition = false;
@@ -24,8 +25,15 @@ namespace Hypocrites.Player
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
+        Player player;
+
         private float length = 0.99f;
         GameObject nearObject;
+
+        private void Awake()
+        {
+            player = GetComponent<Player>();
+        }
 
         private void Start()
         {
@@ -120,7 +128,7 @@ namespace Hypocrites.Player
 
                 targetGridPos += movement;
                 
-                EventManager.Instance.Roll(PlayerConstants.TEMP_STAT_LUCK);
+                EventManager.Instance.Roll(player.Luck);
             }
         }
 

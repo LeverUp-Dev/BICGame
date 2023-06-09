@@ -1,12 +1,10 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-
-using DS;
 using DS.Data;
 using DS.Enumerations;
 using DS.ScriptableObjects;
-
+using UnityEngine.Events;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -17,13 +15,11 @@ public class DialogueManager : MonoBehaviour
     [field: SerializeField] public GameObject ContinueButton { get; private set; }
     [field: SerializeField] public GameObject[] ChoiceButtons { get; private set; }
     [field: SerializeField] public float TypingSpeed { get; private set; }
-
+    [field: SerializeField] public SerializableDictionary<string, UnityEvent> DialogueEvents { get; set; }
     public bool IsTyping { get; private set; }
 
     private DSDialogueSO currentDialogue = null;
     private bool isLastDialogue = false;
-
-    private object key = new object();
 
     private void Awake()
     {
@@ -112,8 +108,6 @@ public class DialogueManager : MonoBehaviour
                 }
             }
 
-            //continueButton.SetActive(false);
-
             // 선택지 버튼 문구 설정
             for (int i = 0; i < currentDialogue.Choices.Count; ++i)
             {
@@ -135,6 +129,11 @@ public class DialogueManager : MonoBehaviour
         {
             TextDisplay.text += letter;
             yield return new WaitForSeconds(0.02f);
+        }
+
+        // 다이얼로그 출력이 끝나면 할당된 이벤트 호출
+        if (DialogueEvents.ContainsKey(currentDialogue.name)) {
+            DialogueEvents[currentDialogue.name].Invoke();
         }
 
         if (currentDialogue.DialogueType == DSDialogueType.SingleChoice)

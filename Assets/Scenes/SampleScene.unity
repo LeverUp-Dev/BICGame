@@ -1943,6 +1943,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 444148491}
+  - component: {fileID: 444148494}
   - component: {fileID: 444148490}
   - component: {fileID: 444148489}
   - component: {fileID: 444148492}
@@ -2041,6 +2042,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &444148494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 444148488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e752eab187d6bd4d9842cec7db6f35a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &445786613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3319,7 +3332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c15650d09598943b6cdb5742cb71e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <RatioOfPeace>k__BackingField: 30
+  <RatioOfPeace>k__BackingField: 40
 --- !u!114 &807652654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3334,11 +3347,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   dialogueContainer: {fileID: 11400000, guid: ea29db3748d74e444be34ef7c0c71e2d, type: 2}
-  dialogueGroup: {fileID: 11400000, guid: 1629965f6d2e60c4ea35207b2c6f64d2, type: 2}
-  dialogue: {fileID: 11400000, guid: 8e271754b3ee91948995e1f664c5558d, type: 2}
+  dialogueGroup: {fileID: 11400000, guid: cd5e7d5e6a8c09a47a0585fb75b0daed, type: 2}
+  dialogue: {fileID: 11400000, guid: 5a846b50c643deb4ea6b01906a4a773d, type: 2}
   groupedDialogues: 1
   startingDialoguesOnly: 1
-  selectedDialogueGroupIndex: 0
+  selectedDialogueGroupIndex: 1
   selectedDialogueIndex: 0
 --- !u!1 &831258779
 GameObject:
@@ -7876,6 +7889,24 @@ MonoBehaviour:
   - {fileID: 1197879425}
   - {fileID: 1777863194}
   <TypingSpeed>k__BackingField: 0.04
+  <DialogueEvents>k__BackingField:
+    list:
+    - Key: "\uB3C5\uD654\uC0B4\uD568\uC815\uC870\uC6B0"
+      Value:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 444148494}
+            m_TargetAssemblyTypeName: Hypocrites.Player.Player, Assembly-CSharp
+            m_MethodName: Dealt
+            m_Mode: 3
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 33
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!4 &1699598408
 Transform:
   m_ObjectHideFlags: 0

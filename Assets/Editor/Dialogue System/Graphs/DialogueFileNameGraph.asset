@@ -13,73 +13,34 @@ MonoBehaviour:
   m_Name: DialogueFileNameGraph
   m_EditorClassIdentifier: 
   <FileName>k__BackingField: DialogueFileName
-  <Groups>k__BackingField:
-  - <ID>k__BackingField: 7d85d888-b09b-4517-9edf-306732deb00d
-    <Name>k__BackingField: "\uD14C\uC2A4\uD2B8\uADF8\uB8F9"
-    <Position>k__BackingField: {x: -101, y: 71}
-  - <ID>k__BackingField: 77c65e82-ce48-4a2c-8873-93c77da176a4
-    <Name>k__BackingField: OtherGroup
-    <Position>k__BackingField: {x: 748.99994, y: 112.99998}
+  <Groups>k__BackingField: []
   <Nodes>k__BackingField:
-  - <ID>k__BackingField: 45f9ace6-4692-42f6-a394-ac21520a7567
-    <Name>k__BackingField: "\uD14C\uC2A4\uD2B82"
-    <Text>k__BackingField: testtest
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 7d85d888-b09b-4517-9edf-306732deb00d
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 300, y: 132}
-  - <ID>k__BackingField: f3b3fae4-d900-4910-bfbd-a3ef462dafaf
-    <Name>k__BackingField: "\uD14C\uC2A4\uD2B83"
-    <Text>k__BackingField: testtesttest
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 7d85d888-b09b-4517-9edf-306732deb00d
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 300, y: 347}
-  - <ID>k__BackingField: 3fd66662-d21d-4dff-9fc8-0de78bee2c12
-    <Name>k__BackingField: "\uD14C\uC2A4\uD2B81"
-    <Text>k__BackingField: test
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: New Choice
-      <NodeID>k__BackingField: 45f9ace6-4692-42f6-a394-ac21520a7567
-    - <Text>k__BackingField: New Choice
-      <NodeID>k__BackingField: f3b3fae4-d900-4910-bfbd-a3ef462dafaf
-    <GroupID>k__BackingField: 7d85d888-b09b-4517-9edf-306732deb00d
-    <DialogueType>k__BackingField: 1
-    <Position>k__BackingField: {x: -76, y: 228}
-  - <ID>k__BackingField: a46271a3-4566-46aa-a76a-d5e2aabc171e
-    <Name>k__BackingField: other1
+  - <ID>k__BackingField: f32009fa-39a1-4094-b56c-b946bf94aa67
+    <Name>k__BackingField: DialogueName
     <Text>k__BackingField: Dialogue text
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: c70ebba3-767b-41cb-b668-d219599fff21
-    <GroupID>k__BackingField: 77c65e82-ce48-4a2c-8873-93c77da176a4
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 774, y: 172}
-  - <ID>k__BackingField: c70ebba3-767b-41cb-b668-d219599fff21
-    <Name>k__BackingField: other2
-    <Text>k__BackingField: Dialogue text
+    <Event>k__BackingField:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: Hypocrites.Player.Player, Assembly-CSharp
+          m_MethodName: Dealt
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 10
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     <Choices>k__BackingField:
     - <Text>k__BackingField: Next Dialogue
       <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: 77c65e82-ce48-4a2c-8873-93c77da176a4
+    <GroupID>k__BackingField: 
     <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1088, y: 172}
-  <OldGroupNames>k__BackingField:
-  - "\uD14C\uC2A4\uD2B8\uADF8\uB8F9"
-  - OtherGroup
-  <OldUngroupedNodeNames>k__BackingField: []
+    <Position>k__BackingField: {x: 334, y: 105}
+  <OldGroupNames>k__BackingField: []
+  <OldUngroupedNodeNames>k__BackingField:
+  - DialogueName
   <OldGroupedNodeNames>k__BackingField:
-    list:
-    - Key: "\uD14C\uC2A4\uD2B8\uADF8\uB8F9"
-      Value:
-      - "\uD14C\uC2A4\uD2B82"
-      - "\uD14C\uC2A4\uD2B83"
-      - "\uD14C\uC2A4\uD2B81"
-    - Key: OtherGroup
-      Value:
-      - other1
-      - other2
+    list: []
