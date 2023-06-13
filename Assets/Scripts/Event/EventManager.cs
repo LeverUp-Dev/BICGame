@@ -7,6 +7,7 @@ namespace Hypocrites.Event {
     using DB.Data;
     using Defines;
     using DB;
+    using Player;
 
     [RequireComponent(typeof(DSDialogue))]
 
@@ -39,6 +40,8 @@ namespace Hypocrites.Event {
                 return false;
             }
         }
+
+        Player player;
 
         /* Inspector Values */
         [field: SerializeField] public int RatioOfPeace { get; private set; }
@@ -81,6 +84,8 @@ namespace Hypocrites.Event {
 
             // 적 조우까지 남은 횟수 초기화
             encounterCount = EnemyEncounterTime;
+
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
 
         #region 랜덤 이벤트 관련 메소드
@@ -144,7 +149,7 @@ namespace Hypocrites.Event {
         #region 전투 이벤트 관련 메소드
         public void Encounter(EnemyData enemy)
         {
-            Debug.Log($"{enemy.Name}을(를) 조우했다!");
+            Debug.Log($"{player.status.Name}은(는) {enemy.Name}을(를) 조우했다!");
         }
         #endregion
     }
