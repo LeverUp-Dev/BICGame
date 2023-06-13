@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Hypocrites.Player
+namespace Hypocrites.Defines
 {
-    public class PlayerConstants
+    public class BeingConstants
     {
         public const int MAX_STAT_HEALTH = 100;
         public const int MAX_STAT_MANA = 100;
@@ -19,7 +15,5 @@ namespace Hypocrites.Player
         public const int INIT_STAT_INTELLIGENCE = 10;
         public const int INIT_STAT_VITALITY = 10;
         public const int INIT_STAT_LUCK = 5;
-
-        public const int TEMP_STAT_LUCK = 10;
     }
 }

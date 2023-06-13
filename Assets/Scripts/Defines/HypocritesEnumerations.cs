@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Hypocrites.Enumerations
+namespace Hypocrites.Defines
 {
     public enum Directions
     {

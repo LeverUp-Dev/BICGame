@@ -1,4 +1,4 @@
-using Hypocrites.Enumerations;
+using Hypocrites.Defines;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

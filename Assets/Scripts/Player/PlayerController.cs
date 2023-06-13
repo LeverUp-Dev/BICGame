@@ -1,5 +1,3 @@
-using Hypocrites.Enumerations;
-using Hypocrites.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,6 +9,9 @@ using UnityEngine.Rendering;
 
 namespace Hypocrites.Player
 {
+    using Defines;
+    using Event;
+
     [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
     {
@@ -128,7 +129,7 @@ namespace Hypocrites.Player
 
                 targetGridPos += movement;
                 
-                EventManager.Instance.Roll(player.Luck);
+                EventManager.Instance.Roll(player.status.Luck);
             }
         }
 

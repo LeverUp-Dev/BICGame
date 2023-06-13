@@ -1,0 +1,95 @@
+{
+	"items":
+	[
+		{
+			"name": "메르바 더블초코쿠키",
+			"health": 100,
+			"mana": 100,
+			"strength": 100,
+			"dexterity": 100,
+			"intelligence": 100,
+			"vitality": 100,
+			"luck": 100
+		},
+		{
+			"name": "저스트 더 펀 파트: 와플 콘",
+			"health": 100,
+			"mana": 100,
+			"strength": 10,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 10,
+			"luck": 10
+		},
+		{
+			"name": "카프리썬: 오렌지망고",
+			"health": 100,
+			"mana": 100,
+			"strength": 10,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 15,
+			"luck": 12
+		},
+		{
+			"name": "카프리썬: 사파리",
+			"health": 100,
+			"mana": 100,
+			"strength": 12,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 10,
+			"luck": 10
+		},
+		{
+			"name": "빙그레 요구르트",
+			"health": 100,
+			"mana": 100,
+			"strength": 20,
+			"dexterity": 20,
+			"intelligence": 20,
+			"vitality": 20,
+			"luck": 20
+		},
+		{
+			"name": "오감자",
+			"health": 100,
+			"mana": 100,
+			"strength": 13,
+			"dexterity": 31,
+			"intelligence": 13,
+			"vitality": 31,
+			"luck": 13
+		},
+		{
+			"name": "핑퐁",
+			"health": 100,
+			"mana": 100,
+			"strength": 0,
+			"dexterity": 100,
+			"intelligence": 0,
+			"vitality": 100,
+			"luck": 0
+		},
+		{
+			"name": "그램",
+			"health": 11,
+			"mana": 11,
+			"strength": 11,
+			"dexterity": 11,
+			"intelligence": 1,
+			"vitality": 1,
+			"luck": 11
+		},
+		{
+			"name": "일일일일일일백",
+			"health": 1,
+			"mana": 1,
+			"strength": 1,
+			"dexterity": 1,
+			"intelligence": 1,
+			"vitality": 1,
+			"luck": 100
+		}
+	]
+}
