@@ -29,8 +29,6 @@ namespace Hypocrites.Player
         Vector3 targetRotation;
 
         Player player;
-
-        public float length;
         GameObject nearObject;
 
         private void Awake()
