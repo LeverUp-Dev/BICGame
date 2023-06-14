@@ -131,3 +131,30 @@ namespace Hypocrites.Player
         }
     }
 }
+
+        /*
+        private void CharacterRotation()
+        {
+            float elapsedTime = 0.0f;
+            float _yRotation = 0; //= Input.GetAxisRaw("Horizontal");
+            if(Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Quaternion currentRotation = this.transform.rotation;
+                _yRotation += 90.0f;
+                Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f);
+                myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
+
+                while (elapsedTime < rotateTime)
+                {
+                    myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(Vector3.Lerp(currentRotation, _yRotation, elapsedTime / rotateTime)));
+
+                    elapsedTime += Time.deltaTime;
+                    yield return null;
+                }
+
+            }
+            else if(Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Vector3 _characterRotationY = new Vector3(0f, -1f, 0f);
+                myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
+            }*/
