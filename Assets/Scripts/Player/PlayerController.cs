@@ -29,7 +29,6 @@ namespace Hypocrites.Player
         Player player;
 
         private float length = 0.99f;
-        GameObject nearObject;
 
         private void Awake()
         {
@@ -135,8 +134,8 @@ namespace Hypocrites.Player
 
         void OnTriggerStay(Collider other)
         {
+            GameObject nearObject = other.gameObject;
             if (other.tag == "Fog")
-                nearObject = other.gameObject;
             Destroy(nearObject);
         }
     }
