@@ -11,10 +11,6 @@ namespace Hypocrites.Player
 {
     using Defines;
     using Event;
-    using Hypocrites.Grid;
-    using System.Runtime.CompilerServices;
-    using Unity.VisualScripting;
-    using UnityEngine.UIElements;
 
     [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
@@ -22,15 +18,17 @@ namespace Hypocrites.Player
         public bool smoothTransition = false;
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
+        public LayerMask layermask;
         public float transitionMegnification = 2;
 
+        private bool isBlock;
         Vector3 targetGridPos;
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
         Player player;
 
-        public float length;
+        private float length = 0.99f;
         GameObject nearObject;
 
         private void Awake()
@@ -45,7 +43,19 @@ namespace Hypocrites.Player
 
         private void FixedUpdate()
         {
+            isBlock = !Physics.Raycast(targetGridPos, -transform.right, length, layermask)
+                && !Physics.Raycast(targetGridPos, transform.right, length, layermask)
+                && !Physics.Raycast(targetGridPos, -transform.forward, length, layermask)
+                && !Physics.Raycast(targetGridPos, transform.forward, length, layermask);
+
+            if (Physics.Raycast(targetGridPos, -transform.right, out RaycastHit hit1, length, layermask))
+            {
+                Debug.Log(hit1.transform.name);
+            }
+
             MovePlayer();
+
+            Debug.DrawRay(targetGridPos, transform.forward * length, Color.red);
         }
 
         void MovePlayer()
@@ -60,7 +70,7 @@ namespace Hypocrites.Player
             if (!smoothTransition) transform.rotation = Quaternion.Euler(targetRotation);
             else transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionRotationSpeed);
 
-            if (CGrid.Instance.GetNodeFromWorldPosition(targetGridPos).Walkable)
+            if (isBlock)
             {
                 Vector3 targetPosition = targetGridPos;
                 prevTargetGridPos = targetGridPos;
