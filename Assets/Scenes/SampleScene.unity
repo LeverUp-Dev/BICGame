@@ -1987,12 +1987,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTransition: 1
-  transitionSpeed: 20
+  transitionSpeed: 10
   transitionRotationSpeed: 500
-  layermask:
-    serializedVersion: 2
-    m_Bits: 64
   transitionMegnification: 1
+  layer:
+    serializedVersion: 2
+    m_Bits: 1088
+  length: 0.5
 --- !u!4 &444148491
 Transform:
   m_ObjectHideFlags: 0
@@ -2021,7 +2022,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 444148488}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 1.7
   m_Direction: 1
@@ -9502,10 +9503,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f63d87989721a9b41a67e7c579530d31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Visible>k__BackingField: 0
+  <Visible>k__BackingField: 1
   <UnwalkableMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 1088
+    m_Bits: 1024
   <MaxMapWidth>k__BackingField: 120
   <MaxMapHeight>k__BackingField: 120
   <GridNodeDiameter>k__BackingField: 1
