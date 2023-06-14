@@ -13,6 +13,7 @@ namespace Hypocrites.Player
     using Event;
 
     [RequireComponent(typeof(Player))]
+
     public class PlayerController : MonoBehaviour
     {
         public bool smoothTransition = false;
@@ -28,7 +29,12 @@ namespace Hypocrites.Player
 
         Player player;
 
+<<<<<<< Updated upstream
         private float length = 0.99f;
+=======
+        public float length;
+        GameObject nearObject;
+>>>>>>> Stashed changes
 
         private void Awake()
         {
