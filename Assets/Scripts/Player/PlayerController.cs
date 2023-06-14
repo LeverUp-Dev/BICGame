@@ -29,12 +29,8 @@ namespace Hypocrites.Player
 
         Player player;
 
-<<<<<<< Updated upstream
-        private float length = 0.99f;
-=======
         public float length;
         GameObject nearObject;
->>>>>>> Stashed changes
 
         private void Awake()
         {
