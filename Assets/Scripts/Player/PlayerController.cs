@@ -24,6 +24,7 @@ namespace Hypocrites.Player
         public float transitionRotationSpeed = 500f;
         public float transitionMegnification = 2;
 
+
         Vector3 targetGridPos;
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
