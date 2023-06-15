@@ -23,14 +23,13 @@ namespace Hypocrites.Player
         public float transitionMegnification = 2;
 
         private bool isBlock;
-        Vector3 targetGridPos;
+        Vector3 targetGridPos; //À§Ä¡ °ª
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
         Player player;
 
         public float length;
-        GameObject nearObject;
 
         private void Awake()
         {
