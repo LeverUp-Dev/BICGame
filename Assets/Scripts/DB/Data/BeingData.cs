@@ -42,7 +42,7 @@ namespace Hypocrites.DB.Data
         }
 
         /// <summary>
-        /// BeingSave(Json 파일 입출력용 클래스)의 정보 복사
+        /// BeingSave(Json 파일 입출력용 클래스)의 정보를 복사한다
         /// </summary>
         /// <param name="save">설정할 BeingSave</param>
         void LoadSave(BeingSave save)
@@ -60,7 +60,7 @@ namespace Hypocrites.DB.Data
         }
         
         /// <summary>
-        /// 체력 감소
+        /// 체력을 감소시킨다
         /// </summary>
         /// <param name="damage">damage만큼 체력 감소</param>
         /// <returns>체력이 0 이하로 떨어지면 false, 아니면 true</returns>

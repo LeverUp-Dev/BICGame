@@ -1,0 +1,49 @@
+{
+	"items":
+	[
+		{
+			"name": "Player",
+			"health": 100,
+			"mana": 100,
+			"strength": 10,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 10,
+			"luck": 10,
+			"isMember": true
+		},
+		{
+			"name": "김수한무",
+			"health": 100,
+			"mana": 100,
+			"strength": 10,
+			"dexterity": 10,
+			"intelligence": 30,
+			"vitality": 10,
+			"luck": 10,
+			"isMember": false
+		},
+		{
+			"name": "갑을병",
+			"health": 100,
+			"mana": 100,
+			"strength": 30,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 10,
+			"luck": 10,
+			"isMember": false
+		},
+		{
+			"name": "그레타 가르보",
+			"health": 100,
+			"mana": 100,
+			"strength": 10,
+			"dexterity": 10,
+			"intelligence": 10,
+			"vitality": 10,
+			"luck": 30,
+			"isMember": false
+		}
+	]
+}
