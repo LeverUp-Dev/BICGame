@@ -10825,7 +10825,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 287904143}
         m_TargetAssemblyTypeName: Hypocrites.UI.StatusWindow.StatusWindowUI, Assembly-CSharp
-        m_MethodName: AddStatusPoint
+        m_MethodName: AdjustLevelUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
