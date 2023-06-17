@@ -2,18 +2,22 @@
 	"items":
 	[
 		{
-			"name": "Player",
+			"name": "김교각",
+			"level": 1,
+			"exp": 10,
 			"health": 100,
 			"mana": 100,
 			"strength": 10,
-			"dexterity": 10,
-			"intelligence": 10,
-			"vitality": 10,
-			"luck": 10,
+			"dexterity": 11,
+			"intelligence": 12,
+			"vitality": 13,
+			"luck": 14,
 			"isMember": true
 		},
 		{
 			"name": "김수한무",
+			"level": 1,
+			"exp": 0,
 			"health": 100,
 			"mana": 100,
 			"strength": 10,
@@ -25,6 +29,8 @@
 		},
 		{
 			"name": "갑을병",
+			"level": 1,
+			"exp": 0,
 			"health": 100,
 			"mana": 100,
 			"strength": 30,
@@ -36,6 +42,8 @@
 		},
 		{
 			"name": "그레타 가르보",
+			"level": 1,
+			"exp": 0,
 			"health": 100,
 			"mana": 100,
 			"strength": 10,

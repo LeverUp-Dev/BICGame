@@ -7,6 +7,8 @@ namespace Hypocrites.DB.Save
     {
         public string name;
 
+        public int level;
+
         public int health;
         public int mana;
 

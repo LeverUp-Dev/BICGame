@@ -5,7 +5,7 @@ namespace Hypocrites.DB
 {
     using DB.Save;
     using DB.Data;
-    using Inventory;
+    using UI.Inventory;
     using Utility;
 
     public class Database : MonoBehaviour

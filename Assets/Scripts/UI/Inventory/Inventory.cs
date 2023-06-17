@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hypocrites.Inventory
+namespace Hypocrites.UI.Inventory
 {
     public class Inventory : MonoBehaviour
     {
         #region Singleton
-        public static Inventory instance;
+        public static Inventory Instance { get; private set; }
 
         private void Awake()
         {
-            if (instance != null)
-            {
+            if (Instance == null)
+                Instance = this;
+            else
                 Destroy(gameObject);
-                return;
-            }
 
-            instance = this;
+            // ¾À ÀüÈ¯ ½Ã¿¡ ½Ì±ÛÅæ °´Ã¼°¡ ÆÄ±«µÇÁö ¾Êµµ·Ï À¯Áö
+            DontDestroyOnLoad(gameObject);
         }
         #endregion
 

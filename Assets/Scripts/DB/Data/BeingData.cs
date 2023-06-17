@@ -8,6 +8,7 @@ namespace Hypocrites.DB.Data
     public class BeingData
     {
         public string Name { get; private set; }
+        public int Level { get; private set; }
 
         public int Health { get; private set;}
         public int Mana { get; private set;}
@@ -23,6 +24,7 @@ namespace Hypocrites.DB.Data
             BeingSave save = new BeingSave();
 
             save.name = "";
+            save.level = 1;
 
             save.health = BeingConstants.MAX_STAT_HEALTH;
             save.mana = BeingConstants.MAX_STAT_MANA;
@@ -48,6 +50,7 @@ namespace Hypocrites.DB.Data
         void LoadSave(BeingSave save)
         {
             Name = save.name;
+            Level = save.level;
 
             Health = save.health;
             Mana = save.mana;

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hypocrites.Inventory
+namespace Hypocrites.UI.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
@@ -21,7 +21,7 @@ namespace Hypocrites.Inventory
 
         private void Start()
         {
-            inventory = Inventory.instance;
+            inventory = Inventory.Instance;
             tabImages = tabImageHolder.GetComponentsInChildren<Image>();
             slots = slotHolder.GetComponentsInChildren<Slot>();
             inventory.onSlotCountChange += SlotChange;
@@ -29,6 +29,15 @@ namespace Hypocrites.Inventory
             inventory.onChangeTab += ChangeTabUI;
             InventoryPanel.SetActive(isActive);
             inventory.SlotCount = 4;
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                isActive = !isActive;
+                InventoryPanel.SetActive(isActive);
+            }
         }
 
         private void SlotChange(int value)
@@ -74,15 +83,6 @@ namespace Hypocrites.Inventory
         public void AddSlot()
         {
             ++inventory.SlotCount;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                isActive = !isActive;
-                InventoryPanel.SetActive(isActive);
-            }
         }
     }
 }

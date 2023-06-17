@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Hypocrites.Inventory
+namespace Hypocrites.UI.Inventory
 {
     public class Slot : MonoBehaviour, IPointerUpHandler
     {
@@ -27,7 +27,7 @@ namespace Hypocrites.Inventory
             bool isUse = item.Use();
             if (isUse)
             {
-                Inventory.instance.RemoveItem(item.itemType, slotNum);
+                Inventory.Instance.RemoveItem(item.itemType, slotNum);
             }
         }
     }

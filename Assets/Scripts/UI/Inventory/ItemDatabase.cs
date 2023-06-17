@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Hypocrites.Inventory
+namespace Hypocrites.UI.Inventory
 {
     public class ItemDatabase : MonoBehaviour
     {
