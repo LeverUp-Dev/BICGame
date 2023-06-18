@@ -1946,9 +1946,9 @@ GameObject:
   - component: {fileID: 444148494}
   - component: {fileID: 444148490}
   - component: {fileID: 444148489}
+  - component: {fileID: 444148495}
   - component: {fileID: 444148492}
   - component: {fileID: 444148493}
-  - component: {fileID: 444148495}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1986,7 +1986,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTransition: 1
-  transitionSpeed: 20
+  transitionSpeed: 10
   transitionRotationSpeed: 500
   transitionMegnification: 1
 --- !u!4 &444148491
@@ -2076,7 +2076,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: PC
   m_DefaultActionMap: playerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
