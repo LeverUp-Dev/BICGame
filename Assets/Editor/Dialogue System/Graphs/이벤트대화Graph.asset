@@ -16,13 +16,13 @@ MonoBehaviour:
   <Groups>k__BackingField:
   - <ID>k__BackingField: b45a4bb5-7ca9-43b1-ac40-5fab07af139f
     <Name>k__BackingField: "\uAE0D\uC815\uC801\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: -36.999916, y: 39.000004}
+    <Position>k__BackingField: {x: -37, y: 39}
   - <ID>k__BackingField: 9364e78d-b22e-467b-b243-7e144d7871b8
     <Name>k__BackingField: "\uBD80\uC815\uC801\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: -40.999977, y: 420.00012}
+    <Position>k__BackingField: {x: -41, y: 420}
   - <ID>k__BackingField: db700d4b-b277-411b-8552-c5df541e5a9c
     <Name>k__BackingField: "\uB3D9\uB8CC\uC601\uC785\uC774\uBCA4\uD2B8"
-    <Position>k__BackingField: {x: 1317, y: 427.00003}
+    <Position>k__BackingField: {x: 1317, y: 427}
   <Nodes>k__BackingField:
   - <ID>k__BackingField: b973ee3c-00fc-471b-add7-48d7e312ced1
     <Name>k__BackingField: "\uD669\uAE08\uBCF4\uBB3C\uC0C1\uC790\uC870\uC0AC"
@@ -168,34 +168,6 @@ MonoBehaviour:
     <GroupID>k__BackingField: db700d4b-b277-411b-8552-c5df541e5a9c
     <DialogueType>k__BackingField: 1
     <Position>k__BackingField: {x: 2535, y: 559}
-  - <ID>k__BackingField: 072bec20-874e-4109-9586-7ab3e749e0d4
-    <Name>k__BackingField: "\uAC11\uC744\uBCD1"
-    <Text>k__BackingField: "\uB2F9\uC2E0\uC740 \uB9DB\uB3D9\uC0B0\uC744 \uBA39\uACE0
-      \uC788\uB294 \uAC11\uC744\uBCD1\uC744 \uBC1C\uACAC\uD558\uC600\uB2E4."
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 0266d2e0-3fb9-41bb-88a3-d1988f6f3c5d
-    <GroupID>k__BackingField: db700d4b-b277-411b-8552-c5df541e5a9c
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1342, y: 813}
-  - <ID>k__BackingField: 0266d2e0-3fb9-41bb-88a3-d1988f6f3c5d
-    <Name>k__BackingField: "\uAC11\uC744\uBCD1\uBC1C\uACAC\uB300\uD6541"
-    <Text>k__BackingField: "\uB9DB\uB3D9\uC0B0"
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 8f52cf57-e39e-42c8-8cc0-f2711f0f2bec
-    <GroupID>k__BackingField: db700d4b-b277-411b-8552-c5df541e5a9c
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 1730, y: 813}
-  - <ID>k__BackingField: 8f52cf57-e39e-42c8-8cc0-f2711f0f2bec
-    <Name>k__BackingField: "\uAC11\uC744\uBCD1\uBC1C\uACAC\uACB0\uACFC"
-    <Text>k__BackingField: "\uAC11\uC744\uBCD1\uC774 \uD569\uB958\uD569\uB2C8\uB2E4."
-    <Choices>k__BackingField:
-    - <Text>k__BackingField: Next Dialogue
-      <NodeID>k__BackingField: 
-    <GroupID>k__BackingField: db700d4b-b277-411b-8552-c5df541e5a9c
-    <DialogueType>k__BackingField: 0
-    <Position>k__BackingField: {x: 2037, y: 813}
   <OldGroupNames>k__BackingField:
   - "\uAE0D\uC815\uC801\uC774\uBCA4\uD2B8"
   - "\uBD80\uC815\uC801\uC774\uBCA4\uD2B8"
@@ -219,9 +191,6 @@ MonoBehaviour:
       - "\uAE40\uC218\uD55C\uBB34\uBC1C\uACAC\uB300\uD6541"
       - "\uAE40\uC218\uD55C\uBB34"
       - "\uAE40\uC218\uD55C\uBB34\uBC1C\uACAC\uB300\uD6543"
-      - "\uAC11\uC744\uBCD1"
-      - "\uAC11\uC744\uBCD1\uBC1C\uACAC\uB300\uD6541"
-      - "\uAC11\uC744\uBCD1\uBC1C\uACAC\uACB0\uACFC"
     - Key: "\uAE0D\uC815\uC801\uC774\uBCA4\uD2B8"
       Value:
       - "\uB354\uBE14\uCD08\uCF54\uCFE0\uD0A4\uACB0\uACFC"
