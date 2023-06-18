@@ -9131,7 +9131,7 @@ MonoBehaviour:
   fogPrefab: {fileID: 5915736683518750580, guid: fc7c3f0ccadc29b43a49965780a87649, type: 3}
   miniMapFogParent: {fileID: 408245533}
   fogHeight: 40
-  howRemoveFog: 1
+  sightDistance: 3
 --- !u!1001 &1579266964
 PrefabInstance:
   m_ObjectHideFlags: 0

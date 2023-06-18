@@ -11,7 +11,7 @@ namespace Hypocrites.MiniMap
         public GameObject fogPrefab;
         public Transform miniMapFogParent;
         public int fogHeight;
-        public int howRemoveFog;
+        public int sightDistance;
         private static GameObject[,] fogGrid;
 
         void Awake()
@@ -33,28 +33,14 @@ namespace Hypocrites.MiniMap
         
         public void RemoveFog(CNode PlayerNode)
         {
-            Destroy(fogGrid[PlayerNode.GridX, PlayerNode.GridY]);
-            for (int i = 1; i <= howRemoveFog; i++)
+            int startX = PlayerNode.GridX - sightDistance;
+            int startY = PlayerNode.GridY - sightDistance;
+
+            for (int i = 0; i < sightDistance * 2 + 1; i++)
             {
-                Destroy(fogGrid[PlayerNode.GridX + i, PlayerNode.GridY + i]);
-                for (int j = 1; j <= i * 2 - 1; j++)
+                for (int j = 0; j < sightDistance * 2 + 1; j++)
                 {
-                    Destroy(fogGrid[(PlayerNode.GridX - i) + j, PlayerNode.GridY + i]);
-                }
-                Destroy(fogGrid[PlayerNode.GridX - i, PlayerNode.GridY + i]);
-                for (int j = 1; j <= i * 2 - 1; j++)
-                {
-                    Destroy(fogGrid[PlayerNode.GridX - i, (PlayerNode.GridY - i) + j]);
-                }
-                Destroy(fogGrid[PlayerNode.GridX - i, PlayerNode.GridY - i]);
-                for (int j = 1; j <= i * 2 - 1; j++)
-                {
-                    Destroy(fogGrid[(PlayerNode.GridX - i) + j, PlayerNode.GridY - i]);
-                }
-                Destroy(fogGrid[PlayerNode.GridX + i, PlayerNode.GridY - i]);
-                for (int j = 1; j <= i * 2 - 1; j++)
-                {
-                    Destroy(fogGrid[PlayerNode.GridX + i, (PlayerNode.GridY - i) + j]);
+                    Destroy(fogGrid[startX + j, startY + i]);
                 }
             }
         }
