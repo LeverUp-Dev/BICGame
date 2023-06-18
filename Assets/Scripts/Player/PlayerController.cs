@@ -12,6 +12,7 @@ namespace Hypocrites.Player
     using Defines;
     using Event;
     using Hypocrites.Grid;
+    using Hypocrites.MiniMap;
     using System.Runtime.CompilerServices;
     using Unity.VisualScripting;
     using UnityEngine.UIElements;
@@ -23,6 +24,8 @@ namespace Hypocrites.Player
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
         public float transitionMegnification = 2;
+        [SerializeField]
+        Minimap miniMap;
 
 
         Vector3 targetGridPos;
@@ -119,7 +122,7 @@ namespace Hypocrites.Player
                 
                 EventManager.Instance.Roll(player.Status.Luck);
 
-                MiniMap.Minimap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+                miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
             }
         }
     }
