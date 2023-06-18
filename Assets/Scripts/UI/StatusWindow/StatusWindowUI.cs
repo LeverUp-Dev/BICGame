@@ -54,15 +54,48 @@ namespace Hypocrites.UI.StatusWindow
             applyButton.interactable = false;
             applyButton.onClick.AddListener(AdjustStatusPoint);
 
-            // 플레이어 상태 정보 설정
+            
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
+            /* 플레이어 상태 변화 콜백 설정 */
+            player.onHpChanged += SetHpText;
+
+            ReflectPlayerStatus();
+        }
+
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                isActive = !isActive;
+                statusWindowPanel.SetActive(isActive);
+
+                CurStatusPoint = maxStatusPoint;
+
+                if (isActive)
+                {
+                    if (maxStatusPoint > 0)
+                        ActivateUpButtons();
+
+                    ReflectPlayerStatus();
+                }
+                else
+                {
+                    for (int i = 0; i < statuses.Length; ++i)
+                        statuses[i].CancelStatusPoint();
+                }
+            }
+        }
+
+        public void ReflectPlayerStatus()
+        {
+            /* 플레이어 상태 정보 설정 */
             playerNameText.text = player.Status.Name;
 
             SetLevelText(player.Status.Level);
             SetExpText(100, player.Status.Exp);
             SetHpText(BeingConstants.MAX_STAT_HEALTH, player.Status.Health);
-            SetHpText(BeingConstants.MAX_STAT_MANA, player.Status.Mana);
+            SetMpText(BeingConstants.MAX_STAT_MANA, player.Status.Mana);
 
             for (int i = 0; i < statuses.Length; ++i)
             {
@@ -92,48 +125,33 @@ namespace Hypocrites.UI.StatusWindow
             }
         }
 
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                isActive = !isActive;
-                statusWindowPanel.SetActive(isActive);
-
-                CurStatusPoint = maxStatusPoint;
-
-                if (!isActive)
-                {
-                    for (int i = 0; i < statuses.Length; ++i)
-                        statuses[i].CancelStatusPoint();
-                }
-                else if (maxStatusPoint > 0)
-                {
-                    ActivateUpButtons();
-                }
-            }
-        }
-
-        #region 능력치 관련 메소드
+        #region 상태 변화 콜백 메소드
         public void SetLevelText(int level)
         {
-            levelText.text = "Lv." + level;
+            if (isActive)
+                levelText.text = "Lv." + level;
         }
 
         public void SetExpText(int max, int cur)
         {
-            ExpText.text = "EXP : " + cur + "/" + max;
+            if (isActive)
+                ExpText.text = "EXP : " + cur + "/" + max;
         }
 
         public void SetHpText(int max, int cur)
         {
-            HpText.text = "HP : " + cur + "/" + max;
+            if (isActive)
+                HpText.text = "HP : " + cur + "/" + max;
         }
 
         public void SetMpText(int max, int cur)
         {
-            MpText.text = "MP : " + cur + "/" + max;
+            if (isActive)
+                MpText.text = "MP : " + cur + "/" + max;
         }
+        #endregion
 
+        #region 능력치 관련 메소드
         public void AdjustLevelUp()
         {
             // 플레이어 실제 레벨 업 반영 필요
@@ -147,9 +165,37 @@ namespace Hypocrites.UI.StatusWindow
 
         public void AdjustStatusPoint()
         {
+            // 플레이어에 수정된 Status Point 반영
             for (int i = 0; i < statuses.Length; ++i)
-                statuses[i].AdjustStatusPoint();
+            {
+                Status status = statuses[i];
+                status.AdjustStatusPoint();
+                
+                switch (status.statusType)
+                {
+                    case BeingStatusType.STRENGTH:
+                        player.Status.Strength = status.OriginStatusValue;
+                        break;
 
+                    case BeingStatusType.DEXTERITY:
+                        player.Status.Dexterity = status.OriginStatusValue;
+                        break;
+
+                    case BeingStatusType.INTELLIGENCE:
+                        player.Status.Intelligence = status.OriginStatusValue;
+                        break;
+
+                    case BeingStatusType.VITALITY:
+                        player.Status.Vitality = status.OriginStatusValue;
+                        break;
+
+                    case BeingStatusType.LUCK:
+                        player.Status.Luck = status.OriginStatusValue;
+                        break;
+                }
+            }
+
+            // 사용한 Status Point 수 반영
             maxStatusPoint = CurStatusPoint;
         }
         #endregion

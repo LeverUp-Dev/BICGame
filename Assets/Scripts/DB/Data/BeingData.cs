@@ -8,16 +8,16 @@ namespace Hypocrites.DB.Data
     public class BeingData
     {
         public string Name { get; private set; }
-        public int Level { get; private set; }
+        public int Level { get; set; }
 
         public int Health { get; private set;}
         public int Mana { get; private set;}
 
-        public int Strength { get; private set;}
-        public int Dexterity { get; private set;}
-        public int Intelligence { get; private set;}
-        public int Vitality { get; private set;}
-        public int Luck { get; private set;}
+        public int Strength { get; set;}
+        public int Dexterity { get; set;}
+        public int Intelligence { get; set;}
+        public int Vitality { get; set;}
+        public int Luck { get; set;}
 
         public BeingData()
         {

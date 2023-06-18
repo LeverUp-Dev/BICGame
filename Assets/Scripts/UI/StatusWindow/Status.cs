@@ -20,7 +20,7 @@ namespace Hypocrites
         public delegate void OnStatusDownClick();
         public OnStatusDownClick onStatusDownClick;
 
-        int originStatusValue;
+        public int OriginStatusValue { get; private set; }
         int addedStatusPoint;
         int AddedStatusPoint
         {
@@ -32,7 +32,7 @@ namespace Hypocrites
             set
             {
                 addedStatusPoint = value;
-                statusValueText.text = (originStatusValue + value).ToString();
+                statusValueText.text = (OriginStatusValue + value).ToString();
             }
         }
 
@@ -59,7 +59,7 @@ namespace Hypocrites
                     DeactivateDownButton();
             });
 
-            originStatusValue = int.Parse(statusValueText.text);
+            OriginStatusValue = int.Parse(statusValueText.text);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Hypocrites
         /// <param name="value">status 초기값</param>
         public void SetStatus(int value)
         {
-            originStatusValue = value;
+            OriginStatusValue = value;
             statusValueText.text = value.ToString();
         }
 
@@ -79,7 +79,7 @@ namespace Hypocrites
         {
             int currentStatusPoint = int.Parse(statusValueText.text);
             
-            originStatusValue = currentStatusPoint;
+            OriginStatusValue = currentStatusPoint;
             AddedStatusPoint = 0;
 
             // Up 버튼은 남은 sp에 따라 StatusWindowUI에서 처리함
@@ -88,7 +88,7 @@ namespace Hypocrites
 
         public void CancelStatusPoint()
         {
-            SetStatus(originStatusValue);
+            SetStatus(OriginStatusValue);
             AddedStatusPoint = 0;
 
             DeactivateDownButton();

@@ -14,6 +14,10 @@ namespace Hypocrites.Player
         public PlayerData Status { get; private set; }
         public List<PlayerData> Members { get; private set; }
 
+        /* 상태창 UI 콜백 */
+        public delegate void OnHpChanged(int max, int cur);
+        public OnHpChanged onHpChanged;
+
         private void Awake()
         {
             Members = new List<PlayerData>();
@@ -104,6 +108,8 @@ namespace Hypocrites.Player
         public void Dealt(int damage)
         {
             Status.Dealt(damage);
+
+            onHpChanged(100, Status.Health);
         }
     }
 }

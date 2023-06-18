@@ -4,8 +4,8 @@ namespace Hypocrites.DB.Data
 
     public class PlayerData : BeingData
     {
-        public int Exp { get; private set; }
-        public bool IsMember { get; private set; }
+        public int Exp { get; set; }
+        public bool IsMember { get; set; }
 
         public PlayerData() : base()
         {
