@@ -1,7 +1,10 @@
 using Hypocrites.Defines;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Hypocrites.Player
 {
@@ -9,12 +12,13 @@ namespace Hypocrites.Player
 
     public class PlayerInput : MonoBehaviour
     {
+
         public KeyCode forward = KeyCode.W;
         public KeyCode back = KeyCode.S;
         public KeyCode left = KeyCode.A;
         public KeyCode right = KeyCode.D;
-        public KeyCode turnLeft = KeyCode.Q;
-        public KeyCode turnRight = KeyCode.E;
+        //public KeyCode turnLeft = KeyCode.Q;
+        //public KeyCode turnRight = KeyCode.E;
         public KeyCode shift = KeyCode.LeftShift;
 
         PlayerController controller;
@@ -27,6 +31,10 @@ namespace Hypocrites.Player
             dialogueManager = DialogueManager.Instance;
         }
 
+        private void OnMovement()
+        {
+
+        }
         // Update is called once per frame
         private void Update()
         {

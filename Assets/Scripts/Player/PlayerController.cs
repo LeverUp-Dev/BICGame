@@ -11,6 +11,7 @@ namespace Hypocrites.Player
 {
     using Defines;
     using Event;
+    using Hypocrites.Grid;
 
     [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
@@ -18,17 +19,14 @@ namespace Hypocrites.Player
         public bool smoothTransition = false;
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
-        public LayerMask layermask;
         public float transitionMegnification = 2;
 
-        private bool isBlock;
         Vector3 targetGridPos;
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
         Player player;
 
-        private float length = 0.99f;
         GameObject nearObject;
 
         private void Awake()
@@ -43,19 +41,7 @@ namespace Hypocrites.Player
 
         private void FixedUpdate()
         {
-            isBlock = !Physics.Raycast(targetGridPos, -transform.right, length, layermask)
-                && !Physics.Raycast(targetGridPos, transform.right, length, layermask)
-                && !Physics.Raycast(targetGridPos, -transform.forward, length, layermask)
-                && !Physics.Raycast(targetGridPos, transform.forward, length, layermask);
-
-            if (Physics.Raycast(targetGridPos, -transform.right, out RaycastHit hit1, length, layermask))
-            {
-                Debug.Log(hit1.transform.name);
-            }
-
             MovePlayer();
-
-            Debug.DrawRay(targetGridPos, transform.forward * length, Color.red);
         }
 
         void MovePlayer()
@@ -70,7 +56,7 @@ namespace Hypocrites.Player
             if (!smoothTransition) transform.rotation = Quaternion.Euler(targetRotation);
             else transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(targetRotation), Time.deltaTime * transitionRotationSpeed);
 
-            if (isBlock)
+            if (CGrid.Instance.GetNodeFromWorldPosition(targetGridPos).Walkable)
             {
                 Vector3 targetPosition = targetGridPos;
                 prevTargetGridPos = targetGridPos;
@@ -141,30 +127,3 @@ namespace Hypocrites.Player
         }
     }
 }
-
-        /*
-        private void CharacterRotation()
-        {
-            float elapsedTime = 0.0f;
-            float _yRotation = 0; //= Input.GetAxisRaw("Horizontal");
-            if(Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                Quaternion currentRotation = this.transform.rotation;
-                _yRotation += 90.0f;
-                Vector3 _characterRotationY = new Vector3(0f, _yRotation, 0f);
-                myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
-
-                while (elapsedTime < rotateTime)
-                {
-                    myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(Vector3.Lerp(currentRotation, _yRotation, elapsedTime / rotateTime)));
-
-                    elapsedTime += Time.deltaTime;
-                    yield return null;
-                }
-
-            }
-            else if(Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                Vector3 _characterRotationY = new Vector3(0f, -1f, 0f);
-                myRigid.MoveRotation(myRigid.rotation * Quaternion.Euler(_characterRotationY));
-            }*/
