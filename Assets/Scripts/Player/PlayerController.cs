@@ -118,13 +118,9 @@ namespace Hypocrites.Player
                 targetGridPos += movement;
                 
                 EventManager.Instance.Roll(player.Status.Luck);
-            }
-        }
 
-        void OnTriggerStay(Collider other)
-        {
-            if (other.tag == "Fog")
-                Destroy(other.gameObject);
+                MiniMap.Minimap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+            }
         }
     }
 }

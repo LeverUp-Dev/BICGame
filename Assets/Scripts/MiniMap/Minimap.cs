@@ -10,7 +10,7 @@ namespace Hypocrites.MiniMap
         public GameObject fogPrefab;
         public Transform miniMapFogParent;
         public int fogHeight;
-        private GameObject[,] fogGrid;
+        private static GameObject[,] fogGrid;
 
         void Awake()
         {
@@ -27,12 +27,11 @@ namespace Hypocrites.MiniMap
                     fogGrid[i, j] = fogInstance;
                 }
             }
-
         }
 
-        void RemoveFog(Vector3 playerGrid)
+        public static void RemoveFog(CNode L)
         {
-            
+            Destroy(fogGrid[L.GridY, L.GridX]);
         }
     }
 }
