@@ -18,6 +18,12 @@ namespace Hypocrites.Player
         public delegate void OnHpChanged(int max, int cur);
         public OnHpChanged onHpChanged;
 
+        /* 동료창 UI 콜백 */
+        public delegate void OnMemberJoined();
+        public OnMemberJoined onMemberJoined;
+        public delegate void OnMemberLeft(string name);
+        public OnMemberLeft onMemberLeft;
+
         private void Awake()
         {
             Members = new List<PlayerData>();
@@ -85,7 +91,7 @@ namespace Hypocrites.Player
                 Members.Add(member);
             }
 
-            Debug.Log($"동료 {name}이 합류하였습니다!");
+            onMemberJoined();
         }
 
         /// <summary>
@@ -99,6 +105,7 @@ namespace Hypocrites.Player
                 if (Members[i].Name.Equals(name))
                 {
                     Members.RemoveAt(i);
+                    onMemberLeft(name);
                     return;
                 }
             }
