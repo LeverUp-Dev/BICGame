@@ -30,7 +30,6 @@ namespace Hypocrites.Player
         Vector3 targetRotation;
 
         Player player;
-        GameObject nearObject;
 
         private void Awake()
         {
@@ -125,8 +124,7 @@ namespace Hypocrites.Player
         void OnTriggerStay(Collider other)
         {
             if (other.tag == "Fog")
-                nearObject = other.gameObject;
-            Destroy(nearObject);
+                Destroy(other.gameObject);
         }
     }
 }

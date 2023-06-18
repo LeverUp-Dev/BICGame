@@ -14,6 +14,8 @@ namespace Hypocrites.MiniMap
 
         void Awake()
         {
+            fogGrid = new GameObject[CGrid.Instance.GridYSize, CGrid.Instance.GridXSize];
+
             for (int i = 0; i < CGrid.Instance.GridYSize; i++)
             {
                 for (int j = 0; j < CGrid.Instance.GridXSize; j++)
