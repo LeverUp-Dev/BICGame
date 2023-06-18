@@ -31,30 +31,30 @@ namespace Hypocrites.MiniMap
             }
         }
         
-        public void RemoveFog(CNode L)
+        public void RemoveFog(CNode PlayerNode)
         {
-            Destroy(fogGrid[L.GridX, L.GridY]);
+            Destroy(fogGrid[PlayerNode.GridX, PlayerNode.GridY]);
             for (int i = 1; i <= howRemoveFog; i++)
             {
-                Destroy(fogGrid[L.GridX + i, L.GridY + i]);
+                Destroy(fogGrid[PlayerNode.GridX + i, PlayerNode.GridY + i]);
                 for (int j = 1; j <= i * 2 - 1; j++)
                 {
-                    Destroy(fogGrid[(L.GridX - i) + j, L.GridY + i]);
+                    Destroy(fogGrid[(PlayerNode.GridX - i) + j, PlayerNode.GridY + i]);
                 }
-                Destroy(fogGrid[L.GridX - i, L.GridY + i]);
+                Destroy(fogGrid[PlayerNode.GridX - i, PlayerNode.GridY + i]);
                 for (int j = 1; j <= i * 2 - 1; j++)
                 {
-                    Destroy(fogGrid[L.GridX - i, (L.GridY - i) + j]);
+                    Destroy(fogGrid[PlayerNode.GridX - i, (PlayerNode.GridY - i) + j]);
                 }
-                Destroy(fogGrid[L.GridX - i, L.GridY - i]);
+                Destroy(fogGrid[PlayerNode.GridX - i, PlayerNode.GridY - i]);
                 for (int j = 1; j <= i * 2 - 1; j++)
                 {
-                    Destroy(fogGrid[(L.GridX - i) + j, L.GridY - i]);
+                    Destroy(fogGrid[(PlayerNode.GridX - i) + j, PlayerNode.GridY - i]);
                 }
-                Destroy(fogGrid[L.GridX + i, L.GridY - i]);
+                Destroy(fogGrid[PlayerNode.GridX + i, PlayerNode.GridY - i]);
                 for (int j = 1; j <= i * 2 - 1; j++)
                 {
-                    Destroy(fogGrid[L.GridX + i, (L.GridY - i) + j]);
+                    Destroy(fogGrid[PlayerNode.GridX + i, (PlayerNode.GridY - i) + j]);
                 }
             }
         }
