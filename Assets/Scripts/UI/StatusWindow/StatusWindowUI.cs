@@ -54,7 +54,6 @@ namespace Hypocrites.UI.StatusWindow
             applyButton.interactable = false;
             applyButton.onClick.AddListener(AdjustStatusPoint);
 
-            
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
             /* 플레이어 상태 변화 콜백 설정 */
