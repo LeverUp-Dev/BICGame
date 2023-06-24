@@ -154,7 +154,9 @@ namespace Hypocrites.UI.StatusWindow
         public void AdjustLevelUp()
         {
             // 플레이어 실제 레벨 업 반영 필요
-            SetLevelText(int.Parse(levelText.text.Split('.')[1]) + 1);
+            int level = int.Parse(levelText.text.Split('.')[1]) + 1;
+            player.Status.Level = level;
+            SetLevelText(level);
 
             maxStatusPoint += statusPerLevel;
             CurStatusPoint = maxStatusPoint;

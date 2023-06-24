@@ -7,6 +7,7 @@ namespace Hypocrites.DB
     using DB.Data;
     using UI.Inventory;
     using Utility;
+    using Defines;
 
     public class Database : MonoBehaviour
     {
@@ -30,7 +31,7 @@ namespace Hypocrites.DB
 
             /* 적 정보 검색 */
             Enemies = new List<EnemyData>();
-            JsonSave<BeingSave> enemyJsonSave = JsonIOUtility.LoadJson<JsonSave<BeingSave>>("Assets/Data/Enemies.json");
+            JsonSave<BeingSave> enemyJsonSave = JsonIOUtility.LoadJson<JsonSave<BeingSave>>(DatabaseConstants.ENEMY_DATA_PATH);
             for (int i = 0; i < enemyJsonSave.items.Length; ++i)
             {
                 EnemyData e = new EnemyData(enemyJsonSave.items[i]);
@@ -39,12 +40,28 @@ namespace Hypocrites.DB
 
             /* 플레이어 및 동료 정보 검색 */
             Members = new List<PlayerData>();
-            JsonSave<PlayerSave> membersSave = JsonIOUtility.LoadJson<JsonSave<PlayerSave>>("Assets/Data/Members.json");
+            JsonSave<PlayerSave> membersSave = JsonIOUtility.LoadJson<JsonSave<PlayerSave>>(DatabaseConstants.MEMBER_DATA_PATH);
             for (int i = 0; i < membersSave.items.Length; i++)
             {
                 PlayerData data = new PlayerData(membersSave.items[i]);
                 Members.Add(data);
             }
+        }
+
+        public void SaveMembers()
+        {
+            JsonSave<PlayerSave> membersSave = new JsonSave<PlayerSave>();
+            membersSave.items = new PlayerSave[Members.Count];
+
+            for (int i = 0; i < Members.Count; ++i)
+            {
+                PlayerData data = Members[i];
+                PlayerSave save = new PlayerSave(data);
+
+                membersSave.items[i] = save;
+            }
+
+            JsonIOUtility.SaveJson(DatabaseConstants.MEMBER_DATA_PATH, membersSave);
         }
     }
 }

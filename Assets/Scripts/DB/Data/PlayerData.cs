@@ -8,7 +8,9 @@ namespace Hypocrites.DB.Data
     {
         public Sprite Portrait { get; private set; }
         public int Exp { get; private set; }
-        public bool IsMember { get; private set; }
+        public bool IsMember { get; set; }
+
+        public string PortraitPath { get; private set; }
 
         public PlayerData() : base()
         {
@@ -17,6 +19,7 @@ namespace Hypocrites.DB.Data
 
         public PlayerData(PlayerSave save) : base(save)
         {
+            PortraitPath = save.portraitPath;
             Portrait = Resources.Load<Sprite>(save.portraitPath);
             Exp = save.exp;
             IsMember = save.isMember;

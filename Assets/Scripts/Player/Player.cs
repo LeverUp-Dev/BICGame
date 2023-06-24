@@ -88,6 +88,7 @@ namespace Hypocrites.Player
             }
             else
             {
+                member.IsMember = true;
                 Members.Add(member);
             }
 
