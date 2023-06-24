@@ -24,6 +24,8 @@ namespace Hypocrites.UI.PartyWindow
 
         public void LoadMember(PlayerData member)
         {
+            image.sprite = member.Portrait;
+
             nameText.text = member.Name;
             levelText.text = "Lv." + member.Level;
             expText.text = "(" + member.Exp + "/100)";

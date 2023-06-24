@@ -3,6 +3,7 @@
 	[
 		{
 			"name": "김교각",
+			"portraitPath": "Party/김수한무",
 			"level": 1,
 			"exp": 10,
 			"health": 100,
@@ -16,6 +17,7 @@
 		},
 		{
 			"name": "김수한무",
+			"portraitPath": "Party/김수한무",
 			"level": 1,
 			"exp": 0,
 			"health": 100,
@@ -29,6 +31,7 @@
 		},
 		{
 			"name": "갑을병",
+			"portraitPath": "Party/김수한무",
 			"level": 1,
 			"exp": 0,
 			"health": 100,
@@ -42,6 +45,7 @@
 		},
 		{
 			"name": "그레타 가르보",
+			"portraitPath": "Party/김수한무",
 			"level": 1,
 			"exp": 0,
 			"health": 100,
