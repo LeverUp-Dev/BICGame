@@ -42,6 +42,7 @@ namespace Hypocrites.Player
         private void Start()
         {
             targetGridPos = Vector3Int.RoundToInt(transform.position);
+            miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
         }
 
         private void FixedUpdate()
