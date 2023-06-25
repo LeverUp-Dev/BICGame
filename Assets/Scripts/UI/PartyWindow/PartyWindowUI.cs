@@ -5,10 +5,13 @@ using UnityEngine;
 namespace Hypocrites.UI.PartyWindow
 {
     using DB.Data;
+    using UI.StatusWindow;
     using Player;
 
     public class PartyWindowUI : MonoBehaviour
     {
+        public StatusWindowUI statusWindow;
+
         public GameObject partyWindowPanel;
         public GameObject membersHolder;
         public GameObject memberPrefab;
@@ -66,6 +69,7 @@ namespace Hypocrites.UI.PartyWindow
                 memberObject.transform.position = position;
 
                 member = memberObject.GetComponent<Member>();
+                member.onClickMemberInfo = LoadMemberStatus;
                 member.LoadMember(memberData);
 
                 members[member] = memberObject;
@@ -94,6 +98,11 @@ namespace Hypocrites.UI.PartyWindow
             }
 
             return null;
+        }
+
+        public void LoadMemberStatus(string name)
+        {
+            statusWindow.ToggleWindow(name);
         }
     }
 }

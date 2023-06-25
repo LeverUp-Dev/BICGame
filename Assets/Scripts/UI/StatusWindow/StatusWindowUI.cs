@@ -5,6 +5,7 @@ using UnityEngine.UI;
 namespace Hypocrites.UI.StatusWindow
 {
     using Defines;
+    using DB.Data;
     using Player;
 
     public class StatusWindowUI : MonoBehaviour
@@ -24,6 +25,7 @@ namespace Hypocrites.UI.StatusWindow
         public int statusPerLevel;
 
         Player player;
+        PlayerData currentMember;
 
         bool isActive = false;
 
@@ -59,42 +61,61 @@ namespace Hypocrites.UI.StatusWindow
             /* 플레이어 상태 변화 콜백 설정 */
             player.onHpChanged += SetHpText;
 
-            ReflectPlayerStatus();
+            LoadStatus();
         }
 
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                isActive = !isActive;
-                statusWindowPanel.SetActive(isActive);
-
-                CurStatusPoint = maxStatusPoint;
-
-                if (isActive)
-                {
-                    if (maxStatusPoint > 0)
-                        ActivateUpButtons();
-
-                    ReflectPlayerStatus();
-                }
-                else
-                {
-                    for (int i = 0; i < statuses.Length; ++i)
-                        statuses[i].CancelStatusPoint();
-                }
+                ToggleWindow();
             }
         }
 
-        public void ReflectPlayerStatus()
+        public void ToggleWindow(string name = null)
         {
-            /* 플레이어 상태 정보 설정 */
-            playerNameText.text = player.Status.Name;
+            isActive = !isActive;
+            statusWindowPanel.SetActive(isActive);
 
-            SetLevelText(player.Status.Level);
-            SetExpText(100, player.Status.Exp);
-            SetHpText(BeingConstants.MAX_STAT_HEALTH, player.Status.Health);
-            SetMpText(BeingConstants.MAX_STAT_MANA, player.Status.Mana);
+            CurStatusPoint = maxStatusPoint;
+
+            if (isActive)
+            {
+                if (maxStatusPoint > 0)
+                    ActivateUpButtons();
+
+                LoadStatus(name);
+            }
+            else
+            {
+                for (int i = 0; i < statuses.Length; ++i)
+                    statuses[i].CancelStatusPoint();
+            }
+        }
+
+        public void LoadStatus(string name = null)
+        {
+            if (name == null)
+            {
+                currentMember = player.Status;
+            }
+            else
+            {
+                currentMember = player.GetMember(name);
+
+                if (currentMember == null)
+                {
+                    throw new System.Exception($"{name}은 존재하지 않는 동료입니다.");
+                }
+            }
+
+            /* 플레이어 상태 정보 설정 */
+            playerNameText.text = currentMember.Name;
+
+            SetLevelText(currentMember.Level);
+            SetExpText(100, currentMember.Exp);
+            SetHpText(BeingConstants.MAX_STAT_HEALTH, currentMember.Health);
+            SetMpText(BeingConstants.MAX_STAT_MANA, currentMember.Mana);
 
             for (int i = 0; i < statuses.Length; ++i)
             {
@@ -102,23 +123,23 @@ namespace Hypocrites.UI.StatusWindow
                 switch (status.statusType)
                 {
                     case BeingStatusType.STRENGTH:
-                        status.SetStatus(player.Status.Strength);
+                        status.SetStatus(currentMember.Strength);
                         break;
 
                     case BeingStatusType.DEXTERITY:
-                        status.SetStatus(player.Status.Dexterity);
+                        status.SetStatus(currentMember.Dexterity);
                         break;
 
                     case BeingStatusType.INTELLIGENCE:
-                        status.SetStatus(player.Status.Intelligence);
+                        status.SetStatus(currentMember.Intelligence);
                         break;
 
                     case BeingStatusType.VITALITY:
-                        status.SetStatus(player.Status.Vitality);
+                        status.SetStatus(currentMember.Vitality);
                         break;
 
                     case BeingStatusType.LUCK:
-                        status.SetStatus(player.Status.Luck);
+                        status.SetStatus(currentMember.Luck);
                         break;
                 }
             }
@@ -155,7 +176,7 @@ namespace Hypocrites.UI.StatusWindow
         {
             // 플레이어 실제 레벨 업 반영 필요
             int level = int.Parse(levelText.text.Split('.')[1]) + 1;
-            player.Status.Level = level;
+            currentMember.Level = level;
             SetLevelText(level);
 
             maxStatusPoint += statusPerLevel;
@@ -175,23 +196,23 @@ namespace Hypocrites.UI.StatusWindow
                 switch (status.statusType)
                 {
                     case BeingStatusType.STRENGTH:
-                        player.Status.Strength = status.OriginStatusValue;
+                        currentMember.Strength = status.OriginStatusValue;
                         break;
 
                     case BeingStatusType.DEXTERITY:
-                        player.Status.Dexterity = status.OriginStatusValue;
+                        currentMember.Dexterity = status.OriginStatusValue;
                         break;
 
                     case BeingStatusType.INTELLIGENCE:
-                        player.Status.Intelligence = status.OriginStatusValue;
+                        currentMember.Intelligence = status.OriginStatusValue;
                         break;
 
                     case BeingStatusType.VITALITY:
-                        player.Status.Vitality = status.OriginStatusValue;
+                        currentMember.Vitality = status.OriginStatusValue;
                         break;
 
                     case BeingStatusType.LUCK:
-                        player.Status.Luck = status.OriginStatusValue;
+                        currentMember.Luck = status.OriginStatusValue;
                         break;
                 }
             }

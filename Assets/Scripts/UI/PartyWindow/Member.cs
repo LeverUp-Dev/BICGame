@@ -7,6 +7,7 @@ using UnityEngine.UI;
 namespace Hypocrites.UI.PartyWindow
 {
     using DB.Data;
+    using UI.StatusWindow;
 
     public class Member : MonoBehaviour
     {
@@ -21,6 +22,9 @@ namespace Hypocrites.UI.PartyWindow
         public TextMeshProUGUI IntelligenceText;
         public TextMeshProUGUI VitalityText;
         public TextMeshProUGUI LuckText;
+
+        public delegate void OnClickMemberInfo(string name);
+        public OnClickMemberInfo onClickMemberInfo;
 
         public void LoadMember(PlayerData member)
         {
@@ -43,6 +47,11 @@ namespace Hypocrites.UI.PartyWindow
         public string GetMemberName()
         {
             return nameText.text;
+        }
+
+        public void LoadStatusWindow()
+        {
+            onClickMemberInfo(GetMemberName());
         }
     }
 }

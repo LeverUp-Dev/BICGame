@@ -2530,6 +2530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b9d9d2de33134d45ba4fc58fa9859ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statusWindow: {fileID: 287904143}
   partyWindowPanel: {fileID: 1316638604}
   membersHolder: {fileID: 1899775875}
   memberPrefab: {fileID: 8906421142650563435, guid: d79312de86059544994799f3426a81b6, type: 3}

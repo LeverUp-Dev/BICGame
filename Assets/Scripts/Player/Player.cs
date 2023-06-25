@@ -64,7 +64,7 @@ namespace Hypocrites.Player
         /// <returns>동료 정보, 없다면 null 반환</returns>
         public PlayerData GetMember(string name)
         {
-            for (int i = 1; i < Members.Count; ++i)
+            for (int i = 0; i < Members.Count; ++i)
             {
                 if (Members[i].Name.Equals(name))
                     return Members[i];
