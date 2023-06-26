@@ -21,6 +21,7 @@ namespace DS
         [SerializeField] private int selectedDialogueGroupIndex;
         [SerializeField] private int selectedDialogueIndex;
 
+        /*
         private void OnTriggerEnter(Collider other)
         {
             if (isTrigger)
@@ -30,8 +31,14 @@ namespace DS
                     DialogueManager.Instance.SetDialogue(dialogue);
                 }
             }
+        }*/
+        private void OnMouseDown()
+        {
+            if (isTrigger && Vector3.Distance(transform.position, Camera.main.transform.position) < 2f)
+            {
+                DialogueManager.Instance.SetDialogue(dialogue);
+            }
         }
-
         public DSDialogueContainerSO GetDialogueContainer()
         {
             return dialogueContainer;
