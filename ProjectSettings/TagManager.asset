@@ -7,6 +7,7 @@ TagManager:
   - FieldItem
   - Fog
   - Wall
+  - Click
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,7 @@ TagManager:
   - RoomPosition
   - 
   - 
-  - 
+  - Click
   - 
   - 
   - 
