@@ -6,12 +6,12 @@ namespace Hypocrites
 {
     public class ClickEvent : MonoBehaviour
     {
-        public Camera mainCamera;
-        //private RaycastHit hit;
-
-
+        //public Camera mainCamera;
+        public static bool zoomActive = false;
         private void OnMouseDown()
         {
+            if (!zoomActive) zoomActive = true;
+            //if (zoomActive)  zoomActive = false;
             Debug.Log(transform.name);
         }
     }
