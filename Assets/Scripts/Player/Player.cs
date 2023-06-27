@@ -4,19 +4,13 @@ using System.Collections.Generic;
 namespace Hypocrites.Player
 {
     using DB.Data;
-    using DB.Save;
     using Hypocrites.DB;
     using System;
-    using Utility;
 
     public class Player : MonoBehaviour
     {
         public PlayerData Status { get; private set; }
         public List<PlayerData> Members { get; private set; }
-
-        /* 상태창 UI 콜백 */
-        public delegate void OnHpChanged(int max, int cur);
-        public OnHpChanged onHpChanged;
 
         /* 동료창 UI 콜백 */
         public delegate void OnMemberJoined();
@@ -116,8 +110,11 @@ namespace Hypocrites.Player
         public void Dealt(int damage)
         {
             Status.Dealt(damage);
+        }
 
-            onHpChanged(100, Status.Health);
+        public void Heald(int healingPoint)
+        {
+            Status.Healed(healingPoint);
         }
     }
 }

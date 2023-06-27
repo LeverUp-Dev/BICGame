@@ -1,0 +1,23 @@
+{
+	"items":
+	[
+		{
+			"itemType": 0,
+			"itemName": "armor",
+			"itemImagePath": "Item/armor",
+			"itemEffectPaths": ["ItemEffects/Healing10"]
+		},
+		{
+			"itemType": 1,
+			"itemName": "amulet",
+			"itemImagePath": "Item/amulet",
+			"itemEffectPaths": ["ItemEffects/Healing30"]
+		},
+		{
+			"itemType": 2,
+			"itemName": "egg",
+			"itemImagePath": "Item/egg",
+			"itemEffectPaths": ["ItemEffects/Healing10", "ItemEffects/Healing30", "ItemEffects/Healing50"]
+		}
+	]
+}

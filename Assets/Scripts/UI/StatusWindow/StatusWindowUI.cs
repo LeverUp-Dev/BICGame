@@ -58,9 +58,6 @@ namespace Hypocrites.UI.StatusWindow
 
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
-            /* 플레이어 상태 변화 콜백 설정 */
-            player.onHpChanged += SetHpText;
-
             LoadStatus();
         }
 
@@ -95,6 +92,11 @@ namespace Hypocrites.UI.StatusWindow
 
         public void LoadStatus(string name = null)
         {
+            if (currentMember != null)
+            {
+                currentMember.onHpChanged -= SetHpText;
+            }
+
             if (name == null)
             {
                 currentMember = player.Status;
@@ -143,6 +145,9 @@ namespace Hypocrites.UI.StatusWindow
                         break;
                 }
             }
+
+            /* 플레이어 상태 변화 콜백 설정 */
+            currentMember.onHpChanged += SetHpText;
         }
 
         #region 상태 변화 콜백 메소드

@@ -72,7 +72,7 @@ namespace Hypocrites.UI.Inventory
                 slots[i].RemoveSlot();
             }
 
-            List<Item> items = inventory.GetCurrentTabItems();
+            List<ItemData> items = inventory.GetCurrentTabItems();
             for (int i = 0; i < items.Count; ++i)
             {
                 slots[i].item = items[i];

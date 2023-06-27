@@ -13,9 +13,12 @@ namespace Hypocrites.DB
     {
         public static Database Instance { get; private set; }
 
-        public List<Item> Items { get; private set; }
+        [field: SerializeField] public List<ItemData> Items { get; private set; }
         public List<EnemyData> Enemies { get; private set; }
         public List<PlayerData> Members { get; private set; }
+
+        /* Inspector Values */
+        public GameObject fieldItemPrefab;
 
         void Awake()
         {
@@ -27,7 +30,16 @@ namespace Hypocrites.DB
             DontDestroyOnLoad(gameObject);
 
             /* 아이템 정보 검색 */
-            //Items = new JsonSave<Item>();
+            Items = new List<ItemData>();
+            JsonSave<ItemSave> itemJsonSave = JsonIOUtility.LoadJson<JsonSave<ItemSave>>(DatabaseConstants.ITEM_DATA_PATH);
+            for (int i = 0; i < itemJsonSave.items.Length; ++i)
+            {
+                ItemData item = new ItemData(itemJsonSave.items[i]);
+                Items.Add(item);
+
+                GameObject go = Instantiate(fieldItemPrefab, new Vector3((i + 1) * 2, 1, 0), Quaternion.identity);
+                go.GetComponent<FieldItems>().SetItem(item);
+            }
 
             /* 적 정보 검색 */
             Enemies = new List<EnemyData>();

@@ -10,8 +10,8 @@ namespace Hypocrites.DB.Data
         public string Name { get; private set; }
         public int Level { get; set; }
 
-        public int Health { get; private set;}
-        public int Mana { get; private set;}
+        public int Health { get; set;}
+        public int Mana { get; set;}
 
         public int Strength { get; set;}
         public int Dexterity { get; set;}
@@ -61,20 +61,21 @@ namespace Hypocrites.DB.Data
             Vitality = save.vitality;
             Luck = save.luck;
         }
-        
-        /// <summary>
-        /// 체력을 감소시킨다
-        /// </summary>
-        /// <param name="damage">damage만큼 체력 감소</param>
-        /// <returns>체력이 0 이하로 떨어지면 false, 아니면 true</returns>
-        public bool Dealt(int damage)
+
+        public virtual void Dealt(int damage)
         {
             Health -= damage;
 
             if (Health < 0)
                 Health = 0;
-            
-            return Health != 0;
+        }
+
+        public virtual void Healed(int healPoint)
+        {
+            Health += healPoint;
+
+            if (Health > BeingConstants.MAX_STAT_HEALTH)
+                Health = BeingConstants.MAX_STAT_HEALTH;
         }
     }
 }

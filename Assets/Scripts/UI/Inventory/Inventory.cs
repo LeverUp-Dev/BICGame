@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Hypocrites.UI.Inventory
 {
+    using Defines;
+
     public class Inventory : MonoBehaviour
     {
         #region Singleton
@@ -30,7 +32,7 @@ namespace Hypocrites.UI.Inventory
         public OnChangeTab onChangeTab;
 
         public int curTab = 0;
-        public List<Item>[] itemTabs = new List<Item>[3] { new List<Item>(), new List<Item>(), new List<Item>() };
+        public List<ItemData>[] itemTabs = new List<ItemData>[3] { new List<ItemData>(), new List<ItemData>(), new List<ItemData>() };
 
         private int slotCount;
         public int SlotCount
@@ -43,7 +45,7 @@ namespace Hypocrites.UI.Inventory
             }
         }
 
-        public List<Item> GetCurrentTabItems()
+        public List<ItemData> GetCurrentTabItems()
         {
             return itemTabs[curTab];
         }
@@ -54,9 +56,9 @@ namespace Hypocrites.UI.Inventory
             onChangeTab(_index);
         }
 
-        public bool AddItem(Item _item)
+        public bool AddItem(ItemData _item)
         {
-            List<Item> items = itemTabs[(int)_item.itemType];
+            List<ItemData> items = itemTabs[(int)_item.ItemType];
             if (items.Count < SlotCount)
             {
                 items.Add(_item);
@@ -69,12 +71,16 @@ namespace Hypocrites.UI.Inventory
 
         public void RemoveItem(ItemType _type, int _index)
         {
-            List<Item> items = itemTabs[(int)_type];
+            List<ItemData> items = itemTabs[(int)_type];
+
+            if (items.Count <= _index)
+                return;
+
             items.RemoveAt(_index);
             onGetItem();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerEnter(Collider collision)
         {
             if (collision.CompareTag("FieldItem"))
             {

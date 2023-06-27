@@ -4,20 +4,17 @@ namespace Hypocrites.UI.Inventory
 {
     public class FieldItems : MonoBehaviour
     {
-        public Item item;
+        public ItemData item;
         public SpriteRenderer image;
 
-        public void SetItem(Item _item)
+        public void SetItem(ItemData _item)
         {
-            item.itemType = _item.itemType;
-            item.itemName = _item.itemName;
-            item.itemImage = _item.itemImage;
-            item.effs = _item.effs;
+            item = _item;
 
-            image.sprite = _item.itemImage;
+            image.sprite = _item.ItemImage;
         }
 
-        public Item GetItem()
+        public ItemData GetItem()
         {
             return item;
         }

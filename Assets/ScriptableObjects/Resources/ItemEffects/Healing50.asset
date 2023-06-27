@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 462f92023a1b79240b1a07f83aee630c, type: 3}
-  m_Name: Normal Effect
+  m_Name: Healing50
   m_EditorClassIdentifier: 
-  healingPoint: 10
+  healingPoint: 50
