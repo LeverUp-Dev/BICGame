@@ -11,7 +11,6 @@ namespace Hypocrites
         private void OnMouseDown()
         {
             if (!zoomActive) zoomActive = true;
-            //if (zoomActive)  zoomActive = false;
             Debug.Log(transform.name);
         }
     }
