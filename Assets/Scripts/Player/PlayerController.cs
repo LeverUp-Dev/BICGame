@@ -115,7 +115,7 @@ namespace Hypocrites.Player
 
                 targetGridPos += movement;
                 
-                EventManager.Instance.Roll(player.status.Luck);
+                EventManager.Instance.Roll(player.Status.Luck);
             }
         }
 
