@@ -13,7 +13,7 @@ namespace Hypocrites.Utility
         /// <param name="data">Json으로 저장할 객체, Serializable 객체의 public 멤버 변수만(속성 불가능) 저장 가능</param>
         public static void SaveJson(string path, object data)
         {
-            string json = JsonUtility.ToJson(data);
+            string json = JsonUtility.ToJson(data, true);
             File.WriteAllText(path, json);
         }
 

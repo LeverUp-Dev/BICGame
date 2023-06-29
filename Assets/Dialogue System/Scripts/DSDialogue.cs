@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace DS
 {
+    using Hypocrites.Player;
     using ScriptableObjects;
 
     public class DSDialogue : MonoBehaviour
@@ -24,6 +25,7 @@ namespace DS
         /*
         private void OnTriggerEnter(Collider other)
         {
+
             if (isTrigger)
             {
                 if (other.gameObject.CompareTag("Player"))
@@ -32,13 +34,13 @@ namespace DS
                 }
             }
         }*/
+
         private void OnMouseDown()
         {
-            if (isTrigger && Vector3.Distance(transform.position, Camera.main.transform.position) < 2f)
-            {
+            if(isTrigger && Vector3.Distance(transform.position, Camera.main.transform.position) < 2f)
                 DialogueManager.Instance.SetDialogue(dialogue);
-            }
         }
+
         public DSDialogueContainerSO GetDialogueContainer()
         {
             return dialogueContainer;

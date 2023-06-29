@@ -16,4 +16,13 @@ namespace Hypocrites.Defines
         public const int INIT_STAT_VITALITY = 10;
         public const int INIT_STAT_LUCK = 5;
     }
+
+    public enum BeingStatusType
+    {
+        STRENGTH,
+        DEXTERITY,
+        INTELLIGENCE,
+        VITALITY,
+        LUCK
+    }
 }

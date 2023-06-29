@@ -8,21 +8,23 @@ namespace Hypocrites.DB.Data
     public class BeingData
     {
         public string Name { get; private set; }
+        public int Level { get; set; }
 
-        public int Health { get; private set;}
-        public int Mana { get; private set;}
+        public int Health { get; set;}
+        public int Mana { get; set;}
 
-        public int Strength { get; private set;}
-        public int Dexterity { get; private set;}
-        public int Intelligence { get; private set;}
-        public int Vitality { get; private set;}
-        public int Luck { get; private set;}
+        public int Strength { get; set;}
+        public int Dexterity { get; set;}
+        public int Intelligence { get; set;}
+        public int Vitality { get; set;}
+        public int Luck { get; set;}
 
         public BeingData()
         {
             BeingSave save = new BeingSave();
 
             save.name = "";
+            save.level = 1;
 
             save.health = BeingConstants.MAX_STAT_HEALTH;
             save.mana = BeingConstants.MAX_STAT_MANA;
@@ -42,12 +44,13 @@ namespace Hypocrites.DB.Data
         }
 
         /// <summary>
-        /// BeingSave(Json 파일 입출력용 클래스)의 정보 복사
+        /// BeingSave(Json 파일 입출력용 클래스)의 정보를 복사한다
         /// </summary>
         /// <param name="save">설정할 BeingSave</param>
         void LoadSave(BeingSave save)
         {
             Name = save.name;
+            Level = save.level;
 
             Health = save.health;
             Mana = save.mana;
@@ -58,20 +61,21 @@ namespace Hypocrites.DB.Data
             Vitality = save.vitality;
             Luck = save.luck;
         }
-        
-        /// <summary>
-        /// 체력 감소
-        /// </summary>
-        /// <param name="damage">damage만큼 체력 감소</param>
-        /// <returns>체력이 0 이하로 떨어지면 false, 아니면 true</returns>
-        public bool Dealt(int damage)
+
+        public virtual void Dealt(int damage)
         {
             Health -= damage;
 
             if (Health < 0)
                 Health = 0;
-            
-            return Health != 0;
+        }
+
+        public virtual void Healed(int healPoint)
+        {
+            Health += healPoint;
+
+            if (Health > BeingConstants.MAX_STAT_HEALTH)
+                Health = BeingConstants.MAX_STAT_HEALTH;
         }
     }
 }
