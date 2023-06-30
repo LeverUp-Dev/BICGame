@@ -1,3 +1,4 @@
+using Hypocrites.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,12 +20,14 @@ namespace Hypocrites
             if(ClickEvent.zoomActive)
             {
                 GetComponent<Camera>().enabled = true;
+                PlayerController.cameraOn = true;
             }
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 GetComponent<Camera>().enabled = false;
                 ClickEvent.zoomActive = false;
+                PlayerController.cameraOn = false;
             }
                 
 

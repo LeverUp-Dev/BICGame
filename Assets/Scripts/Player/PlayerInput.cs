@@ -1,11 +1,7 @@
 using Hypocrites.Defines;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 namespace Hypocrites.Player
 {
@@ -13,13 +9,12 @@ namespace Hypocrites.Player
 
     public class PlayerInput : MonoBehaviour
     {
-
         public KeyCode forward = KeyCode.W;
         public KeyCode back = KeyCode.S;
         public KeyCode left = KeyCode.A;
         public KeyCode right = KeyCode.D;
-        //public KeyCode turnLeft = KeyCode.Q;
-        //public KeyCode turnRight = KeyCode.E;
+        public KeyCode turnLeft = KeyCode.Q;
+        public KeyCode turnRight = KeyCode.E;
         public KeyCode shift = KeyCode.LeftShift;
 
         PlayerController controller;
@@ -31,18 +26,17 @@ namespace Hypocrites.Player
             controller = GetComponent<PlayerController>();
             dialogueManager = DialogueManager.Instance;
         }
-
-        private void OnForward() 
+        private void OnForward()
         {
-            controller.Move(Directions.UP); 
+            controller.Move(Directions.UP);
         }
-        private void OnBackward() 
+        private void OnBackward()
         {
             if (Input.GetKey(shift)) controller.Move(Directions.DOWN);
             else controller.Rotate(Directions.DOWN);
         }
-        private void OnLeft() 
-        { 
+        private void OnLeft()
+        {
             if (Input.GetKey(shift)) controller.Move(Directions.LEFT);
             else controller.Rotate(Directions.LEFT);
         }
@@ -57,8 +51,8 @@ namespace Hypocrites.Player
         {
             if (dialogueManager.IsTyping)
                 return;
-            
-            
+
+
             if (Input.GetKey(forward) && Input.GetKey(shift))
             {
                 if (Input.GetKey(right)) controller.Move(Directions.RIGHT | Directions.UP);
