@@ -10,7 +10,7 @@ namespace Hypocrites
         public static bool zoomActive = false;
         private void OnMouseDown()
         {
-            if (!zoomActive) zoomActive = true;
+            if (!zoomActive && Vector3.Distance(transform.position, Camera.main.transform.position) <= 2f) zoomActive = true;
             Debug.Log(transform.name);
         }
     }
