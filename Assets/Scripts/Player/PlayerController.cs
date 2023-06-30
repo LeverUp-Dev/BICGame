@@ -12,6 +12,10 @@ namespace Hypocrites.Player
     using Defines;
     using Event;
     using Hypocrites.Grid;
+    using Hypocrites.MiniMap;
+    using System.Runtime.CompilerServices;
+    using Unity.VisualScripting;
+    using UnityEngine.UIElements;
 
     [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
@@ -21,14 +25,15 @@ namespace Hypocrites.Player
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
         public float transitionMegnification = 2;
+        [SerializeField]
+        Minimap miniMap;
+
 
         Vector3 targetGridPos;
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
         Player player;
-
-        GameObject nearObject;
 
         private void Awake()
         {
@@ -38,6 +43,7 @@ namespace Hypocrites.Player
         private void Start()
         {
             targetGridPos = Vector3Int.RoundToInt(transform.position);
+            miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
         }
 
         private void FixedUpdate()
@@ -116,16 +122,11 @@ namespace Hypocrites.Player
                     movement -= transform.right * transitionMegnification;
 
                 targetGridPos += movement;
-                
-                EventManager.Instance.Roll(player.Status.Luck);
-            }
-        }
 
-        void OnTriggerStay(Collider other)
-        {
-            if (other.tag == "Fog")
-                nearObject = other.gameObject;
-            Destroy(nearObject);
+                EventManager.Instance.Roll(player.Status.Luck);
+
+                miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+            }
         }
     }
 }
