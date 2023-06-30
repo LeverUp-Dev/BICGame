@@ -20,6 +20,7 @@ namespace Hypocrites.Player
     [RequireComponent(typeof(Player))]
     public class PlayerController : MonoBehaviour
     {
+        public static bool cameraOn = false;
         public bool smoothTransition = false;
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
@@ -78,7 +79,8 @@ namespace Hypocrites.Player
             get
             {
                 return Vector3.Distance(transform.position, targetGridPos) < 0.05f &&
-                       Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f;
+                       Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f &&
+                       !cameraOn;
             }
         }
 

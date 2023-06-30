@@ -26,6 +26,25 @@ namespace Hypocrites.Player
             controller = GetComponent<PlayerController>();
             dialogueManager = DialogueManager.Instance;
         }
+        private void OnForward()
+        {
+            controller.Move(Directions.UP);
+        }
+        private void OnBackward()
+        {
+            if (Input.GetKey(shift)) controller.Move(Directions.DOWN);
+            else controller.Rotate(Directions.DOWN);
+        }
+        private void OnLeft()
+        {
+            if (Input.GetKey(shift)) controller.Move(Directions.LEFT);
+            else controller.Rotate(Directions.LEFT);
+        }
+        private void OnRight()
+        {
+            if (Input.GetKey(shift)) controller.Move(Directions.RIGHT);
+            else controller.Rotate(Directions.RIGHT);
+        }
 
         // Update is called once per frame
         private void Update()
@@ -33,24 +52,13 @@ namespace Hypocrites.Player
             if (dialogueManager.IsTyping)
                 return;
 
+
             if (Input.GetKey(forward) && Input.GetKey(shift))
             {
                 if (Input.GetKey(right)) controller.Move(Directions.RIGHT | Directions.UP);
                 else if (Input.GetKey(left)) controller.Move(Directions.LEFT | Directions.UP);
                 else controller.Move(Directions.UP);
             }
-
-            if (Input.GetKeyUp(back))
-            {
-                if (Input.GetKey(shift)) controller.Move(Directions.DOWN);
-                else controller.Rotate(Directions.DOWN);
-            }
-
-            if (Input.GetKeyUp(forward) && !Input.GetKey(shift)) controller.Move(Directions.UP);
-            if (Input.GetKeyUp(left) && Input.GetKey(shift)) controller.Move(Directions.LEFT);
-            if (Input.GetKeyUp(right) && Input.GetKey(shift)) controller.Move(Directions.RIGHT);
-            if (Input.GetKeyUp(left)) controller.Rotate(Directions.LEFT);
-            if (Input.GetKeyUp(right)) controller.Rotate(Directions.RIGHT);
         }
     }
 }
