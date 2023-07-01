@@ -80,7 +80,7 @@ namespace Hypocrites.Player
             {
                 return Vector3.Distance(transform.position, targetGridPos) < 0.05f &&
                        Vector3.Distance(transform.eulerAngles, targetRotation) < 0.05f &&
-                       !cameraOn;
+                       !cameraOn && !DialogueManager.Instance.IsTyping;
             }
         }
 
