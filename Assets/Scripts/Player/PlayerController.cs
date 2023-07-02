@@ -28,7 +28,6 @@ namespace Hypocrites.Player
         [SerializeField]
         Minimap miniMap;
 
-
         Vector3 targetGridPos;
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
@@ -43,7 +42,7 @@ namespace Hypocrites.Player
         private void Start()
         {
             targetGridPos = Vector3Int.RoundToInt(transform.position);
-            miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+            miniMap.StartRemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
         }
 
         private void FixedUpdate()

@@ -43,6 +43,8 @@ namespace Hypocrites.MiniMap
         {
             GameObject floorInstance = Instantiate(floorPrefab);
             floorInstance.transform.SetParent(miniMapFloorParent);
+
+            material = rend.sharedMaterial;
         }
 
         public void RemoveFog(CNode PlayerNode)
@@ -54,13 +56,27 @@ namespace Hypocrites.MiniMap
             {
                 for (int j = 0; j < sightDistance * 2 + 1; j++)
                 {
-                    material = rend.sharedMaterial;
-
                     Color old = material.color;
                     opacity -= transparentSpeed * Time.deltaTime;
                     material.color = new Color(old.r, old.g, old.b, opacity);
 
-                    if(opacity <= 0f)
+                    if(opacity <= 0)
+                    {
+                        Destroy(fogGrid[startX + j, startY + i]);
+                    }
+                }
+            }
+        }
+
+        public void StartRemoveFog(CNode PlayerNode)
+        {
+            int startX = PlayerNode.GridX - sightDistance;
+            int startY = PlayerNode.GridY - sightDistance;
+
+            for (int i = 0; i < sightDistance * 2 + 1; i++)
+            {
+                for (int j = 0; j < sightDistance * 2 + 1; j++)
+                {
                         Destroy(fogGrid[startX + j, startY + i]);
                 }
             }
