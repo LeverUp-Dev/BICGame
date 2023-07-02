@@ -14,6 +14,9 @@ namespace Hypocrites.MiniMap
         public int sightDistance;
         private static GameObject[,] fogGrid;
 
+        public GameObject floorPrefab;
+        public Transform miniMapFloorParent;
+
         void Awake()
         {
             fogGrid = new GameObject[CGrid.Instance.GridYSize, CGrid.Instance.GridXSize];
@@ -30,7 +33,13 @@ namespace Hypocrites.MiniMap
                 }
             }
         }
-        
+
+        void Start()
+        {
+            GameObject floorInstance = Instantiate(floorPrefab);
+            floorInstance.transform.SetParent(miniMapFloorParent);
+        }
+
         public void RemoveFog(CNode PlayerNode)
         {
             int startX = PlayerNode.GridX - sightDistance;
