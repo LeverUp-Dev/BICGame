@@ -3,8 +3,10 @@ using UnityEngine;
 namespace Hypocrites.MiniMap
 {
     using Hypocrites.Grid;
+    using Hypocrites.Map;
     using System;
     using System.Collections.Generic;
+    using UnityEditor.Experimental.GraphView;
 
     public class Minimap : MonoBehaviour
     {
@@ -60,7 +62,7 @@ namespace Hypocrites.MiniMap
                     opacity -= transparentSpeed * Time.deltaTime;
                     material.color = new Color(old.r, old.g, old.b, opacity);
 
-                    if(opacity <= 0)
+                    if (opacity <= 0)
                     {
                         Destroy(fogGrid[startX + j, startY + i]);
                     }
