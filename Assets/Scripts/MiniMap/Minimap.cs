@@ -14,6 +14,11 @@ namespace Hypocrites.MiniMap
         public int sightDistance;
         private static GameObject[,] fogGrid;
 
+        public Renderer rend;
+        Material material;
+        public float transparentSpeed;
+        float opacity = 1f;
+
         public GameObject floorPrefab;
         public Transform miniMapFloorParent;
 
@@ -49,7 +54,14 @@ namespace Hypocrites.MiniMap
             {
                 for (int j = 0; j < sightDistance * 2 + 1; j++)
                 {
-                    Destroy(fogGrid[startX + j, startY + i]);
+                    material = rend.sharedMaterial;
+
+                    Color old = material.color;
+                    opacity -= transparentSpeed * Time.deltaTime;
+                    material.color = new Color(old.r, old.g, old.b, opacity);
+
+                    if(opacity <= 0f)
+                        Destroy(fogGrid[startX + j, startY + i]);
                 }
             }
         }

@@ -9661,6 +9661,10 @@ MonoBehaviour:
   miniMapFogParent: {fileID: 408245533}
   fogHeight: 40
   sightDistance: 3
+  rend: {fileID: 5915736683518750585, guid: fc7c3f0ccadc29b43a49965780a87649, type: 3}
+  transparentSpeed: 0
+  floorPrefab: {fileID: 5789607467415209955, guid: fb83526f5c8b20449b7dc58204eeb71b, type: 3}
+  miniMapFloorParent: {fileID: 457596666}
 --- !u!1001 &1558070739
 PrefabInstance:
   m_ObjectHideFlags: 0
