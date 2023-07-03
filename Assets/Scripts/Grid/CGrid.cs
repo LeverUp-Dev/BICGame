@@ -1,3 +1,5 @@
+using Hypocrites.Defines;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hypocrites.Grid
@@ -20,6 +22,9 @@ namespace Hypocrites.Grid
         [field: SerializeField] public int MaxMapHeight { get; private set; }
         [field: SerializeField] public int GridNodeDiameter { get; private set; }
         [field: SerializeField] public float GridLineWidth { get; private set; }
+
+        public readonly bool[] closeWay = new bool[4];
+        public HashSet<Directions> unBlock = new HashSet<Directions>();
 
         void Awake()
         {
