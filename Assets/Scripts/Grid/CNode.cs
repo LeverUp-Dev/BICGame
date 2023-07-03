@@ -1,4 +1,5 @@
 using Hypocrites.Defines;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Hypocrites.Grid
@@ -9,8 +10,8 @@ namespace Hypocrites.Grid
         public int GridX { get; private set; }
         public int GridY { get; private set; }
         public bool Walkable { get; set; }
-
         public bool Hallway { get; set; }
+
 
         public CNode(Vector3 position, int x, int y, bool walkable)
         {

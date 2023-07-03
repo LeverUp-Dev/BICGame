@@ -15,7 +15,6 @@ namespace Hypocrites.Grid
 
         public float GridNodeRadius { get; private set; }
 
-        /* Inspector Values */
         [field: SerializeField] public bool Visible { get; private set; }
         [field: SerializeField] public LayerMask UnwalkableMask { get; private set; }
         [field: SerializeField] public int MaxMapWidth { get; private set; }
@@ -23,8 +22,9 @@ namespace Hypocrites.Grid
         [field: SerializeField] public int GridNodeDiameter { get; private set; }
         [field: SerializeField] public float GridLineWidth { get; private set; }
 
-        public readonly bool[] closeWay = new bool[4];
+
         public HashSet<Directions> unBlock = new HashSet<Directions>();
+        public readonly bool[] closeWay = new bool[4];
 
         void Awake()
         {

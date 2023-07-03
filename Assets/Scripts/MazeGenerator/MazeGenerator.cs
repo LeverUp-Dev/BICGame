@@ -1,30 +1,58 @@
-using Hypocrites.Grid;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 namespace Hypocrites
 {
     using Hypocrites.Defines;
+    using Hypocrites.Grid;
+    using System.Linq;
+    using UnityEditor.Experimental.GraphView;
+
     public class MazeGenerator : MonoBehaviour
     {
+
         public Vector2Int mazeSize = new Vector2Int(25, 25);
         private Vector2Int BlockSize => mazeSize / 2;
-        CGrid[,] Rooms;
         private bool[,] unCrushWall;
+
+        CGrid[,] Rooms;
+
 
         private void Awake()
         {
             Rooms = new CGrid[BlockSize.x, BlockSize.y];
             unCrushWall = new bool[mazeSize.x, mazeSize.y];
         }
-        // Start is called before the first frame update
+
         void Start()
         {
+
             InitRooms();
         
+        }
+
+        private void MakePathRoot()
+        {
+            //미로가 형성되는 경우, 모든 점의 홀수가 되는 좌표값을 방으로 잡는 구조
+            for (int x = 0; x < BlockSize.x; x++)
+            {
+                for (int y = 0; y < BlockSize.y; y++)
+                {
+                    var adjustPosition = new Vector2Int(x * 2 + 1, y * 2 + 1);
+                    unCrushWall[adjustPosition.x, adjustPosition.y] = true;
+                    foreach (var dir in Rooms[x, y].unBlock)
+                    {
+                        if (dir == Directions.DOWN) unCrushWall[adjustPosition.x, adjustPosition.y - 1] = true;
+                        else if (dir == Directions.RIGHT) unCrushWall[adjustPosition.x + 1, adjustPosition.y] = true;
+                        else if (dir == Directions.UP) unCrushWall[adjustPosition.x, adjustPosition.y + 1] = true;
+                        else if (dir == Directions.LEFT) unCrushWall[adjustPosition.x - 1, adjustPosition.y] = true;
+                    }
+                }
+            }
         }
 
         public void HuntAndKill()
@@ -87,7 +115,11 @@ namespace Hypocrites
                             Rooms[x, y].closeWay[r - 1] = true;
                         else
                         {
+
                             Rooms[x, y].unBlock.Add((Directions.LEFT));
+
+                            Rooms[x, y].unBlock.Add(Directions.LEFT);
+
                             list.Add(targetPos);
                             x--;
                         }
@@ -129,16 +161,13 @@ namespace Hypocrites
 
 
 
-
-
-
-
+        // 보조 도구들
         private bool isAllTrue(bool[] isFalse) { for (int i = 0; i < isFalse.Length; i++) if (!isFalse[i]) return false; return true; }
         private void InitRooms()
         {
-            for (int x = 0; x < BlockSize.x; x++)
+            for (int y = 0; y < BlockSize.y; y++)
             {
-                for (int y = 0; y < BlockSize.y; y++)
+                for (int x = 0; x < BlockSize.x; x++)
                 {
                     Rooms[x, y] = new CGrid();
                 }
