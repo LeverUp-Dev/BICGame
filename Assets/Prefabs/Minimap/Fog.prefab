@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5915736683518750586}
   - component: {fileID: 5915736683518750585}
   m_Layer: 7
-  m_Name: Fog1
+  m_Name: Fog
   m_TagString: Fog
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: c3382f001c1662d4aabe8fa754f315da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

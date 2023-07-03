@@ -3,8 +3,10 @@ using UnityEngine;
 namespace Hypocrites.MiniMap
 {
     using Hypocrites.Grid;
+    using Hypocrites.Map;
     using System;
     using System.Collections.Generic;
+    using UnityEditor.Experimental.GraphView;
 
     public class Minimap : MonoBehaviour
     {
@@ -13,6 +15,14 @@ namespace Hypocrites.MiniMap
         public int fogHeight;
         public int sightDistance;
         private static GameObject[,] fogGrid;
+
+        public Renderer rend;
+        Material material;
+        public float transparentSpeed;
+        float opacity = 1f;
+
+        public GameObject floorPrefab;
+        public Transform miniMapFloorParent;
 
         void Awake()
         {
@@ -30,7 +40,15 @@ namespace Hypocrites.MiniMap
                 }
             }
         }
-        
+
+        void Start()
+        {
+            GameObject floorInstance = Instantiate(floorPrefab);
+            floorInstance.transform.SetParent(miniMapFloorParent);
+
+            material = rend.sharedMaterial;
+        }
+
         public void RemoveFog(CNode PlayerNode)
         {
             int startX = PlayerNode.GridX - sightDistance;
@@ -40,7 +58,28 @@ namespace Hypocrites.MiniMap
             {
                 for (int j = 0; j < sightDistance * 2 + 1; j++)
                 {
-                    Destroy(fogGrid[startX + j, startY + i]);
+                    Color old = material.color;
+                    opacity -= transparentSpeed * Time.deltaTime;
+                    material.color = new Color(old.r, old.g, old.b, opacity);
+
+                    if (opacity <= 0)
+                    {
+                        Destroy(fogGrid[startX + j, startY + i]);
+                    }
+                }
+            }
+        }
+
+        public void StartRemoveFog(CNode PlayerNode)
+        {
+            int startX = PlayerNode.GridX - sightDistance;
+            int startY = PlayerNode.GridY - sightDistance;
+
+            for (int i = 0; i < sightDistance * 2 + 1; i++)
+            {
+                for (int j = 0; j < sightDistance * 2 + 1; j++)
+                {
+                        Destroy(fogGrid[startX + j, startY + i]);
                 }
             }
         }
