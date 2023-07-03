@@ -15,6 +15,7 @@ namespace Hypocrites.Grid
 
         public float GridNodeRadius { get; private set; }
 
+        /* Inspector Values */
         [field: SerializeField] public bool Visible { get; private set; }
         [field: SerializeField] public LayerMask UnwalkableMask { get; private set; }
         [field: SerializeField] public int MaxMapWidth { get; private set; }
