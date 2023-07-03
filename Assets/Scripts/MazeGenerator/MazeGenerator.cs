@@ -14,7 +14,7 @@ namespace Hypocrites
 
         public Vector2Int mazeSize = new Vector2Int(25, 25);
         private Vector2Int BlockSize => mazeSize / 2;
-        private bool[,] unCrushWall;
+        private bool[,] CrushWall;
 
         CGrid[,] Rooms;
 
@@ -22,7 +22,7 @@ namespace Hypocrites
         private void Awake()
         {
             Rooms = new CGrid[BlockSize.x, BlockSize.y];
-            unCrushWall = new bool[mazeSize.x, mazeSize.y];
+            CrushWall = new bool[mazeSize.x, mazeSize.y];
         }
 
         void Start()
@@ -40,13 +40,13 @@ namespace Hypocrites
                 for (int y = 0; y < BlockSize.y; y++)
                 {
                     var adjustPosition = new Vector2Int(x * 2 + 1, y * 2 + 1);
-                    unCrushWall[adjustPosition.x, adjustPosition.y] = true;
+                    CrushWall[adjustPosition.x, adjustPosition.y] = true;
                     foreach (var dir in Rooms[x, y].unBlock)
                     {
-                        if (dir == Directions.DOWN) unCrushWall[adjustPosition.x, adjustPosition.y - 1] = true;
-                        else if (dir == Directions.RIGHT) unCrushWall[adjustPosition.x + 1, adjustPosition.y] = true;
-                        else if (dir == Directions.UP) unCrushWall[adjustPosition.x, adjustPosition.y + 1] = true;
-                        else if (dir == Directions.LEFT) unCrushWall[adjustPosition.x - 1, adjustPosition.y] = true;
+                        if (dir == Directions.DOWN) CrushWall[adjustPosition.x, adjustPosition.y - 1] = true;
+                        else if (dir == Directions.RIGHT) CrushWall[adjustPosition.x + 1, adjustPosition.y] = true;
+                        else if (dir == Directions.UP) CrushWall[adjustPosition.x, adjustPosition.y + 1] = true;
+                        else if (dir == Directions.LEFT) CrushWall[adjustPosition.x - 1, adjustPosition.y] = true;
                     }
                 }
             }
