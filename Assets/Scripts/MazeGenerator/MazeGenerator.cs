@@ -4,13 +4,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-
 namespace Hypocrites
 {
     using Hypocrites.Defines;
     using Hypocrites.Grid;
-    using System.Linq;
-    using UnityEditor.Experimental.GraphView;
 
     public class MazeGenerator : MonoBehaviour
     {
@@ -30,9 +27,9 @@ namespace Hypocrites
 
         void Start()
         {
-
             InitRooms();
-        
+            HuntAndKill();
+            MakePathRoot();
         }
 
         private void MakePathRoot()
@@ -115,11 +112,7 @@ namespace Hypocrites
                             Rooms[x, y].closeWay[r - 1] = true;
                         else
                         {
-
-                            Rooms[x, y].unBlock.Add((Directions.LEFT));
-
                             Rooms[x, y].unBlock.Add(Directions.LEFT);
-
                             list.Add(targetPos);
                             x--;
                         }

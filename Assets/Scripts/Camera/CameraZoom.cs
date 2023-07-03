@@ -11,7 +11,6 @@ namespace Hypocrites
         void Start()
         {
             GetComponent<Camera>().enabled = false;
-        
         }
 
         // Update is called once per frame
@@ -29,8 +28,6 @@ namespace Hypocrites
                 ClickEvent.zoomActive = false;
                 PlayerController.cameraOn = false;
             }
-                
-
         }
     }
 }
