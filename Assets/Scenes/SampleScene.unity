@@ -3316,7 +3316,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &457596666
 Transform:
   m_ObjectHideFlags: 0
@@ -6081,7 +6081,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.05, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8350,7 +8350,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1353593737}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 180, z: -0.00000013742971}
   m_LocalScale: {x: 1.1528438, y: 1.1528438, z: 1.152844}
   m_ConstrainProportionsScale: 0
@@ -9748,7 +9748,7 @@ MonoBehaviour:
   fogPrefab: {fileID: 5915736683518750580, guid: fc7c3f0ccadc29b43a49965780a87649, type: 3}
   miniMapFogParent: {fileID: 408245533}
   fogHeight: 40
-  sightDistance: 3
+  sightDistance: 4
   rend: {fileID: 5915736683518750585, guid: fc7c3f0ccadc29b43a49965780a87649, type: 3}
   transparentSpeed: 1
   floorPrefab: {fileID: 5789607467415209955, guid: fb83526f5c8b20449b7dc58204eeb71b, type: 3}

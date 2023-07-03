@@ -124,7 +124,8 @@ namespace Hypocrites.Player
                 
                 EventManager.Instance.Roll(player.Status.Luck);
 
-                miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+                //miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+                miniMap.StartRemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
             }
         }
     }
