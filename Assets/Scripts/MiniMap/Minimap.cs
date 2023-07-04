@@ -6,6 +6,7 @@ namespace Hypocrites.MiniMap
     using Hypocrites.Map;
     using System;
     using System.Collections.Generic;
+    using System.Xml;
     using UnityEditor.Experimental.GraphView;
 
     public class Minimap : MonoBehaviour
@@ -50,25 +51,34 @@ namespace Hypocrites.MiniMap
             material = rend.sharedMaterial;
         }
 
-        public void RemoveFog(CNode PlayerNode)
+        public void CheckGrid(CNode PlayerNode)
         {
-            int startX = PlayerNode.GridX - (sightDistance);
-            int startY = PlayerNode.GridY - (sightDistance);
+            //int playerX = PlayerNode.GridX, playerY = PlayerNode.GridY;
+            //List<GameObject> InRangeList = new List<GameObject>();
+            //List<GameObject> ObstacleList = new List<GameObject>();
 
-            for (int i = 0; i < sightDistance; i++)
-            {
-                for (int j = 0; j < sightDistance * 2 + 1; j++)
-                {
-                    Color old = material.color;
-                    opacity -= transparentSpeed * Time.deltaTime;
-                    material.color = new Color(old.r, old.g, old.b, opacity);
+            //int sX = PlayerNode.GridX - sightDistance, sY = PlayerNode.GridY - sightDistance;
+            //for (int i = 0; i < sightDistance * 2 + 1; i++)
+            //{
+            //    for(int j = 0; j < sightDistance * 2 + 1; j++)
+            //    {
+            //        if (CGrid.Instance.Grid[sX + j, sY + i].Walkable == false)
+            //            InRangeList.Add(fogGrid[sX + j, sY + i]);
+            //        else if(CGrid.Instance.Grid[sX + j, sY + i].Walkable)
+            //            ObstacleList.Add(fogGrid[sX + j, sY + i]);
+            //    }
+            //}
+        }
 
-                    if (opacity <= 0)
-                    {
-                        Destroy(fogGrid[startX + j, startY + i]);
-                    }
-                }
-            }
+        double Dist(CNode startNode, GameObject target)
+        {
+            Vector3 targetLocation = target.transform.position;
+            CNode targetNode = CGrid.Instance.GetNodeFromWorldPosition(targetLocation);
+
+            int x = targetNode.GridX - startNode.GridX;
+            int y = targetNode.GridY - startNode.GridY;
+            double distance = Math.Sqrt(x * x + y * y);
+            return distance;
         }
 
         public void StartRemoveFog(CNode PlayerNode)
@@ -80,6 +90,10 @@ namespace Hypocrites.MiniMap
             {
                 for (int j = 0; j < i * 2 + 1; j++)
                 {
+                    Color old = material.color;
+                    opacity -= transparentSpeed * Time.deltaTime;
+                    material.color = new Color(old.r, old.g, old.b, opacity);
+
                     int startX = PlayerNode.GridX;
                     int startY = PlayerNode.GridY;
 
@@ -125,7 +139,6 @@ namespace Hypocrites.MiniMap
                     }
                 }
             }
-            Debug.Log(Mathf.RoundToInt(Camera.main.transform.forward.x));
         }
     }
 }
