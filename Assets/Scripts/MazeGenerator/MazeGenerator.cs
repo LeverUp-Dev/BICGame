@@ -12,14 +12,12 @@ namespace Maze
 
         public GameObject wallPrefab;
         private int mapSize;
-        private float delayCreateTime = 0.25f;
+
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
 
         MeshRenderer wallMeshRenderer;
-        float wallWidth;
-        float wallLength;
 
         void Clear(bool[] isBlock) { for (int j = 0; j < isBlock.Length; ++j) isBlock[j] = false; }
         private bool isAllTrue(bool[] isFalse) { for (int i = 0; i < isFalse.Length; i++) if (!isFalse[i]) return false; return true; }
@@ -55,11 +53,18 @@ namespace Maze
                 while (!isAllTrue(isBlock))
                 {
                     int r = Random.Range(0, 4);
+                    switch (r)
+                    {
+                        case 0: if (MAZE_MAP_SIZE == y + 1) isBlock[r] = true; break;
+                        case 1: if (MAZE_MAP_SIZE == x + 1) isBlock[r] = true; break;
+                        case 2: if (0 > y - 1) isBlock[r] = true; break;
+                        case 3: if (0 > x - 1) isBlock[r] = true; break;
+                    }
                     if (isBlock[r]) continue;
+
                     if (r == 0)
                     {
-                        if (MAZE_MAP_SIZE == y + 1) { isBlock[r] = true; continue; }
-                        else if (!mazeWallMap[x, y + 1].anotherContains(Directions.NONE)) { isBlock[r] = true; continue; }
+                        if (mazeWallMap[x, y + 1] != Directions.NONE) { isBlock[r] = true; continue; }
                         else
                         {
                             Clear(isBlock);
@@ -69,8 +74,7 @@ namespace Maze
                     }
                     else if (r == 1)
                     {
-                        if (MAZE_MAP_SIZE == x + 1) { isBlock[r] = true; continue; }
-                        else if (!mazeWallMap[x + 1, y].anotherContains(Directions.NONE)) { isBlock[r] = true; continue; }
+                        if (mazeWallMap[x + 1, y] != Directions.NONE) { isBlock[r] = true; continue; }
                         else
                         {
                             Clear(isBlock);
@@ -80,8 +84,7 @@ namespace Maze
                     }
                     else if (r == 2)
                     {
-                        if (0 > y - 1) { isBlock[r] = true; continue; }
-                        else if (!mazeWallMap[x, y - 1].anotherContains(Directions.NONE)) { isBlock[r] = true; continue; }
+                        if (mazeWallMap[x, y - 1] != Directions.NONE) { isBlock[r] = true; continue; }
                         else
                         {
                             Clear(isBlock);
@@ -91,8 +94,7 @@ namespace Maze
                     }
                     else if (r == 3)
                     {
-                        if (0 > x - 1) { isBlock[r] = true; continue; }
-                        else if (!mazeWallMap[x - 1, y].anotherContains(Directions.NONE)) { isBlock[r] = true; continue; }
+                        if (mazeWallMap[x - 1, y] != Directions.NONE) { isBlock[r] = true; continue; }
                         else
                         {
                             Clear(isBlock);
@@ -102,17 +104,17 @@ namespace Maze
                     }
                 }
 
-                for(int yPos = 0;  yPos < MAZE_MAP_SIZE; yPos++)
+                for (int yPos = 0;  yPos < MAZE_MAP_SIZE; yPos++)
                 {
                     for(int xPos= 0; xPos < MAZE_MAP_SIZE; xPos++)
                     {
                         if (mazeWallMap[xPos, yPos].anotherContains(Directions.NONE))
                         {
                             List<Directions> list = new List<Directions>();
-                            if(xPos + 1 != MAZE_MAP_SIZE) if (!mazeWallMap[xPos + 1, yPos].anotherContains(Directions.NONE)) list.Add(Directions.RIGHT);
-                            if(xPos - 1 > -1) if (!mazeWallMap[xPos - 1, yPos].anotherContains(Directions.NONE)) list.Add(Directions.LEFT);
-                            if(yPos + 1 != MAZE_MAP_SIZE) if (!mazeWallMap[xPos, yPos + 1].anotherContains(Directions.NONE)) list.Add(Directions.DOWN);
-                            if(yPos - 1 > -1) if (!mazeWallMap[xPos, yPos - 1].anotherContains(Directions.NONE)) list.Add(Directions.UP);
+                            if(xPos + 1 != MAZE_MAP_SIZE) if (mazeWallMap[xPos + 1, yPos]!= Directions.NONE) list.Add(Directions.RIGHT);
+                            if(xPos - 1 > -1) if (mazeWallMap[xPos - 1, yPos] != Directions.NONE) list.Add(Directions.LEFT);
+                            if(yPos + 1 != MAZE_MAP_SIZE) if (mazeWallMap[xPos, yPos + 1] != Directions.NONE) list.Add(Directions.DOWN);
+                            if(yPos - 1 > -1) if (mazeWallMap[xPos, yPos - 1] != Directions.NONE) list.Add(Directions.UP);
 
                             if(list.Count > 0)
                             {
@@ -144,7 +146,6 @@ namespace Maze
                 }
                 if (!isRemain) isEnd = true;
             }
-
         }
     }
 }
