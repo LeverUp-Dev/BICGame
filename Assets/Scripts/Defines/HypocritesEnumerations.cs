@@ -18,11 +18,6 @@ namespace Hypocrites.Defines
             return (dir & target) == target;
         }
 
-        public static bool anotherContains(this Directions dir, Directions target)
-        {
-            return (dir & target) == dir;
-        }
-
         public static Vector3 GetVector(this Directions dir)
         {
             switch (dir)
