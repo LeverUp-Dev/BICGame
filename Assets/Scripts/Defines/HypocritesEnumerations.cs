@@ -18,6 +18,23 @@ namespace Hypocrites.Defines
             return (dir & target) == target;
         }
 
+        public static Directions GetOppositeDirection(this Directions dir)
+        {
+            switch (dir)
+            {
+                case Directions.UP:
+                    return Directions.DOWN;
+                case Directions.DOWN:
+                    return Directions.UP;
+                case Directions.LEFT:
+                    return Directions.RIGHT;
+                case Directions.RIGHT:
+                    return Directions.LEFT;
+                default:
+                    return dir;
+            }
+        }
+
         public static Vector3 GetVector(this Directions dir)
         {
             switch (dir)

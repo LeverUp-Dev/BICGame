@@ -52,42 +52,33 @@ namespace Maze
                 bool isRemain = false;
                 while (!isAllTrue(isBlock))
                 {
-                    int r = Random.Range(0, 4);
+                    int prevX = x, prevY = y;
+                    int randIndex = Random.Range(0, 4);
+                    Directions r = (Directions)(1 << randIndex);
                     switch (r)
                     {
-                        case 0: if (MAZE_MAP_SIZE == y + 1 || mazeWallMap[x, y + 1] != Directions.NONE) isBlock[r] = true; break;
-                        case 1: if (MAZE_MAP_SIZE == x + 1 || mazeWallMap[x + 1, y] != Directions.NONE) isBlock[r] = true; break;
-                        case 2: if (0 > y - 1 || mazeWallMap[x, y - 1] != Directions.NONE) isBlock[r] = true; break;
-                        case 3: if (0 > x - 1 || mazeWallMap[x - 1, y] != Directions.NONE) isBlock[r] = true; break;
+                        case Directions.DOWN: // 2
+                            if (MAZE_MAP_SIZE == y + 1 || mazeWallMap[x, y + 1] != Directions.NONE) isBlock[randIndex] = true;
+                            else y++;
+                            break;
+                        case Directions.RIGHT: // 1
+                            if (MAZE_MAP_SIZE == x + 1 || mazeWallMap[x + 1, y] != Directions.NONE) isBlock[randIndex] = true;
+                            else x++;
+                            break;
+                        case Directions.UP: // 0
+                            if (0 > y - 1 || mazeWallMap[x, y - 1] != Directions.NONE) isBlock[randIndex] = true;
+                            else y--;
+                            break;
+                        case Directions.LEFT: // 3
+                            if (0 > x - 1 || mazeWallMap[x - 1, y] != Directions.NONE) isBlock[randIndex] = true;
+                            else x--;
+                            break;
                     }
-                    if (isBlock[r]) continue;
+                    if (isBlock[randIndex]) continue;
 
-                    if (r == 0)
-                    {
-                        Clear(isBlock);
-                        mazeWallMap[x, y] |= Directions.DOWN; //이동할 방향
-                        mazeWallMap[x, ++y] |= Directions.UP; // 다음 방 방문 표시
-                    }
-                    else if (r == 1)
-                    {
-
-                        Clear(isBlock);
-                        mazeWallMap[x, y] |= Directions.RIGHT; //이전 방 방문 표시
-                        mazeWallMap[++x, y] |= Directions.LEFT; //이동할 방향
-
-                    }
-                    else if (r == 2)
-                    {
-                        Clear(isBlock);
-                        mazeWallMap[x, --y] |= Directions.DOWN; //이동할 방향
-                        mazeWallMap[x, y] |= Directions.UP; //이전 방 방문표시
-                    }
-                    else if (r == 3)
-                    {
-                        Clear(isBlock);
-                        mazeWallMap[x, y] |= Directions.LEFT; // 이동할 방향
-                        mazeWallMap[--x, y] |= Directions.RIGHT; //다음 방 방문 표시
-                    }
+                    Clear(isBlock);
+                    mazeWallMap[prevX, prevY] |= r; // 원래 방문 벽 허물기
+                    mazeWallMap[x, y] |= r.GetOppositeDirection(); //이동할 방향
                 }
 
                 for (int yPos = 0;  yPos < MAZE_MAP_SIZE; yPos++)
