@@ -79,8 +79,8 @@ namespace Maze
                     else if (r == 2)
                     {
                         Clear(isBlock);
-                        mazeWallMap[x, y] |= Directions.UP; //이전 방 방문표시
                         mazeWallMap[x, --y] |= Directions.DOWN; //이동할 방향
+                        mazeWallMap[x, y] |= Directions.UP; //이전 방 방문표시
                     }
                     else if (r == 3)
                     {
@@ -94,7 +94,7 @@ namespace Maze
                 {
                     for(int xPos= 0; xPos < MAZE_MAP_SIZE; xPos++)
                     {
-                        if (mazeWallMap[xPos, yPos].anotherContains(Directions.NONE))
+                        if (mazeWallMap[xPos, yPos] == Directions.NONE)
                         {
                             List<Directions> list = new List<Directions>();
                             if(xPos + 1 != MAZE_MAP_SIZE) if (mazeWallMap[xPos + 1, yPos]!= Directions.NONE) list.Add(Directions.RIGHT);
