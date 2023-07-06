@@ -55,52 +55,38 @@ namespace Maze
                     int r = Random.Range(0, 4);
                     switch (r)
                     {
-                        case 0: if (MAZE_MAP_SIZE == y + 1) isBlock[r] = true; break;
-                        case 1: if (MAZE_MAP_SIZE == x + 1) isBlock[r] = true; break;
-                        case 2: if (0 > y - 1) isBlock[r] = true; break;
-                        case 3: if (0 > x - 1) isBlock[r] = true; break;
+                        case 0: if (MAZE_MAP_SIZE == y + 1 || mazeWallMap[x, y + 1] != Directions.NONE) isBlock[r] = true; break;
+                        case 1: if (MAZE_MAP_SIZE == x + 1 || mazeWallMap[x + 1, y] != Directions.NONE) isBlock[r] = true; break;
+                        case 2: if (0 > y - 1 || mazeWallMap[x, y - 1] != Directions.NONE) isBlock[r] = true; break;
+                        case 3: if (0 > x - 1 || mazeWallMap[x - 1, y] != Directions.NONE) isBlock[r] = true; break;
                     }
                     if (isBlock[r]) continue;
 
                     if (r == 0)
                     {
-                        if (mazeWallMap[x, y + 1] != Directions.NONE) { isBlock[r] = true; continue; }
-                        else
-                        {
-                            Clear(isBlock);
-                            mazeWallMap[x, y] |= Directions.DOWN; //이동할 방향
-                            mazeWallMap[x, ++y] |= Directions.UP; // 다음 방 방문 표시
-                        }
+                        Clear(isBlock);
+                        mazeWallMap[x, y] |= Directions.DOWN; //이동할 방향
+                        mazeWallMap[x, ++y] |= Directions.UP; // 다음 방 방문 표시
                     }
                     else if (r == 1)
                     {
-                        if (mazeWallMap[x + 1, y] != Directions.NONE) { isBlock[r] = true; continue; }
-                        else
-                        {
-                            Clear(isBlock);
-                            mazeWallMap[x, y] |= Directions.RIGHT; //이전 방 방문 표시
-                            mazeWallMap[++x, y] |= Directions.LEFT; //이동할 방향
-                        }
+
+                        Clear(isBlock);
+                        mazeWallMap[x, y] |= Directions.RIGHT; //이전 방 방문 표시
+                        mazeWallMap[++x, y] |= Directions.LEFT; //이동할 방향
+
                     }
                     else if (r == 2)
                     {
-                        if (mazeWallMap[x, y - 1] != Directions.NONE) { isBlock[r] = true; continue; }
-                        else
-                        {
-                            Clear(isBlock);
-                            mazeWallMap[x, y] |= Directions.UP; //이전 방 방문표시
-                            mazeWallMap[x, --y] |= Directions.DOWN; //이동할 방향
-                        }
+                        Clear(isBlock);
+                        mazeWallMap[x, y] |= Directions.UP; //이전 방 방문표시
+                        mazeWallMap[x, --y] |= Directions.DOWN; //이동할 방향
                     }
                     else if (r == 3)
                     {
-                        if (mazeWallMap[x - 1, y] != Directions.NONE) { isBlock[r] = true; continue; }
-                        else
-                        {
-                            Clear(isBlock);
-                            mazeWallMap[x, y] |= Directions.LEFT; // 이동할 방향
-                            mazeWallMap[--x, y] |= Directions.RIGHT; //다음 방 방문 표시
-                        }
+                        Clear(isBlock);
+                        mazeWallMap[x, y] |= Directions.LEFT; // 이동할 방향
+                        mazeWallMap[--x, y] |= Directions.RIGHT; //다음 방 방문 표시
                     }
                 }
 
