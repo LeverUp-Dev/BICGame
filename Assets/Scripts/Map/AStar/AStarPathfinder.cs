@@ -5,8 +5,9 @@ using UnityEngine;
 
 namespace Hypocrites.Map.AStar
 {
-    using Hypocrites.Map.DS;
-    using Hypocrites.Grid;
+    using Map.DS;
+    using Grid;
+    using UnityEditor.Experimental.GraphView;
 
     public class AStarPathfinder
     {
@@ -18,7 +19,7 @@ namespace Hypocrites.Map.AStar
         CGrid grid;
 
         MinHeap<AStarNode> openedHeap;
-        List<AStarNode> closedList;
+        HashSet<CNode> closedList;
 
         AStarNode[,] aStarGrid;
 
@@ -32,7 +33,7 @@ namespace Hypocrites.Map.AStar
                 openedHeap.Clear();
 
             if (closedList == null)
-                closedList = new List<AStarNode>();
+                closedList = new HashSet<CNode>();
             else
                 closedList.Clear();
 
@@ -86,17 +87,15 @@ namespace Hypocrites.Map.AStar
                 while (next.Parent != null)
                 {
                     paths.Insert(0, next);
+
+                    // 경로를 Hallway로 표시
+                    next.Node.Hallway = true;
                     next = next.Parent;
                 }
 
                 // 출발지 노드 추가
                 paths.Insert(0, next);
-
-                // 경로를 Hallway로 표시
-                foreach (AStarNode n in paths)
-                {
-                    n.Node.Hallway = true;
-                }
+                next.Node.Hallway = true;
             }
             else
             {
@@ -117,7 +116,7 @@ namespace Hypocrites.Map.AStar
         {
             CGrid grid = CGrid.Instance;
 
-            closedList.Add(target);
+            closedList.Add(target.Node);
 
             int topLeftX = target.Node.GridX - 1;
             int topLeftY = target.Node.GridY - 1;
@@ -131,11 +130,11 @@ namespace Hypocrites.Map.AStar
                     if (i < 0 || i >= grid.GridYSize || j < 0 || j >= grid.GridXSize)
                         continue;
 
-                    // 타겟 노드인 경우 처리
-                    if (i == target.Node.GridY && j == target.Node.GridX)
-                        continue;
-
                     CNode node = grid.Grid[i, j];
+
+                    // closedList에 노드가 있는 경우 처리
+                    if (closedList.Contains(node))
+                        continue;
 
 #if ONLY_STRAIGHT
                     // 상하좌우로만 이동 가능하도록 처리

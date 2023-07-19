@@ -14012,7 +14012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Run>k__BackingField: 1
-  <MaxRoomCount>k__BackingField: 10
+  <MaxRoomCount>k__BackingField: 13
   <CycleHallwayCreationChance>k__BackingField: 12.5
   <RoomMinimumDistance>k__BackingField: 15
   <UnitRoomPrefab>k__BackingField: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
