@@ -32,8 +32,8 @@ namespace Maze
 
         private void Start()
         {
-            //CreateMaze();
             //HuntAndKill();
+            //CreateMaze();
         }
 
 
@@ -122,6 +122,45 @@ namespace Maze
                     }
                 }
                 if (!isRemain) isEnd = true;
+            }
+        }
+
+        private void CreateMaze()
+        {
+            /*
+             * 1. mazeWallMap은 mazeWalls보다 크기가 1/2 - 1 만큼 작으므로 주의
+             * 2. 2차원 배열의 왼쪽 맨 아래부터 위-오른쪽으로 순회하므로 순서 주의
+             */
+            for (int i = 0; i < mapSize; i++)
+            {
+                for (int j = 0; j < mapSize; j++)
+                {
+                    var myTransform = transform;
+                    var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
+                    var wallPosition = new Vector3(i, 0.5f, j) - mazeHalfSize + myTransform.position;
+
+                    if (i > 0 && i < mapSize && j > 0 && j < mapSize)
+                    {
+                        if (i % 2 == 1 && j % 2 == 1)
+                        {
+                            /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
+                            int x = (i - 1) / 2;
+                            int y = (mapSize - j - 1) / 2;
+
+                            Directions crashDirections = mazeWallMap[x, y];
+
+                            if (crashDirections.Contains(Directions.LEFT))
+                                Destroy(mazeWalls[i - 1, mapSize - j - 1]);
+
+                            if (crashDirections.Contains(Directions.DOWN))
+                                Destroy(mazeWalls[i, mapSize - j]);
+
+                            continue;
+                        }
+                    }
+
+                    mazeWalls[i, mapSize - j - 1] = Instantiate(wallPrefab, wallPosition, Quaternion.identity, myTransform);
+                }
             }
         }
     }
