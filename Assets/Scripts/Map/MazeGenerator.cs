@@ -2,27 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Hypocrites.Defines;
 
-namespace Maze
+namespace Hypocrites.Maze
 {
-    public class MazeGenerator : MonoBehaviour
-    {
-        const int MAZE_MAP_SIZE = 49;
+    using Defines;
+    using Hypocrites.Grid;
 
-        public GameObject wallPrefab;
+    public class MazeGenerator
+    {
+        public const int MAZE_MAP_SIZE = 15;
+        public const int MAZE_ROOM_PADDING = 8;
+
+        Transform mapTransform;
+        Transform hierarchyRoot;
+        GameObject wallPrefab;
+
         private int mapSize;
 
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
 
-        MeshRenderer wallMeshRenderer;
-
         void Clear(bool[] isBlock) { for (int j = 0; j < isBlock.Length; ++j) isBlock[j] = false; }
         private bool isAllTrue(bool[] isFalse) { for (int i = 0; i < isFalse.Length; i++) if (!isFalse[i]) return false; return true; }
-        private void Awake()
+
+        public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab)
         {
+            this.mapTransform = mapTransform;
+            this.hierarchyRoot = hierarchyRoot;
+            this.wallPrefab = wallPrefab;
+
             // 미로 정보 초기화
             mapSize = MAZE_MAP_SIZE * 2 + 1;
 
@@ -30,12 +39,20 @@ namespace Maze
             mazeWalls = new GameObject[mapSize, mapSize];
         }
 
-        private void Start()
+        public void Generate()
         {
-            //HuntAndKill();
-            //CreateMaze();
+            HuntAndKill();
+            CreateMaze();
         }
 
+        public void GetCorner(out CNode leftBottom, out CNode rightTop)
+        {
+            Vector3 mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
+            Vector3 offset = Vector3.forward * CGrid.Instance.GridNodeDiameter + Vector3.left * 0.5f;
+
+            leftBottom = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + -mazeHalfSize + offset);
+            rightTop = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + mazeHalfSize + offset);
+        }
 
         //대가리 깨질 뻔
         private void HuntAndKill()
@@ -135,9 +152,15 @@ namespace Maze
             {
                 for (int j = 0; j < mapSize; j++)
                 {
-                    var myTransform = transform;
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
-                    var wallPosition = new Vector3(i, 0.5f, j) - mazeHalfSize + myTransform.position;
+                    var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
+
+                    // 외벽에 네 구역과 연결하기 위해 벽 허물기
+                    if (i == 0 || i == mapSize - 1 || j == 0 || j == mapSize - 1)
+                    {
+                        if (CGrid.Instance.GetNodeFromWorldPosition(wallPosition + Vector3.forward * CGrid.Instance.GridNodeDiameter).Hallway)
+                            continue;
+                    }
 
                     if (i > 0 && i < mapSize && j > 0 && j < mapSize)
                     {
@@ -148,18 +171,18 @@ namespace Maze
                             int y = (mapSize - j - 1) / 2;
 
                             Directions crashDirections = mazeWallMap[x, y];
-
+                            
                             if (crashDirections.Contains(Directions.LEFT))
-                                Destroy(mazeWalls[i - 1, mapSize - j - 1]);
+                                Object.Destroy(mazeWalls[i - 1, mapSize - j - 1]);
 
                             if (crashDirections.Contains(Directions.DOWN))
-                                Destroy(mazeWalls[i, mapSize - j]);
+                                Object.Destroy(mazeWalls[i, mapSize - j]);
 
                             continue;
                         }
                     }
 
-                    mazeWalls[i, mapSize - j - 1] = Instantiate(wallPrefab, wallPosition, Quaternion.identity, myTransform);
+                    mazeWalls[i, mapSize - j - 1] = Object.Instantiate(wallPrefab, wallPosition, Quaternion.identity, hierarchyRoot);
                 }
             }
         }

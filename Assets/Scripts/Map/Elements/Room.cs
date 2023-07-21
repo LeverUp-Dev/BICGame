@@ -4,12 +4,14 @@ using UnityEngine;
 namespace Hypocrites.Map.Elements
 {
     using Hypocrites.Map.Enumerations;
+    using System.Runtime.CompilerServices;
 
     public class Room
     {
         public int ID { get; }
         public Vector3 Position { get; set; }
         public RoomType Type { get; }
+        public int Area { get; private set; }
 
         public GameObject RoomHierarchyRoot { get; private set; }
         public GameObject WallsHierarchyRoot { get; set; }
@@ -17,7 +19,7 @@ namespace Hypocrites.Map.Elements
 
         public List<Edge> Edges { get; set; }
 
-        public GameObject positionInstance;
+        public GameObject PositionInstance { get; set; }
 
         public Room(Vector3 position)
         {
@@ -25,12 +27,13 @@ namespace Hypocrites.Map.Elements
             Type = RoomType.VectorOnly;
         }
 
-        public Room(int id, Vector3 position, RoomType type, GameObject instance, Transform parent)
+        public Room(int id, int area, Vector3 position, RoomType type, GameObject instance, Transform parent)
         {
             ID = id;
+            Area = area;
             Position = position;
             Type = type;
-            positionInstance = instance;
+            PositionInstance = instance;
 
             RoomHierarchyRoot = new GameObject("Room" + id);
             WallsHierarchyRoot = new GameObject("walls");
@@ -54,6 +57,13 @@ namespace Hypocrites.Map.Elements
             Edges.Add(edge);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public int GetLocalID(int roomsPerArea)
+        {
+            return ID - Area * roomsPerArea;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Equals(Room r)
         {
             return Position.Equals(r.Position);

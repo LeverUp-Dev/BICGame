@@ -23,7 +23,14 @@ namespace Hypocrites.Map.AStar
 
         AStarNode[,] aStarGrid;
 
-        public void Prepare()
+        bool isStraightway;
+
+        public AStarPathfinder(bool isStraightway = false)
+        {
+            this.isStraightway = isStraightway;
+        }
+
+        void Prepare()
         {
             grid = CGrid.Instance;
 
