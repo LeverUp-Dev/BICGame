@@ -153,11 +153,11 @@ namespace Hypocrites.Map
             InstantiateHallways(hallwayPaths);
 
             // 11. 그리드 업데이트 (미로 벽 제거에 시간이 걸려 코루틴으로 지연 추가)
-            StartCoroutine(UG());
+            StartCoroutine(UpdateGrid());
 #endif
         }
 
-        IEnumerator UG()
+        IEnumerator UpdateGrid()
         {
             yield return new WaitForSeconds(0.1f);
 
