@@ -19,7 +19,7 @@ namespace Hypocrites.Maze
 
         private int mapSize;
         private int mapHalfSize;
-        private int startSize = 4;
+        private int mazeCenter = MAZE_MAP_SIZE / 2, StartSize = 2;
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
@@ -56,16 +56,26 @@ namespace Hypocrites.Maze
             rightTop = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + mazeHalfSize + offset);
         }
 
+        private bool StartRange(int x, int y)
+        {
+            if ((x > mazeCenter - StartSize && x < mazeCenter + StartSize)
+                && (y > mazeCenter - StartSize && y < mazeCenter + StartSize)) return true;
+            else return false;
+        }
+
         //대가리 깨질 뻔
         private void HuntAndKill()
         {
-            int x = Random.Range(0, MAZE_MAP_SIZE), y = Random.Range(0, MAZE_MAP_SIZE);
+            int x, y;
+            do
+            {
+                x = Random.Range(0, MAZE_MAP_SIZE);
+                y = Random.Range(0, MAZE_MAP_SIZE);
+            } while (StartRange(x, y));
             bool isEnd = false;
 
             mazeWallMap[x, y] = Directions.RIGHT; // 처음 자리 잡은 방에 방문 표시
-
-            
-            while(!isEnd)
+            while (!isEnd)
             {
                 bool[] isBlock = new bool[4];
                 bool isRemain = false;
@@ -77,19 +87,19 @@ namespace Hypocrites.Maze
                     switch (r)
                     {
                         case Directions.DOWN: // 2
-                            if (MAZE_MAP_SIZE == y + 1 || mazeWallMap[x, y + 1] != Directions.NONE) isBlock[randIndex] = true;
+                            if (MAZE_MAP_SIZE == y + 1 || mazeWallMap[x, y + 1] != Directions.NONE || StartRange(x, y + 2)) isBlock[randIndex] = true;
                             else y++;
                             break;
                         case Directions.RIGHT: // 1
-                            if (MAZE_MAP_SIZE == x + 1 || mazeWallMap[x + 1, y] != Directions.NONE) isBlock[randIndex] = true;
+                            if (MAZE_MAP_SIZE == x + 1 || mazeWallMap[x + 1, y] != Directions.NONE || StartRange(x + 2, y)) isBlock[randIndex] = true;
                             else x++;
                             break;
                         case Directions.UP: // 0
-                            if (0 > y - 1 || mazeWallMap[x, y - 1] != Directions.NONE) isBlock[randIndex] = true;
+                            if (0 > y - 1 || mazeWallMap[x, y - 1] != Directions.NONE || StartRange(x, y - 2)) isBlock[randIndex] = true;
                             else y--;
                             break;
                         case Directions.LEFT: // 3
-                            if (0 > x - 1 || mazeWallMap[x - 1, y] != Directions.NONE) isBlock[randIndex] = true;
+                            if (0 > x - 1 || mazeWallMap[x - 1, y] != Directions.NONE || StartRange(x - 2, y)) isBlock[randIndex] = true;
                             else x--;
                             break;
                     }
@@ -100,36 +110,36 @@ namespace Hypocrites.Maze
                     mazeWallMap[x, y] |= r.GetOppositeDirection(); //이동할 방향
                 }
 
-                for (int yPos = 0;  yPos < MAZE_MAP_SIZE; yPos++)
+                for (int yPos = 0; yPos < MAZE_MAP_SIZE; yPos++)
                 {
-                    for(int xPos= 0; xPos < MAZE_MAP_SIZE; xPos++)
+                    for (int xPos = 0; xPos < MAZE_MAP_SIZE; xPos++)
                     {
                         if (mazeWallMap[xPos, yPos] == Directions.NONE)
                         {
                             List<Directions> list = new List<Directions>();
-                            if(xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos]!= Directions.NONE) list.Add(Directions.RIGHT);
-                            if(xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE) list.Add(Directions.LEFT);
-                            if(yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE) list.Add(Directions.DOWN);
-                            if(yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE) list.Add(Directions.UP);
+                            if (xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos] != Directions.NONE && !StartRange(xPos + 1, yPos)) list.Add(Directions.RIGHT);
+                            if (xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE && !StartRange(xPos - 1, yPos)) list.Add(Directions.LEFT);
+                            if (yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE && !StartRange(xPos, yPos + 1)) list.Add(Directions.DOWN);
+                            if (yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE && !StartRange(xPos, yPos - 1)) list.Add(Directions.UP);
 
-                            if(list.Count > 0)
+                            if (list.Count > 0)
                             {
                                 Directions randDir = list[Random.Range(0, list.Count)];
-                                switch(randDir)
+                                switch (randDir)
                                 {
                                     case Directions.RIGHT:
-                                        mazeWallMap[xPos + 1, yPos] |= Directions.LEFT;
-                                        mazeWallMap[xPos, yPos] |= Directions.RIGHT;
+                                        mazeWallMap[xPos + 1, yPos] |= randDir.GetOppositeDirection();
+                                        mazeWallMap[xPos, yPos] |= randDir;
                                         break;
                                     case Directions.LEFT:
-                                        mazeWallMap[xPos, yPos] |= Directions.LEFT;
+                                        mazeWallMap[xPos, yPos] |= randDir;
                                         break;
                                     case Directions.DOWN:
-                                        mazeWallMap[xPos, yPos] |= Directions.DOWN; 
+                                        mazeWallMap[xPos, yPos] |= randDir;
                                         break;
                                     case Directions.UP:
-                                        mazeWallMap[xPos, yPos - 1] |= Directions.DOWN;
-                                        mazeWallMap[xPos, yPos] |= Directions.UP; 
+                                        mazeWallMap[xPos, yPos - 1] |= randDir.GetOppositeDirection();
+                                        mazeWallMap[xPos, yPos] |= randDir;
                                         break;
                                 }
                                 x = xPos; y = yPos;
@@ -166,17 +176,12 @@ namespace Hypocrites.Maze
 
                     if (i > 0 && i < mapSize && j > 0 && j < mapSize)
                     {
-                        if ((i > mapHalfSize - startSize && i < mapHalfSize + startSize) &&
-                            (j > mapHalfSize - startSize && j < mapHalfSize + startSize))
-                        {
-                            Object.Destroy(mazeWalls[i, mapSize - j]);
-                            continue;
-                        }
-                        if (i % 2 == 1 && j % 2 == 1)
+                        int x = (i - 1) / 2;
+                        int y = (mapSize - j - 1) / 2;
+                        if (StartRange(x, y)) continue;
+                        else if (i % 2 == 1 && j % 2 == 1)
                         {
                             /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
-                            int x = (i - 1) / 2;
-                            int y = (mapSize - j - 1) / 2;
 
                             Directions crashDirections = mazeWallMap[x, y];
                             
