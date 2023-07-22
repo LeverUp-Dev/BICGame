@@ -18,7 +18,8 @@ namespace Hypocrites.Maze
         GameObject wallPrefab;
 
         private int mapSize;
-
+        private int mapHalfSize;
+        private int startSize = 4;
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
@@ -37,6 +38,7 @@ namespace Hypocrites.Maze
 
             mazeWallMap = new Directions[MAZE_MAP_SIZE, MAZE_MAP_SIZE];
             mazeWalls = new GameObject[mapSize, mapSize];
+            mapHalfSize = mapSize / 2;
         }
 
         public void Generate()
@@ -164,6 +166,12 @@ namespace Hypocrites.Maze
 
                     if (i > 0 && i < mapSize && j > 0 && j < mapSize)
                     {
+                        if ((i > mapHalfSize - startSize && i < mapHalfSize + startSize) &&
+                            (j > mapHalfSize - startSize && j < mapHalfSize + startSize))
+                        {
+                            Object.Destroy(mazeWalls[i, mapSize - j]);
+                            continue;
+                        }
                         if (i % 2 == 1 && j % 2 == 1)
                         {
                             /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
