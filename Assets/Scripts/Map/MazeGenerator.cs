@@ -117,10 +117,10 @@ namespace Hypocrites.Maze
                         if (mazeWallMap[xPos, yPos] == Directions.NONE)
                         {
                             List<Directions> list = new List<Directions>();
-                            if (xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos] != Directions.NONE && !StartRange(xPos + 1, yPos)) list.Add(Directions.RIGHT);
-                            if (xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE && !StartRange(xPos - 1, yPos)) list.Add(Directions.LEFT);
-                            if (yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE && !StartRange(xPos, yPos + 1)) list.Add(Directions.DOWN);
-                            if (yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE && !StartRange(xPos, yPos - 1)) list.Add(Directions.UP);
+                            if (xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.RIGHT);
+                            if (xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.LEFT);
+                            if (yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.DOWN);
+                            if (yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.UP);
 
                             if (list.Count > 0)
                             {
