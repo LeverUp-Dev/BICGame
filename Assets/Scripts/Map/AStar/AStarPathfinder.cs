@@ -159,7 +159,7 @@ namespace Hypocrites.Map.AStar
                     int gCost = target.GCost + (target.Node.isDiagonal(node) ? DIAGONAL_COST : STRAIGHT_COST);
 #endif
 
-                    int hCost = Mathf.Abs(end.GridX - node.GridX) * STRAIGHT_COST + Mathf.Abs(end.GridY - node.GridY) * STRAIGHT_COST;
+                    int hCost = (Mathf.Abs(end.GridX - node.GridX) + Mathf.Abs(end.GridY - node.GridY)) * STRAIGHT_COST;
                     int fCost = gCost + hCost;
 
                     AStarNode aStarNode = new AStarNode(target, node, gCost, hCost);

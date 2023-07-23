@@ -8,6 +8,7 @@ namespace Hypocrites.DB
     using UI.Inventory;
     using Utility;
     using Defines;
+    using Skill;
 
     public class Database : MonoBehaviour
     {
@@ -15,7 +16,8 @@ namespace Hypocrites.DB
 
         [field: SerializeField] public List<ItemData> Items { get; private set; }
         public List<EnemyData> Enemies { get; private set; }
-        public List<PlayerData> Members { get; private set; }
+        public List<Member> Members { get; private set; }
+        public Dictionary<string, Skill> Skills { get; private set; }
 
         /* Inspector Values */
         public GameObject fieldItemPrefab;
@@ -41,6 +43,17 @@ namespace Hypocrites.DB
                 go.GetComponent<FieldItems>().SetItem(item);
             }
 
+            /* 스킬 정보 검색 */
+            Skills = new Dictionary<string, Skill>();
+            JsonSave<SkillSave> skillsSave = JsonIOUtility.LoadJson<JsonSave<SkillSave>>(DatabaseConstants.SKILL_DATA_PATH);
+            for (int i = 0; i < skillsSave.items.Length; i++)
+            {
+                SkillSave save = skillsSave.items[i];
+                Skill skill = new Skill(save);
+
+                Skills.Add(skill.Name, skill);
+            }
+
             /* 적 정보 검색 */
             Enemies = new List<EnemyData>();
             JsonSave<BeingSave> enemyJsonSave = JsonIOUtility.LoadJson<JsonSave<BeingSave>>(DatabaseConstants.ENEMY_DATA_PATH);
@@ -51,24 +64,24 @@ namespace Hypocrites.DB
             }
 
             /* 플레이어 및 동료 정보 검색 */
-            Members = new List<PlayerData>();
-            JsonSave<PlayerSave> membersSave = JsonIOUtility.LoadJson<JsonSave<PlayerSave>>(DatabaseConstants.MEMBER_DATA_PATH);
+            Members = new List<Member>();
+            JsonSave<MemberSave> membersSave = JsonIOUtility.LoadJson<JsonSave<MemberSave>>(DatabaseConstants.MEMBER_DATA_PATH);
             for (int i = 0; i < membersSave.items.Length; i++)
             {
-                PlayerData data = new PlayerData(membersSave.items[i]);
+                Member data = new Member(membersSave.items[i]);
                 Members.Add(data);
             }
         }
 
         public void SaveMembers()
         {
-            JsonSave<PlayerSave> membersSave = new JsonSave<PlayerSave>();
-            membersSave.items = new PlayerSave[Members.Count];
+            JsonSave<MemberSave> membersSave = new JsonSave<MemberSave>();
+            membersSave.items = new MemberSave[Members.Count];
 
             for (int i = 0; i < Members.Count; ++i)
             {
-                PlayerData data = Members[i];
-                PlayerSave save = new PlayerSave(data);
+                Member data = Members[i];
+                MemberSave save = new MemberSave(data);
 
                 membersSave.items[i] = save;
             }

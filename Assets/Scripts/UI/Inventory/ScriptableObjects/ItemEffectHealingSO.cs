@@ -9,7 +9,7 @@ namespace Hypocrites.UI.Inventory
     {
         public int healingPoint = 0;
 
-        public override bool Execute(PlayerData target)
+        public override bool Execute(Member target)
         {
             if (target == null)
             {

@@ -24,6 +24,8 @@ namespace Hypocrites.Map
 
     public class MapGenerator : MonoBehaviour
     {
+        public static MapGenerator Instance { get; private set; }
+
         const RoomType MAXIMUM_ROOM_SIZE = RoomType.R17x17;
         const int MAZE_ROOM_PADDING = (int)MAXIMUM_ROOM_SIZE / 2;
         const int MAXIMUM_GENERATE_TRIAL = 500;
@@ -64,6 +66,13 @@ namespace Hypocrites.Map
 
         void Awake()
         {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+
+            DontDestroyOnLoad(gameObject);
+
             if (CycleHallwayCreationChance < 0 || CycleHallwayCreationChance > 100)
             {
                 CycleHallwayCreationChance = 12.5f;

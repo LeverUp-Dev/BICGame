@@ -16,7 +16,6 @@ namespace Hypocrites
         [field: SerializeField] public ItemType ItemType { get; private set; }
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public string ItemImagePath { get; private set; }
-        [field: SerializeField] public string[] ItemEffectPaths { get; private set; }
 
         [field: SerializeField] public Sprite ItemImage { get; private set; }
         [field: SerializeField] public ItemEffectBaseSO[] ItemEffects { get; private set; }
@@ -31,23 +30,19 @@ namespace Hypocrites
             ItemType = save.itemType;
             ItemName = save.itemName;
             ItemImagePath = save.itemImagePath;
-            ItemEffectPaths = save.itemEffectPaths;
 
             ItemImage = Resources.Load<Sprite>(ItemImagePath);
-            ItemEffects = new ItemEffectBaseSO[ItemEffectPaths.Length];
 
-            for (int i = 0; i < ItemEffectPaths.Length; i++)
-            {
-                ItemEffects[i] = Resources.Load<ItemEffectBaseSO>(ItemEffectPaths[i]);
-            }
+            int effectsCount = save.itemEffectPaths.Length;
+            ItemEffects = new ItemEffectBaseSO[effectsCount];
+            for (int i = 0; i < effectsCount; i++)
+                ItemEffects[i] = Resources.Load<ItemEffectBaseSO>(save.itemEffectPaths[i]);
         }
 
-        public bool Use(PlayerData target)
+        public bool Use(Member target)
         {
-            for (int i = 0; i < ItemEffects.Length; i++)
-            {
-                ItemEffects[i].Execute(target);
-            }
+            foreach (var effect in ItemEffects)
+                effect.Execute(target);
 
             return true;
         }

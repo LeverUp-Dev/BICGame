@@ -7,6 +7,7 @@ namespace Hypocrites.UI.StatusWindow
     using Defines;
     using DB.Data;
     using Player;
+    using Hypocrites.DB.Save;
 
     public class StatusWindowUI : MonoBehaviour
     {
@@ -18,14 +19,14 @@ namespace Hypocrites.UI.StatusWindow
         public TextMeshProUGUI HpText;
         public TextMeshProUGUI MpText;
 
-        public Status[] statuses;
+        public StatusUI[] statuses;
         public Button applyButton;
         public TextMeshProUGUI statusPointText;
 
         public int statusPerLevel;
 
-        Player player;
-        PlayerData currentMember;
+        Party party;
+        Member currentMember;
 
         bool isActive = false;
 
@@ -56,7 +57,7 @@ namespace Hypocrites.UI.StatusWindow
             applyButton.interactable = false;
             applyButton.onClick.AddListener(AdjustStatusPoint);
 
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            party = GameObject.FindGameObjectWithTag("Player").GetComponent<Party>();
 
             LoadStatus();
         }
@@ -97,51 +98,40 @@ namespace Hypocrites.UI.StatusWindow
                 currentMember.onHpChanged -= SetHpText;
             }
 
-            if (name == null)
-            {
-                currentMember = player.Status;
-            }
-            else
-            {
-                currentMember = player.GetMember(name);
+            currentMember = party.GetMember(name);
 
-                if (currentMember == null)
-                {
-                    throw new System.Exception($"{name}은 존재하지 않는 동료입니다.");
-                }
+            if (currentMember == null)
+            {
+                throw new System.Exception($"{name}은 존재하지 않는 동료입니다.");
             }
 
             /* 플레이어 상태 정보 설정 */
             playerNameText.text = currentMember.Name;
 
-            SetLevelText(currentMember.Level);
-            SetExpText(100, currentMember.Exp);
-            SetHpText(BeingConstants.MAX_STAT_HEALTH, currentMember.Health);
-            SetMpText(BeingConstants.MAX_STAT_MANA, currentMember.Mana);
+            SetLevelText(-999);
+            SetExpText(100, -999);
+            SetHpText(BeingConstants.MAX_STAT_HEALTH, (int)currentMember.Status.Health);
+            SetMpText(BeingConstants.MAX_STAT_MANA, (int)currentMember.Status.Mana);
 
             for (int i = 0; i < statuses.Length; ++i)
             {
-                Status status = statuses[i];
+                StatusUI status = statuses[i];
                 switch (status.statusType)
                 {
                     case BeingStatusType.STRENGTH:
-                        status.SetStatus(currentMember.Strength);
+                        status.SetStatus((int)currentMember.Status.Strength);
                         break;
 
                     case BeingStatusType.DEXTERITY:
-                        status.SetStatus(currentMember.Dexterity);
+                        status.SetStatus((int)currentMember.Status.Dexterity);
                         break;
 
                     case BeingStatusType.INTELLIGENCE:
-                        status.SetStatus(currentMember.Intelligence);
+                        status.SetStatus((int)currentMember.Status.Intelligence);
                         break;
 
-                    case BeingStatusType.VITALITY:
-                        status.SetStatus(currentMember.Vitality);
-                        break;
-
-                    case BeingStatusType.LUCK:
-                        status.SetStatus(currentMember.Luck);
+                    case BeingStatusType.FAITH:
+                        status.SetStatus((int)currentMember.Status.Faith);
                         break;
                 }
             }
@@ -179,9 +169,11 @@ namespace Hypocrites.UI.StatusWindow
         #region 능력치 관련 메소드
         public void AdjustLevelUp()
         {
+            /* TODO : 제거 대상 */
+
             // 플레이어 실제 레벨 업 반영 필요
             int level = int.Parse(levelText.text.Split('.')[1]) + 1;
-            currentMember.Level = level;
+            //currentMember.Level = level;
             SetLevelText(level);
 
             maxStatusPoint += statusPerLevel;
@@ -192,35 +184,38 @@ namespace Hypocrites.UI.StatusWindow
 
         public void AdjustStatusPoint()
         {
+            StatusSave add = new StatusSave();
+
             // 플레이어에 수정된 Status Point 반영
             for (int i = 0; i < statuses.Length; ++i)
             {
-                Status status = statuses[i];
-                status.AdjustStatusPoint();
+                StatusUI statusUI = statuses[i];
+                statusUI.AdjustStatusPoint();
                 
-                switch (status.statusType)
+                switch (statusUI.statusType)
                 {
                     case BeingStatusType.STRENGTH:
-                        currentMember.Strength = status.OriginStatusValue;
+                        add.strength = statusUI.OriginStatusValue;
                         break;
 
                     case BeingStatusType.DEXTERITY:
-                        currentMember.Dexterity = status.OriginStatusValue;
+                        add.dexterity = statusUI.OriginStatusValue;
                         break;
 
                     case BeingStatusType.INTELLIGENCE:
-                        currentMember.Intelligence = status.OriginStatusValue;
+                        add.intelligence = statusUI.OriginStatusValue;
                         break;
 
-                    case BeingStatusType.VITALITY:
-                        currentMember.Vitality = status.OriginStatusValue;
-                        break;
-
-                    case BeingStatusType.LUCK:
-                        currentMember.Luck = status.OriginStatusValue;
+                    case BeingStatusType.FAITH:
+                        add.faith = statusUI.OriginStatusValue;
                         break;
                 }
             }
+
+            Status status = new Status();
+            status.Load(add);
+
+            currentMember.Status.Add(status);
 
             // 사용한 Status Point 수 반영
             maxStatusPoint = CurStatusPoint;

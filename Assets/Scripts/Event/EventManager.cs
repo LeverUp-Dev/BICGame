@@ -40,7 +40,7 @@ namespace Hypocrites.Event {
             }
         }
 
-        Player player;
+        Party party;
 
         /* Inspector Values */
         [field: SerializeField] public int PeaceChance { get; private set; }
@@ -62,7 +62,7 @@ namespace Hypocrites.Event {
             DontDestroyOnLoad(gameObject);
 
             // 플레이어 정보 검색
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            party = GameObject.FindGameObjectWithTag("Player").GetComponent<Party>();
 
             /* 다이얼로그 정보 검색 */
             dialogueComponent = GetComponent<DSDialogue>();
@@ -80,7 +80,7 @@ namespace Hypocrites.Event {
                         continue;
 
                     // 이미 영입된 동료는 더 이상 영입 이벤트가 발생하면 안 되므로 처리
-                    if (group.GroupName.Equals(EventConstants.EVENT_MEMBER_GROUP_NAME) && player.GetMember(dialogue.DialogueName) != null)
+                    if (group.GroupName.Equals(EventDefines.EVENT_MEMBER_GROUP_NAME) && party.GetMember(dialogue.DialogueName) != null)
                         continue;
                     
                     list.Add(dialogue);
@@ -134,7 +134,7 @@ namespace Hypocrites.Event {
         /// <returns>재판정일 경우 true, 아니면 false</returns>
         bool Reroll(int luck)
         {
-            return Random.Range(0, BeingConstants.MAX_STAT_LUCK) < luck;
+            return Random.Range(0, BeingConstants.MAX_STAT) < luck;
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace Hypocrites.Event {
             chance += PositiveEventChance;
             if (totalChanceDice < chance)
             {
-                return dialogues[EventConstants.EVENT_POSITIVE_GROUP_NAME];
+                return dialogues[EventDefines.EVENT_POSITIVE_GROUP_NAME];
             }
             
             // 부정적 이벤트 여부 확인
@@ -170,14 +170,14 @@ namespace Hypocrites.Event {
                 if (Reroll(luck))
                     return GetDialoguesByChance(luck);
 
-                return dialogues[EventConstants.EVENT_NEGATIVE_GROUP_NAME];
+                return dialogues[EventDefines.EVENT_NEGATIVE_GROUP_NAME];
             }
 
             // 동료 이벤트 반환 (이미 동료를 모두 영입한 경우 dialogues에 데이터가 없으므로 null 반환)
-            if (!dialogues.ContainsKey(EventConstants.EVENT_MEMBER_GROUP_NAME))
+            if (!dialogues.ContainsKey(EventDefines.EVENT_MEMBER_GROUP_NAME))
                 return null;
 
-            List<DSDialogueSO> memberDialogues = dialogues[EventConstants.EVENT_MEMBER_GROUP_NAME];
+            List<DSDialogueSO> memberDialogues = dialogues[EventDefines.EVENT_MEMBER_GROUP_NAME];
 
             if (memberDialogues == null)
                 return null;
@@ -190,7 +190,7 @@ namespace Hypocrites.Event {
 
             // 동료를 모두 영입한 경우 이후 null을 반환해 이벤트가 일어나지 않도록 하기 위해 dalogues Dictionary에서 데이터 제거
             if (memberDialogues.Count == 0)
-                dialogues.Remove(EventConstants.EVENT_MEMBER_GROUP_NAME);
+                dialogues.Remove(EventDefines.EVENT_MEMBER_GROUP_NAME);
 
             return memberDialogue;
         }
@@ -199,7 +199,7 @@ namespace Hypocrites.Event {
         #region 전투 이벤트 관련 메소드
         public void Encounter(EnemyData enemy)
         {
-            Debug.Log($"{player.Status.Name}은(는) {enemy.Name}을(를) 조우했다!");
+            Debug.Log($"{enemy.Name}을(를) 조우했다!");
         }
         #endregion
     }

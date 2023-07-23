@@ -3,41 +3,37 @@ using System;
 namespace Hypocrites.DB.Save
 {
     using DB.Data;
+    using Skill;
 
     [Serializable]
     public class BeingSave
     {
         public string name;
 
-        public int level;
+        public StatusSave status;
+        public StatusSave additionalStatus;
 
-        public int health;
-        public int mana;
-
-        public int strength;
-        public int dexterity;
-        public int intelligence;
-        public int vitality;
-        public int luck;
+        public string skillRemoveEventPath;
+        public string[] effects;
 
         public BeingSave()
         {
 
         }
 
-        public BeingSave(BeingData data)
+        public BeingSave(Being data)
         {
             name = data.Name;
-            level = data.Level;
-             
-            health = data.Health;
-            mana = data.Mana;
-             
-            strength = data.Strength;
-            dexterity = data.Dexterity;
-            intelligence = data.Intelligence;
-            vitality = data.Vitality;
-            luck = data.Luck;
+
+            status.Load(data.Status);
+            additionalStatus.Load(data.AdditionalStatus);
+
+            skillRemoveEventPath = data.SkillRemoveEvent.path;
+            effects = new string[data.Effects.Count];
+
+            int i = 0;
+            foreach (Skill effect in data.Effects)
+                effects[++i] = effect.Name;
         }
     }
 }

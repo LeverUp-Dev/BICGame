@@ -1,10 +1,10 @@
 namespace Hypocrites.UI.Inventory
 {
-    using SO;
+    using Event.SO;
     using DB.Data;
 
     public abstract class ItemEffectBaseSO : BaseSO
     {
-        public abstract bool Execute(PlayerData target);
+        public abstract bool Execute(Member target);
     }
 }
