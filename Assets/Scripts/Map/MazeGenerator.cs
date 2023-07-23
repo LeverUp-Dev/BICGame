@@ -58,8 +58,8 @@ namespace Hypocrites.Maze
 
         private bool StartRange(int x, int y)
         {
-            if ((x > mazeCenter - StartSize && x < mazeCenter + StartSize)
-                && (y > mazeCenter - StartSize && y < mazeCenter + StartSize)) return true;
+            if ((x > mazeCenter - StartSize && x <= mazeCenter + StartSize)
+                && (y > mazeCenter - StartSize && y <= mazeCenter + StartSize)) return true;
             else return false;
         }
 
@@ -114,13 +114,14 @@ namespace Hypocrites.Maze
                 {
                     for (int xPos = 0; xPos < MAZE_MAP_SIZE; xPos++)
                     {
-                        if (mazeWallMap[xPos, yPos] == Directions.NONE)
+                        if (StartRange(xPos, yPos)) continue;
+                        else if (mazeWallMap[xPos, yPos] == Directions.NONE)
                         {
                             List<Directions> list = new List<Directions>();
-                            if (xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.RIGHT);
-                            if (xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.LEFT);
-                            if (yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.DOWN);
-                            if (yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE && !StartRange(xPos, yPos)) list.Add(Directions.UP);
+                            if (xPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos + 1, yPos] != Directions.NONE) list.Add(Directions.RIGHT);
+                            if (xPos - 1 > -1 && mazeWallMap[xPos - 1, yPos] != Directions.NONE) list.Add(Directions.LEFT);
+                            if (yPos + 1 != MAZE_MAP_SIZE && mazeWallMap[xPos, yPos + 1] != Directions.NONE) list.Add(Directions.DOWN);
+                            if (yPos - 1 > -1 && mazeWallMap[xPos, yPos - 1] != Directions.NONE) list.Add(Directions.UP);
 
                             if (list.Count > 0)
                             {
