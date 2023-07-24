@@ -25,8 +25,6 @@ namespace Hypocrites.Manager
                 Destroy(gameObject);
 
             DontDestroyOnLoad(gameObject);
-
-            state = GameState.OnPlay;
         }
     }
 }

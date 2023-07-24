@@ -47,8 +47,10 @@
 				"dexterity": 0,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
-			"effects": []
+			"skills": [],
+			"skillStatuses": [],
+			"effects": [],
+			"effectStatuses": []
 		},
 		{
 			"name": "가나다라마바사",
@@ -96,8 +98,10 @@
 				"dexterity": 0,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
-			"effects": []
+			"skills": [],
+			"skillStatuses": [],
+			"effects": [],
+			"effectStatuses": []
 		}
 	]
 }

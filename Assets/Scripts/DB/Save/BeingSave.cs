@@ -13,8 +13,10 @@ namespace Hypocrites.DB.Save
         public StatusSave status;
         public StatusSave additionalStatus;
 
-        public string skillRemoveEventPath;
+        public string[] skills;
+        public SkillStatusSave[] skillStatuses;
         public string[] effects;
+        public EffectStatusSave[] effectStatuses;
 
         public BeingSave()
         {
@@ -28,12 +30,29 @@ namespace Hypocrites.DB.Save
             status.Load(data.Status);
             additionalStatus.Load(data.AdditionalStatus);
 
-            skillRemoveEventPath = data.SkillRemoveEvent.path;
-            effects = new string[data.Effects.Count];
+            // 소유한 스킬 정보 저장
+            int i;
+            skills = new string[data.Skills.Count];
+            skillStatuses = new SkillStatusSave[data.Skills.Count];
+            for (i = 0; i < data.Skills.Count; i++)
+            {
+                Skill skill = data.Skills[i];
+                string name = skill.Name;
 
-            int i = 0;
+                skills[i] = name;
+                skillStatuses[i] = new SkillStatusSave(name, data.SkillStatuses[skill]);
+            }
+
+            // 적용 중인 효과 정보 저장
+            i = 0;
+            effects = new string[data.Effects.Count];
+            effectStatuses = new EffectStatusSave[data.Effects.Count];
             foreach (Skill effect in data.Effects)
-                effects[++i] = effect.Name;
+            {
+                string name = effect.Name;
+                effects[i++] = name;
+                effectStatuses[i] = new EffectStatusSave(name, data.EffectStatuses[effect]);
+            }
         }
     }
 }

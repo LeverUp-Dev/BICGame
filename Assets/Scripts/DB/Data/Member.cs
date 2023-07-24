@@ -26,10 +26,21 @@ namespace Hypocrites.DB.Data
             SkillSlot = new Skill[4];
             for (int i = 0; i < save.skillSlot.Length; i++)
             {
-                if (Database.Instance.Skills.TryGetValue(save.skillSlot[i], out Skill value))
-                    SkillSlot[i] = value;
+                Skill skill = null;
+
+                for (int j = 0; j < Skills.Count; i++)
+                {
+                    if (Skills[i].Name.Equals(save.skillSlot[i]))
+                    {
+                        skill = Skills[i];
+                        break;
+                    }
+                }
+
+                if (skill != null)
+                    SkillSlot[i] = skill;
                 else
-                    Debug.LogError($"\"{save.skillSlot[i]}\" 스킬이 데이터베이스에 존재하지 않습니다.");
+                    Debug.LogError($"\"{save.skillSlot[i]}\" 스킬이 {Name}에게 존재하지 않습니다.");
             }
         }
 

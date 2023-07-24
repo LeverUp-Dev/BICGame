@@ -1,11 +1,10 @@
-using Hypocrites.Defines;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Hypocrites.DB.Save
 {
+    using Defines;
+    using Skill;
+
     [Serializable]
     public class SkillSave
     {
@@ -27,8 +26,33 @@ namespace Hypocrites.DB.Save
         public SkillType type;
         public SkillAttackType attackType;
         public SkillTargetingType targetingType;
+    }
 
+    [Serializable]
+    public struct SkillStatusSave
+    {
+        public string name;
         public bool isLocked;
+        public bool isCooltime;
+
+        public SkillStatusSave(string name, SkillStatus skillStatus)
+        {
+            this.name = name;
+            isLocked = skillStatus.IsLocked;
+            isCooltime = skillStatus.IsCooltime;
+        }
+    }
+
+    [Serializable]
+    public struct EffectStatusSave
+    {
+        public string name;
         public bool isDotActivated;
+
+        public EffectStatusSave(string name, EffectStatus effectStatus)
+        {
+            this.name = name;
+            isDotActivated = effectStatus.IsDotActivated;
+        }
     }
 }

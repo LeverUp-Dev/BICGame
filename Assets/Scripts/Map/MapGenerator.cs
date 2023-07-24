@@ -392,7 +392,7 @@ namespace Hypocrites.Map
         Edge[,] GraphToMST(int[,] graph, Room first)
         {
             Edge[,] mstTree = new Edge[RoomsPerArea, RoomsPerArea];
-            MinHeap<Edge> heap = new MinHeap<Edge>(RoomsPerArea * RoomsPerArea);
+            MinHeap<Edge> heap = new MinHeap<Edge>((RoomsPerArea + 1) * RoomsPerArea);
 
             // 최소 힙에 첫 정점과 인접한 간선 추가
             for (int i = 0; i < RoomsPerArea; ++i)

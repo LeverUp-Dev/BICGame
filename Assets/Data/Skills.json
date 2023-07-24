@@ -3,7 +3,6 @@
 	[
 		{
 			"name": "강공격",
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
 			"buffValue": {
 				"class": 0,
 				"maxHealth": 0,
@@ -50,20 +49,17 @@
 			},
 			"remains": 0,
 			"interval": 0,
-			"cooltime": 0,
+			"cooltime": 3000,
 			"percentageDamage": 100,
 			"percentageHeal": 0,
 			"attackCount": 3,
 			"remainCount": 1,
 			"type": 0,
 			"attackType": 1,
-			"targetingType": 3,
-			"isLocked": false,
-			"isDotActivated": false
+			"targetingType": 3
 		},
 		{
 			"name": "독",
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
 			"buffValue": {
 				"class": 0,
 				"maxHealth": 0,
@@ -110,20 +106,17 @@
 			},
 			"remains": 10000,
 			"interval": 1000,
-			"cooltime": 0,
+			"cooltime": 20000,
 			"percentageDamage": 20,
 			"percentageHeal": 0,
 			"attackCount": 1,
 			"remainCount": 1,
 			"type": 0,
 			"attackType": 2,
-			"targetingType": 3,
-			"isLocked": false,
-			"isDotActivated": false
+			"targetingType": 3
 		},
 		{
 			"name": "크리티컬 버프",
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
 			"buffValue": {
 				"class": 0,
 				"maxHealth": 0,
@@ -170,16 +163,14 @@
 			},
 			"remains": 10000,
 			"interval": 0,
-			"cooltime": 0,
+			"cooltime": 30000,
 			"percentageDamage": 0,
 			"percentageHeal": 0,
 			"attackCount": 1,
 			"remainCount": 1,
 			"type": 0,
 			"attackType": 0,
-			"targetingType": 4,
-			"isLocked": false,
-			"isDotActivated": false
+			"targetingType": 4
 		}
 	]
 }

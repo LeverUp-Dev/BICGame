@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Hypocrites.Skill
 {
@@ -10,14 +12,42 @@ namespace Hypocrites.Skill
     using DB.Save;
     using Manager;
     using GSM = Manager.GameStateManager;
-    using System.Threading.Tasks;
-    using System.Threading;
+    using static UnityEngine.GraphicsBuffer;
+
+    /*
+     *  Skill과 Effect의 차이
+     *  : Skill은 Being이 소유하고 있는 스킬, Effect는 Being이 target에게 스킬을 사용해 적용중인 상태인 스킬(버프, 도트뎀 등)
+     */
+    public class SkillStatus
+    {
+        public bool IsLocked { get; set; }
+        public bool IsCooltime { get; set; }
+
+        public SkillStatus(SkillStatusSave save)
+        {
+            IsLocked = save.isLocked;
+            IsCooltime = save.isCooltime;
+        }
+    }
+
+    public class EffectStatus
+    {
+        public bool IsDotActivated { get; set; }
+
+        public EffectStatus(bool isDotActivated = false)
+        {
+            IsDotActivated = isDotActivated;
+        }
+
+        public EffectStatus(EffectStatusSave save)
+        {
+            IsDotActivated = save.isDotActivated;
+        }
+    }
 
     public class Skill
     {
         public string Name { get; private set; }
-
-        public SkillEventSO SkillRemoveEvent { get; private set; }
 
         public Status BuffValue { get; private set; }
         public Status PenaltyValue { get; private set; }
@@ -33,9 +63,6 @@ namespace Hypocrites.Skill
         public SkillType Type { get; private set; }
         public SkillAttackType AttackType { get; private set; }
         public SkillTargetingType TargetingType { get; private set; }
-        
-        public bool IsLocked { get; private set; }
-        public bool IsDotActivated { get; private set; }
 
         delegate void Start(Being caster, Being target);
         Start starter;
@@ -62,8 +89,6 @@ namespace Hypocrites.Skill
         {
             Name = save.name;
 
-            SkillRemoveEvent = Resources.Load<SkillEventSO>(save.skillRemoveEventPath);
-
             BuffValue = new Status(save.buffValue);
             PenaltyValue = new Status(save.penaltyValue);
 
@@ -77,35 +102,33 @@ namespace Hypocrites.Skill
             Type = save.type;
             AttackType = save.attackType;
             TargetingType = save.targetingType;
-
-            IsLocked = save.isLocked;
-            IsDotActivated = save.isDotActivated;
         }
 
         public async void Use(Being caster, Being target)
         {
             await Task.Run(() => {
                 // 전투 중인 경우엔 비전투 스킬 사용 불가능
-                /*if (GSM.Instance.state == GameState.OnBattle && TargetingType == SkillTargetingType.NONE)
-                    return;*/
+                if (GSM.Instance.state == GameState.OnBattle && TargetingType == SkillTargetingType.NONE)
+                    return;
 
                 // 비전투 중인 경우엔 전투 스킬 사용 불가능
-                /*if (GSM.Instance.state != GameState.OnBattle && TargetingType != SkillTargetingType.NONE)
-                    return;*/
+                if (GSM.Instance.state != GameState.OnBattle && TargetingType != SkillTargetingType.NONE)
+                    return;
 
                 starter(caster, target);
 
                 if (Remains > 0)
                     Thread.Sleep(Remains);
 
-                SkillRemoveEvent.Raise(this);
+                target.RemoveEffect(this);
             });
         }
 
         #region 스킬 사용 관련 메소드
         void StartEffectInterval(Being caster, Being target)
         {
-            IsDotActivated = true;
+            target.EffectStatuses[this].IsDotActivated = true;
+
             StartEffectIntervalCoroutine(caster, target);
         }
 
@@ -113,7 +136,9 @@ namespace Hypocrites.Skill
         {
             await Task.Run(() =>
             {
-                while (IsDotActivated)
+                EffectStatus effectStatus = target.EffectStatuses[this];
+
+                while (effectStatus.IsDotActivated)
                 {
                     Thread.Sleep(Interval);
                     Execute(caster, target);
@@ -121,9 +146,9 @@ namespace Hypocrites.Skill
             });
         }
 
-        public void StopEffectInterval()
+        public void StopEffectInterval(Being target)
         {
-            IsDotActivated = false;
+            target.EffectStatuses[this].IsDotActivated = false;
         }
 
         void StartEffect(Being caster, Being target)

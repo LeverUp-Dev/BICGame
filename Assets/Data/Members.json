@@ -47,8 +47,26 @@
 				"dexterity": 0,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
+			"skills": ["강공격", "독", "크리티컬 버프"],
+			"skillStatuses": [
+				{
+					"name": "강공격",
+					"isLocked": false,
+					"isCooltime": false
+				},
+				{
+					"name": "독",
+					"isLocked": false,
+					"isCooltime": false
+				},
+				{
+					"name": "크리티컬 버프",
+					"isLocked": false,
+					"isCooltime": false
+				}
+			],
 			"effects": [],
+			"effectStatuses": [],
 			"portraitPath": "Portraits/김수한무",
 			"isMember": true,
 			"skillSlot": ["강공격", "독", "크리티컬 버프"]
@@ -99,8 +117,10 @@
 				"dexterity": 1,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
+			"skills": [],
+			"skillStatuses": [],
 			"effects": [],
+			"effectStatuses": [],
 			"portraitPath": "Portraits/김수한무",
 			"isMember": true,
 			"skillSlot": []
@@ -151,8 +171,10 @@
 				"dexterity": 0,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
+			"skills": [],
+			"skillStatuses": [],
 			"effects": [],
+			"effectStatuses": [],
 			"portraitPath": "Portraits/김수한무",
 			"isMember": false,
 			"skillSlot": []
@@ -203,8 +225,10 @@
 				"dexterity": 0,
 				"faith": 0
 			},
-			"skillRemoveEventPath": "Events/SkillRemoveEvent",
+			"skills": [],
+			"skillStatuses": [],
 			"effects": [],
+			"effectStatuses": [],
 			"portraitPath": "Portraits/김수한무",
 			"isMember": false,
 			"skillSlot": []

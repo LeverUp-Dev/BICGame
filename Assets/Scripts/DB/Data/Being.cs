@@ -8,6 +8,9 @@ namespace Hypocrites.DB.Data
     using Defines;
     using Event.SO;
     using Skill;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using UnityEditor.Experimental.GraphView;
 
     public class Being
     {
@@ -18,14 +21,13 @@ namespace Hypocrites.DB.Data
         public Status AdditionalStatus { get; private set; } // 스킬에 의한 스탯 증감치
 
         /* 스킬 정보 */
-        public SkillEventSO SkillRemoveEvent { get; private set; }
-        public Dictionary<string, Skill> Skills { get; private set; } // 데이터베이스에서 해당 직업에 맞는 스킬 정보 로드
+        public List<Skill> Skills { get; private set; } // 데이터베이스에서 해당 직업에 맞는 스킬 정보 로드
+        public Dictionary<Skill, SkillStatus> SkillStatuses { get; private set; } // 보유 중인 스킬 상태(해금 여부, 활성화 여부 등)
         public HashSet<Skill> Effects { get; private set; } // 현재 적용 중인 버프 디버프 목록
+        public Dictionary<Skill, EffectStatus> EffectStatuses { get; private set; } // 적용 중인 스킬 상태
 
         public Being(BeingSave save)
         {
-            Effects = new HashSet<Skill>();
-
             Load(save);
         }
 
@@ -39,14 +41,25 @@ namespace Hypocrites.DB.Data
 
             Status = new Status(save.status);
             AdditionalStatus= new Status(save.additionalStatus);
-
-            SkillRemoveEvent = Resources.Load<SkillEventSO>(save.skillRemoveEventPath);
-            SkillRemoveEvent.action += RemoveEffect;
-
-            Skills = new Dictionary<string, Skill>();
-            foreach (string effect in save.effects)
+            
+            // 소유한 스킬 정보 로드
+            Skills = new List<Skill>();
+            SkillStatuses = new Dictionary<Skill, SkillStatus>();
+            for (int i = 0; i < save.skills.Length; i++)
             {
-                Skills.Add(effect, Database.Instance.Skills[effect]);
+                Skill skill = Database.Instance.Skills[save.skills[i]];
+                Skills.Add(skill);
+                SkillStatuses.Add(skill, new SkillStatus(save.skillStatuses[i]));
+            }
+
+            // 적용 중인 효과 정보 로드
+            Effects = new HashSet<Skill>();
+            EffectStatuses = new Dictionary<Skill, EffectStatus>();
+            for (int i = 0; i < save.effects.Length; i++)
+            {
+                Skill effect = Database.Instance.Skills[save.effects[i]];
+                Effects.Add(effect);
+                EffectStatuses.Add(effect, new EffectStatus(save.effectStatuses[i]));
             }
         }
 
@@ -99,9 +112,13 @@ namespace Hypocrites.DB.Data
                 Status.Health = BeingConstants.MAX_STAT_HEALTH;
         }
 
-        // TODO : targets를 params로 변경?
         public void UseSkill(Skill skill, Being[] targets)
         {
+            if (SkillStatuses[skill].IsCooltime)
+                return;
+
+            SetCooltime(skill);
+
             if (skill.TargetingType == SkillTargetingType.ITSELF)
             {
                 SetEffect(this, skill);
@@ -119,20 +136,33 @@ namespace Hypocrites.DB.Data
             AdditionalStatus.Add(effect.BuffValue);
 
             if (effect.PenaltyValue != null)
-            {
                 Status.Sub(effect.PenaltyValue);
-            }
+
+            Effects.Add(effect);
+            EffectStatuses.Add(effect, new EffectStatus());
 
             effect.Use(caster, this);
-            Effects.Add(effect);
         }
 
         public void RemoveEffect(Skill effect)
         {
             AdditionalStatus.Sub(effect.BuffValue);
 
-            effect.StopEffectInterval();
+            effect.StopEffectInterval(this);
+
             Effects.Remove(effect);
+            EffectStatuses.Remove(effect);
+        }
+
+        async void SetCooltime(Skill skill)
+        {
+            SkillStatuses[skill].IsCooltime = true;
+
+            await Task.Run(() =>
+            {
+                Thread.Sleep(skill.Cooltime);
+                SkillStatuses[skill].IsCooltime = false;
+            });
         }
     }
 }
