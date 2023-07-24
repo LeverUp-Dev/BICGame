@@ -179,17 +179,19 @@ namespace Hypocrites.Maze
                     {
                         int x = (i - 1) / 2;
                         int y = (mapSize - j - 1) / 2;
-                        if (StartRange(x, y)) continue;
+                        if (x > mazeCenter - StartSize && x < mazeCenter + StartSize &&
+                            y > mazeCenter - StartSize + 1 && y <= mazeCenter + StartSize)
+                            continue;
                         else if (i % 2 == 1 && j % 2 == 1)
                         {
                             /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
 
                             Directions crashDirections = mazeWallMap[x, y];
                             
-                            if (crashDirections.Contains(Directions.LEFT))
+                            if (crashDirections.Contains(Directions.LEFT) || mazeWallMap[x, y] == Directions.NONE)
                                 Object.Destroy(mazeWalls[i - 1, mapSize - j - 1]);
 
-                            if (crashDirections.Contains(Directions.DOWN))
+                            if (crashDirections.Contains(Directions.DOWN) || mazeWallMap[x, y] == Directions.NONE)
                                 Object.Destroy(mazeWalls[i, mapSize - j]);
 
                             continue;
