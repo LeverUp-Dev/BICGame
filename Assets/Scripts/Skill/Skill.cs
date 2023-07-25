@@ -7,12 +7,10 @@ using System.Threading;
 namespace Hypocrites.Skill
 {
     using Defines;
-    using Event.SO;
     using DB.Data;
     using DB.Save;
     using Manager;
     using GSM = Manager.GameStateManager;
-    using static UnityEngine.GraphicsBuffer;
 
     /*
      *  Skill과 Effect의 차이

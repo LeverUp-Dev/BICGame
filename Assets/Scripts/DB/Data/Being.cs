@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Hypocrites.DB.Data
 {
     using DB.Save;
     using Defines;
-    using Event.SO;
     using Skill;
     using System.Threading;
     using System.Threading.Tasks;
-    using UnityEditor.Experimental.GraphView;
 
     public class Being
     {
@@ -127,7 +123,7 @@ namespace Hypocrites.DB.Data
 
             for (int i = 0; i < targets.Length; ++i)
             {
-                targets[i].SetEffect(this, skill);
+                targets[i]?.SetEffect(this, skill);
             }
         }
 

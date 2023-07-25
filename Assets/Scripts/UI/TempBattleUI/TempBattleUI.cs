@@ -1,16 +1,18 @@
-using Hypocrites.DB;
-using Hypocrites.DB.Data;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Hypocrites
+namespace Hypocrites.UI.TempBattleUI
 {
+    using DB;
+    using DB.Data;
+
     public class TempBattleUI : MonoBehaviour
     {
         public TextMeshProUGUI enemyNameText;
         public TextMeshProUGUI enemyHealthText;
+        public TextMeshProUGUI enemy2NameText;
+        public TextMeshProUGUI enemy2HealthText;
         public TextMeshProUGUI playerNameText;
         public TextMeshProUGUI[] skillNameTexts;
 
@@ -29,6 +31,7 @@ namespace Hypocrites
             player = Database.Instance.Members[0];
 
             enemyNameText.text = enemies[0].Name;
+            enemy2NameText.text = enemies[1].Name;
             playerNameText.text = player.Name;
 
             for (int i = 0; i < 3; i++)
@@ -38,6 +41,7 @@ namespace Hypocrites
         void Update()
         {
             enemyHealthText.text = enemies[0].Status.Health + "";
+            enemy2HealthText.text = enemies[1].Status.Health + "";
         }
     }
 }
