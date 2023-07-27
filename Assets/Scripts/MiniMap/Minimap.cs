@@ -45,8 +45,8 @@ namespace Hypocrites.MiniMap
 
         void Start()
         {
-            GameObject floorInstance = Instantiate(floorPrefab);
-            floorInstance.transform.SetParent(miniMapFloorParent);
+            /*GameObject floorInstance = Instantiate(floorPrefab);
+            floorInstance.transform.SetParent(miniMapFloorParent);*/
 
             material = rend.sharedMaterial;
         }

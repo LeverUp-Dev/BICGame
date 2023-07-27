@@ -14,6 +14,7 @@ namespace Hypocrites.DB
     {
         public static Database Instance { get; private set; }
 
+        public Transform itemsHierarchyRoot;
         [field: SerializeField] public List<ItemData> Items { get; private set; }
         public List<EnemyData> Enemies { get; private set; }
         public List<Member> Members { get; private set; }
@@ -39,8 +40,8 @@ namespace Hypocrites.DB
                 ItemData item = new ItemData(itemJsonSave.items[i]);
                 Items.Add(item);
 
-                GameObject go = Instantiate(fieldItemPrefab, new Vector3((i + 1) * 2, 1, 0), Quaternion.identity);
-                go.GetComponent<FieldItems>().SetItem(item);
+                GameObject itemObj = Instantiate(fieldItemPrefab, new Vector3((i + 1) * 2, 1, 0), Quaternion.identity, itemsHierarchyRoot);
+                itemObj.GetComponent<FieldItems>().SetItem(item);
             }
 
             /* 스킬 정보 검색 */

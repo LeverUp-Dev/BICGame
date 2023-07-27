@@ -4,18 +4,21 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Hypocrites.Manager
 {
     using DB;
     using DB.Data;
     using Defines;
-    using Hypocrites.UI.TempBattleUI;
+    using UI.TempBattleUI;
     using Skill;
 
-    public class TempBattleManager : MonoBehaviour
+    public class BattleManager : MonoBehaviour
     {
-        public static TempBattleManager Instance { get; private set; }
+        public static BattleManager Instance { get; private set; }
+
+        public GameObject test;
 
         // 필드 정보
         List<EnemyData> enemies;
@@ -25,7 +28,7 @@ namespace Hypocrites.Manager
         public GraphicRaycaster graphicRaycaster;
         List<Being> targets;
 
-        public bool isTargeting;
+        bool isTargeting;
         Skill castingSkill;
 
         void Awake()
@@ -110,6 +113,7 @@ namespace Hypocrites.Manager
             }
         }
 
+        #region 스킬 사용 관련
         public void UseSkill(int index)
         {
             // TODO : 타겟팅 도중엔 스킬 버튼을 비활성화, 타겟 대상에 외곽선 효과 부여
@@ -145,7 +149,7 @@ namespace Hypocrites.Manager
                 members[0].UseSkill(skill, targets.ToArray());
             }
         }
-
+        
         async void WaitTargeting()
         {
             await Task.Run(() =>
@@ -158,5 +162,21 @@ namespace Hypocrites.Manager
                 castingSkill = null;
             });
         }
+        #endregion
+
+        #region 전투 돌입 및 종료 관련
+        public void BeginBattle()
+        {
+            GameSceneManager.Instance.LoadScene(BattleDefines.BATTLE_SCENE_NAME, true);
+
+            Instantiate(test);
+            Invoke("EndBattle", 3f);
+        }
+
+        public void EndBattle()
+        {
+            GameSceneManager.Instance.UnloadScene(BattleDefines.BATTLE_SCENE_NAME);
+        }
+        #endregion
     }
 }
