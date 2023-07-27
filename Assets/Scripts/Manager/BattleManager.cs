@@ -18,17 +18,16 @@ namespace Hypocrites.Manager
     {
         public static BattleManager Instance { get; private set; }
 
-        public GameObject test;
+        public GraphicRaycaster graphicRaycaster;
+        public BattleUI battleUI;
 
-        // 필드 정보
+        // 필드 존재 관련
         List<EnemyData> enemies;
         List<Member> members;
 
-        // 스킬 사용 처리
-        public GraphicRaycaster graphicRaycaster;
-        List<Being> targets;
-
+        // 스킬 타겟팅 관련
         bool isTargeting;
+        List<Being> targets;
         Skill castingSkill;
 
         void Awake()
@@ -53,7 +52,8 @@ namespace Hypocrites.Manager
 
             members = new List<Member>
             {
-                Database.Instance.Members[0]
+                Database.Instance.Members[0],
+                Database.Instance.Members[1]
             };
 
             targets = new List<Being>();
@@ -91,11 +91,11 @@ namespace Hypocrites.Manager
                     }
                     else if (castingSkill.TargetingType == SkillTargetingType.ONE_PARTY)
                     {
-                        for (int i = 0; i < enemies.Count; i++)
+                        for (int i = 0; i < members.Count; i++)
                         {
-                            if (enemies[i].Name == targetName)
+                            if (members[i].Name == targetName)
                             {
-                                target = enemies[i];
+                                target = members[i];
                                 break;
                             }
                         }
@@ -167,10 +167,8 @@ namespace Hypocrites.Manager
         #region 전투 돌입 및 종료 관련
         public void BeginBattle()
         {
+            battleUI.Initialize(members.ToArray(), enemies.ToArray());
             GameSceneManager.Instance.LoadScene(BattleDefines.BATTLE_SCENE_NAME, true);
-
-            Instantiate(test);
-            Invoke("EndBattle", 3f);
         }
 
         public void EndBattle()
