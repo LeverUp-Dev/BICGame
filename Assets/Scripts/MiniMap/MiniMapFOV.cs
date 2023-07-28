@@ -12,7 +12,7 @@ namespace Hypocrites
         [SerializeField] LayerMask TargetMask;
         [SerializeField] LayerMask ObstacleMask;
 
-        private void OnDrawGizmos()
+        /*private void OnDrawGizmos()
         {
             Vector3 myPos = transform.position + Vector3.up * 0.5f;
             Gizmos.DrawWireSphere(myPos, viewRadius);
@@ -25,7 +25,7 @@ namespace Hypocrites
             Debug.DrawRay(myPos, rightDir * viewRadius, Color.blue);
             Debug.DrawRay(myPos, leftDir * viewRadius, Color.blue);
             Debug.DrawRay(myPos, lookDir * viewRadius, Color.cyan);
-        }
+        }*/
 
         Vector3 AngleToDir(float angle)
         {

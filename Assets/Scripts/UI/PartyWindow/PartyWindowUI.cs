@@ -16,17 +16,17 @@ namespace Hypocrites.UI.PartyWindow
         public GameObject membersHolder;
         public GameObject memberPrefab;
 
-        Player player;
+        Party player;
         bool isActive;
 
-        Dictionary<Member, GameObject> members;
+        Dictionary<MemberUI, GameObject> members;
 
         void Awake()
         {
             isActive = false;
-            members = new Dictionary<Member, GameObject>();
+            members = new Dictionary<MemberUI, GameObject>();
 
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Party>();
             player.onMemberJoined += UpdateMemberUI;
             player.onMemberLeft += RemoveMemberUI;
         }
@@ -49,8 +49,8 @@ namespace Hypocrites.UI.PartyWindow
         {
             for (int i = 0; i < player.Members.Count; ++i)
             {
-                Member member;
-                PlayerData memberData = player.Members[i];
+                MemberUI member;
+                Member memberData = player.Members[i];
 
                 Vector3 position = membersHolder.transform.position + i * -80 * Vector3.up;
 
@@ -68,7 +68,7 @@ namespace Hypocrites.UI.PartyWindow
                 memberObject.transform.SetParent(membersHolder.transform, false);
                 memberObject.transform.position = position;
 
-                member = memberObject.GetComponent<Member>();
+                member = memberObject.GetComponent<MemberUI>();
                 member.onClickMemberInfo = LoadMemberStatus;
                 member.LoadMember(memberData);
 
@@ -78,7 +78,7 @@ namespace Hypocrites.UI.PartyWindow
 
         public void RemoveMemberUI(string name)
         {
-            Member member = FindMember(name);
+            MemberUI member = FindMember(name);
             if (member != null)
             {
                 GameObject memberObject = members[member];
@@ -89,9 +89,9 @@ namespace Hypocrites.UI.PartyWindow
             }
         }
 
-        Member FindMember(string name)
+        MemberUI FindMember(string name)
         {
-            foreach (Member member in members.Keys)
+            foreach (MemberUI member in members.Keys)
             {
                 if (member.GetMemberName() == name)
                     return member;

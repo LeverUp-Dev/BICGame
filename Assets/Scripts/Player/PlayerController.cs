@@ -17,7 +17,7 @@ namespace Hypocrites.Player
     using Unity.VisualScripting;
     using UnityEngine.UIElements;
 
-    [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(Party))]
     public class PlayerController : MonoBehaviour
     {
         public static bool cameraOn = false;
@@ -32,11 +32,11 @@ namespace Hypocrites.Player
         Vector3 prevTargetGridPos;
         Vector3 targetRotation;
 
-        Player player;
+        Party party;
 
         private void Awake()
         {
-            player = GetComponent<Player>();
+            party = GetComponent<Party>();
         }
 
         private void Start()
@@ -121,10 +121,11 @@ namespace Hypocrites.Player
                     movement -= transform.right * transitionMegnification;
 
                 targetGridPos += movement;
+                
+                EventManager.Instance.Roll((int)party.GetMember().Status.Faith);
 
-                EventManager.Instance.Roll(player.Status.Luck);
-
-                miniMap.RemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+                miniMap.CheckGrid(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
+                miniMap.StartRemoveFog(CGrid.Instance.GetNodeFromWorldPosition(targetGridPos));
             }
         }
     }

@@ -63,7 +63,7 @@ namespace Hypocrites.Grid
                 for (int j = 0; j < GridXSize; ++j)
                 {
                     Vector3 position = new Vector3(topLeftNodePosition.x + j * GridNodeDiameter, 0, topLeftNodePosition.z - i * GridNodeDiameter);
-                    bool walkable = !Physics.CheckSphere(position, GridNodeRadius, UnwalkableMask);
+                    bool walkable = !Physics.CheckSphere(position, GridNodeRadius - 0.05f, UnwalkableMask);
 
                     Grid[i, j] = new CNode(position, j, i, walkable);
                 }
@@ -76,7 +76,7 @@ namespace Hypocrites.Grid
             {
                 for (int j = 0; j < GridXSize; ++j)
                 {
-                    Grid[i, j].Walkable = !Physics.CheckSphere(Grid[i, j].WorldPosition, GridNodeRadius, UnwalkableMask);
+                    Grid[i, j].Walkable = !Physics.CheckSphere(Grid[i, j].WorldPosition, GridNodeRadius - 0.05f, UnwalkableMask);
                 }
             }
         }

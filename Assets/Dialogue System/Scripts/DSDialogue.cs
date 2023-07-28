@@ -37,7 +37,7 @@ namespace DS
 
         private void OnMouseDown()
         {
-            if(isTrigger && Vector3.Distance(transform.position, Camera.main.transform.position) < 2f)
+            if(isTrigger && Vector3.Distance(transform.position, Camera.main.transform.position) <= 1.95f)
                 DialogueManager.Instance.SetDialogue(dialogue);
         }
 

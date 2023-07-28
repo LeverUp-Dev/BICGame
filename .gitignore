@@ -75,5 +75,4 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 # Large Size Assets
-/[Aa]ssets/[Ee]xternals/[Mm]odular[Dd]ungeon.meta
-/[Aa]ssets/[Ee]xternals/[Mm]odular[Dd]ungeon/*
+/[Aa]ssets/[Ee]xternals/
