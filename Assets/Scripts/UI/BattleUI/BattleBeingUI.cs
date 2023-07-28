@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Hypocrites.UI.TempBattleUI
+namespace Hypocrites.UI.BattleUI
 {
     public class BattleBeingUI : MonoBehaviour
     {

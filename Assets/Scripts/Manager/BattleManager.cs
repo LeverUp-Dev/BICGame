@@ -11,7 +11,7 @@ namespace Hypocrites.Manager
     using DB;
     using DB.Data;
     using Defines;
-    using UI.TempBattleUI;
+    using UI.BattleUI;
     using Skill;
 
     public class BattleManager : MonoBehaviour
@@ -114,11 +114,23 @@ namespace Hypocrites.Manager
         }
 
         #region 스킬 사용 관련
-        public void UseSkill(int index)
+        public void UseSkill(Member caster, int index)
         {
             // TODO : 타겟팅 도중엔 스킬 버튼을 비활성화, 타겟 대상에 외곽선 효과 부여
             if (isTargeting)
                 return;
+
+            if (caster == null)
+            {
+                Debug.LogError($"MemberSkillSlotUI에 동료 정보가 존재하지 않습니다.");
+                return;
+            }
+
+            if (members.Find(member => member == caster) == null)
+            {
+                Debug.LogError($"BattleManager에 MemberSkillSlotUI가 가지고 있는 {caster.Name} 동료가 존재하지 않습니다.");
+                return;
+            }
 
             if (index < 0 || index >= 4)
             {
@@ -126,7 +138,7 @@ namespace Hypocrites.Manager
                 return;
             }
 
-            Skill skill = members[0].SkillSlot[index];
+            Skill skill = caster.SkillSlot[index];
             if (skill == null)
                 return;
 
@@ -146,7 +158,7 @@ namespace Hypocrites.Manager
                 if (skill.TargetingType == SkillTargetingType.ALL_ENEMY || skill.TargetingType == SkillTargetingType.ALL)
                     targets.AddRange(enemies);
 
-                members[0].UseSkill(skill, targets.ToArray());
+                caster.UseSkill(skill, targets.ToArray());
             }
         }
         

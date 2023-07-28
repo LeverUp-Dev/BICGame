@@ -1,10 +1,11 @@
 using TMPro;
 using UnityEngine;
 
-namespace Hypocrites.UI.TempBattleUI
+namespace Hypocrites.UI.BattleUI
 {
     using Defines;
     using DB.Data;
+    using Skill;
 
     public class BattleUI : MonoBehaviour
     {
@@ -48,12 +49,35 @@ namespace Hypocrites.UI.TempBattleUI
                 rectPos.x = beginX + i * memberInformationUIWidth;
 
                 memberUIRectTransform.anchoredPosition = rectPos;
+
+                memberUI.gameObject.name = members[i].Name;
             }
 
             this.enemies = enemies;
 
             enemyNameText.text = enemies[0].Name;
             enemy2NameText.text = enemies[1].Name;
+        }
+
+        public void AddEffectUIToMember(string name, Skill effect)
+        {
+            MemberInformationUI targetUI = null;
+
+            foreach (MemberInformationUI memberUI in memberInformationUIs)
+            {
+                if (memberUI.name == name)
+                {
+                    targetUI = memberUI;
+                    break;
+                }
+            }
+
+            if (targetUI == null)
+            {
+                //Debug.LogError($"{name} µ¿·á UI¸¦ Battle")
+            }
+
+            targetUI.AddEffectInformation(effect);
         }
     }
 }
