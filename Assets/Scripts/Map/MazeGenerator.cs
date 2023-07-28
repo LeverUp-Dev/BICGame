@@ -18,7 +18,6 @@ namespace Hypocrites.Maze
         GameObject wallPrefab;
 
         private int mapSize;
-        private int mapHalfSize;
         private int mazeCenter = MAZE_MAP_SIZE / 2, StartSize = 2;
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
@@ -38,7 +37,6 @@ namespace Hypocrites.Maze
 
             mazeWallMap = new Directions[MAZE_MAP_SIZE, MAZE_MAP_SIZE];
             mazeWalls = new GameObject[mapSize, mapSize];
-            mapHalfSize = mapSize / 2;
         }
 
         public void Generate()
@@ -165,6 +163,11 @@ namespace Hypocrites.Maze
             {
                 for (int j = 0; j < mapSize; j++)
                 {
+                    int x = (i - 1) / 2;
+                    int y = (mapSize - j - 1) / 2;
+                    bool startRangeUnblock = x > mazeCenter - StartSize && x < mazeCenter + StartSize &&
+                        y > mazeCenter - StartSize + 1 && y <= mazeCenter + StartSize;
+
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
                     var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
 
@@ -177,11 +180,7 @@ namespace Hypocrites.Maze
 
                     if (i > 0 && i < mapSize && j > 0 && j < mapSize)
                     {
-                        int x = (i - 1) / 2;
-                        int y = (mapSize - j - 1) / 2;
-                        if (x > mazeCenter - StartSize && x < mazeCenter + StartSize &&
-                            y > mazeCenter - StartSize + 1 && y <= mazeCenter + StartSize)
-                            continue;
+                        if (startRangeUnblock) continue;
                         else if (i % 2 == 1 && j % 2 == 1)
                         {
                             /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
