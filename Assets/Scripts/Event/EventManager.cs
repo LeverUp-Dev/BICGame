@@ -43,6 +43,8 @@ namespace Hypocrites.Event {
         Party party;
 
         /* Inspector Values */
+        [field: SerializeField] public bool Run { get; private set; }
+
         [field: SerializeField] public int PeaceChance { get; private set; }
         [field: SerializeField] public int PositiveEventChance { get; private set; }
         [field: SerializeField] public int NegativeEventChance { get; private set; }
@@ -103,6 +105,9 @@ namespace Hypocrites.Event {
         /// <param name="luck">부정적인 이벤트가 나왔을 때 luck% 확률로 재판정 기회 부여</param>
         public void Roll(int luck)
         {
+            if (!Run)
+                return;
+
             /* 적 조우 판정 */
             if (IsEncounter)
             {

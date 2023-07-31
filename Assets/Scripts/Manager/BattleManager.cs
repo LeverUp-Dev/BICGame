@@ -28,6 +28,7 @@ namespace Hypocrites.Manager
         // 스킬 타겟팅 관련
         bool isTargeting;
         List<Being> targets;
+        Member caster;
         Skill castingSkill;
 
         void Awake()
@@ -102,7 +103,7 @@ namespace Hypocrites.Manager
                     }
                     else
                     {
-                        Debug.LogError($"{castingSkill.Name}({castingSkill.TargetingType})는 타겟팅 절차가 없는 스킬입니다. 확인 바랍니다.");
+                        Debug.LogError($"{castingSkill.Name}({castingSkill.TargetingType})는 타겟팅 절차가 없는 스킬입니다.");
                     }
 
                     targets.Add(target);
@@ -114,7 +115,8 @@ namespace Hypocrites.Manager
         }
 
         #region 스킬 사용 관련
-        public void UseSkill(Member caster, int index)
+        public delegate void SetCooltimeUI(int index);
+        public void UseSkill(Member caster, int index, SetCooltimeUI setCooltimeUI)
         {
             // TODO : 타겟팅 도중엔 스킬 버튼을 비활성화, 타겟 대상에 외곽선 효과 부여
             if (isTargeting)
@@ -134,7 +136,7 @@ namespace Hypocrites.Manager
 
             if (index < 0 || index >= 4)
             {
-                Debug.Log($"{index}는 존재하지 않는 스킬 슬롯입니다.");
+                Debug.LogError($"{index}는 존재하지 않는 스킬 슬롯입니다.");
                 return;
             }
 
@@ -144,12 +146,16 @@ namespace Hypocrites.Manager
 
             targets.Clear();
 
+            // 타겟팅이 필요한 스킬인 경우 타겟팅 시작
             if (skill.TargetingType == SkillTargetingType.ONE_ENEMY || skill.TargetingType == SkillTargetingType.ONE_PARTY)
             {
                 isTargeting = true;
+                this.caster = caster;
                 castingSkill = skill;
-                WaitTargeting();
+
+                WaitTargeting(index, setCooltimeUI);
             }
+            // 타겟팅이 필요하지 않은 스킬인 경우 바로 스킬 시전
             else
             {
                 if (skill.TargetingType == SkillTargetingType.ALL_PARTY || skill.TargetingType == SkillTargetingType.ALL)
@@ -158,19 +164,22 @@ namespace Hypocrites.Manager
                 if (skill.TargetingType == SkillTargetingType.ALL_ENEMY || skill.TargetingType == SkillTargetingType.ALL)
                     targets.AddRange(enemies);
 
+                setCooltimeUI(index);
                 caster.UseSkill(skill, targets.ToArray());
             }
         }
         
-        async void WaitTargeting()
+        async void WaitTargeting(int index, SetCooltimeUI setCooltimeUI)
         {
             await Task.Run(() =>
             {
                 while (isTargeting)
                     Thread.Sleep(50);
 
-                members[0].UseSkill(castingSkill, targets.ToArray());
+                setCooltimeUI(index);
+                caster.UseSkill(castingSkill, targets.ToArray());
 
+                caster = null;
                 castingSkill = null;
             });
         }
