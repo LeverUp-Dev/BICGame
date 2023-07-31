@@ -50,8 +50,8 @@ namespace Hypocrites.DB.Save
             foreach (Skill effect in data.Effects)
             {
                 string name = effect.Name;
-                effects[i++] = name;
-                effectStatuses[i] = new EffectStatusSave(name, data.EffectStatuses[effect]);
+                effects[i] = name;
+                effectStatuses[i++] = new EffectStatusSave(name, data.EffectStatuses[effect]);
             }
         }
     }
