@@ -176,7 +176,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4157976465779647195, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}
       propertyPath: m_Name
-      value: treasure_box (1)
+      value: "\uAC00\uB098\uB2E4\uB77C\uB9C8\uBC14\uC0AC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157976465779647195, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}
+      propertyPath: m_TagString
+      value: Target
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}
@@ -198,7 +202,7 @@ GameObject:
   - component: {fileID: 169242268}
   - component: {fileID: 169242267}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -518,7 +522,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4157976465779647195, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}
       propertyPath: m_Name
-      value: treasure_box
+      value: "\uBA54\uB974\uBC14 \uB354\uBE14\uCD08\uCF54\uCFE0\uD0A4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4157976465779647195, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}
+      propertyPath: m_TagString
+      value: Target
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e43efa7fc8e76d42b7d26548fdd2a1c, type: 3}

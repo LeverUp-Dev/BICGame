@@ -9,32 +9,32 @@ namespace Hypocrites.UI.BattleUI
 
     public class BattleUI : MonoBehaviour
     {
-        public TextMeshProUGUI enemyNameText;
-        public TextMeshProUGUI enemyHealthText;
-        public TextMeshProUGUI enemy2NameText;
-        public TextMeshProUGUI enemy2HealthText;
-
+        public EnemyInformationUI[] enemyInformationUIs;
         public MemberInformationUI[] memberInformationUIs;
 
-        EnemyData[] enemies;
-
-        float memberInformationUIWidth;
+        Enemy[] enemies;
 
         void Update()
         {
             if (gameObject.activeSelf && enemies != null)
             {
-                enemyHealthText.text = enemies[0].Status.Health + "";
-                enemy2HealthText.text = enemies[1].Status.Health + "";
+                for (int i = 0; i < enemies.Length; i++)
+                {
+                    Enemy enemy = enemies[i];
+                    enemyInformationUIs[i].SetHealthBar(enemy.Status.MaxHealth, enemy.Status.Health);
+                }
             }
         }
         
-        public void Initialize(Member[] members, EnemyData[] enemies)
+        public void Initialize(Member[] members, Enemy[] enemies)
         {
             foreach (MemberInformationUI memberUI in memberInformationUIs)
                 memberUI.gameObject.SetActive(false);
 
-            memberInformationUIWidth = memberInformationUIs[0].GetComponent<RectTransform>().rect.width + BattleDefines.MEMBER_INFORMATION_PADDING;
+            foreach (EnemyInformationUI enemyUI in enemyInformationUIs)
+                enemyUI.gameObject.SetActive(false);
+
+            float memberInformationUIWidth = memberInformationUIs[0].GetComponent<RectTransform>().rect.width + BattleDefines.MEMBER_INFORMATION_PADDING;
             float beginX = -((members.Length - 1) * (memberInformationUIWidth / 2));
 
             // 멤버 수에 따라 정보 UI 위치 조정
@@ -54,9 +54,17 @@ namespace Hypocrites.UI.BattleUI
             }
 
             this.enemies = enemies;
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                Enemy enemy = enemies[i];
+                EnemyInformationUI enemyUI = enemyInformationUIs[i];
+                enemyUI.Initialize(enemy.Name);
+                enemyUI.gameObject.SetActive(true);
+                enemyUI.SetHealthBar(enemy.Status.MaxHealth, enemy.Status.Health);
 
-            enemyNameText.text = enemies[0].Name;
-            enemy2NameText.text = enemies[1].Name;
+                // TODO 적 위에 자동으로 위치하도록 수정 필요 (몬스터 오브젝트 어떻게 구현할 건지 정하고 나서 작업)
+                //float height = enemy.Height;
+            }
         }
 
         public void AddEffectUIToMember(string name, Skill effect)

@@ -16,7 +16,7 @@ namespace Hypocrites.DB
 
         public Transform itemsHierarchyRoot;
         [field: SerializeField] public List<ItemData> Items { get; private set; }
-        public List<EnemyData> Enemies { get; private set; }
+        public List<Enemy> Enemies { get; private set; }
         public List<Member> Members { get; private set; }
         public Dictionary<string, Skill> Skills { get; private set; }
 
@@ -56,11 +56,11 @@ namespace Hypocrites.DB
             }
 
             /* 적 정보 검색 */
-            Enemies = new List<EnemyData>();
-            JsonSave<BeingSave> enemyJsonSave = JsonIOUtility.LoadJson<JsonSave<BeingSave>>(DatabaseConstants.ENEMY_DATA_PATH);
-            for (int i = 0; i < enemyJsonSave.items.Length; ++i)
+            Enemies = new List<Enemy>();
+            JsonSave<EnemySave> enemyJsonSave = JsonIOUtility.LoadJson<JsonSave<EnemySave>>(DatabaseConstants.ENEMY_DATA_PATH);
+            for (int i = 0; i < enemyJsonSave.items.Length; i++)
             {
-                EnemyData e = new EnemyData(enemyJsonSave.items[i]);
+                Enemy e = new Enemy(enemyJsonSave.items[i]);
                 Enemies.Add(e);
             }
 

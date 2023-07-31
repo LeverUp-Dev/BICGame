@@ -22,14 +22,17 @@ namespace Hypocrites.Manager
         public BattleUI battleUI;
 
         // 필드 존재 관련
-        List<EnemyData> enemies;
+        List<Enemy> enemies;
         List<Member> members;
 
         // 스킬 타겟팅 관련
         bool isTargeting;
+        Camera battleCamera;
         List<Being> targets;
         Member caster;
         Skill castingSkill;
+
+        LayerMask enemyLayer;
 
         void Awake()
         {
@@ -41,11 +44,13 @@ namespace Hypocrites.Manager
             DontDestroyOnLoad(gameObject);
 
             isTargeting = false;
+
+            enemyLayer = LayerMask.GetMask("Enemy");
         }
 
         void Start()
         {
-            enemies = new List<EnemyData>
+            enemies = new List<Enemy>
             {
                 Database.Instance.Enemies[0],
                 Database.Instance.Enemies[1]
@@ -64,20 +69,26 @@ namespace Hypocrites.Manager
         {
             if (isTargeting && Input.GetMouseButtonDown(0))
             {
-                List<RaycastResult> results = new List<RaycastResult>();
+                /*List<RaycastResult> results = new List<RaycastResult>();
                 PointerEventData ped = new PointerEventData(null);
 
                 ped.position = Input.mousePosition;
 
-                graphicRaycaster.Raycast(ped, results);
+                graphicRaycaster.Raycast(ped, results);*/
 
-                foreach (RaycastResult result in results)
+                if (battleCamera == null)
+                    battleCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+
+                Ray ray = battleCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, 300, enemyLayer))
                 {
-                    if (!result.gameObject.CompareTag("Target"))
-                        continue;
+                    Collider collider = hit.collider;
+
+                    if (!collider.CompareTag("Target"))
+                        return;
 
                     Being target = null;
-                    string targetName = result.gameObject.GetComponent<BattleBeingUI>().GetName();
+                    string targetName = collider.name;
 
                     if (castingSkill.TargetingType == SkillTargetingType.ONE_ENEMY)
                     {
@@ -108,8 +119,6 @@ namespace Hypocrites.Manager
 
                     targets.Add(target);
                     isTargeting = false;
-
-                    break;
                 }
             }
         }

@@ -111,7 +111,7 @@ namespace Hypocrites.Event {
             /* 적 조우 판정 */
             if (IsEncounter)
             {
-                EnemyData enemy = Database.Instance.Enemies[Random.Range(0, Database.Instance.Enemies.Count)];
+                Enemy enemy = Database.Instance.Enemies[Random.Range(0, Database.Instance.Enemies.Count)];
                 Encounter(enemy);
 
                 return;
@@ -202,7 +202,7 @@ namespace Hypocrites.Event {
         #endregion
 
         #region 전투 이벤트 관련 메소드
-        public void Encounter(EnemyData enemy)
+        public void Encounter(Enemy enemy)
         {
             Debug.Log($"{enemy.Name}을(를) 조우했다!");
         }

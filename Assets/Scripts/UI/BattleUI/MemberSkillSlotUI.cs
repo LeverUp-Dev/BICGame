@@ -22,6 +22,11 @@ namespace Hypocrites.UI.BattleUI
 
         Queue<int> cooltimeSettingQueue;
 
+        private void Awake()
+        {
+            cooltimeSettingQueue = new Queue<int>();
+        }
+
         private void Update()
         {
             if (cooltimeSettingQueue.Count > 0)
@@ -47,8 +52,6 @@ namespace Hypocrites.UI.BattleUI
                 skillButtonTexts[i].text = skillSlot[i].Name;
                 skillCooltimes[i] = skillSlot[i].Cooltime / 1000;
             }
-
-            cooltimeSettingQueue = new Queue<int>();
         }
 
         public void UseSkill(int index)

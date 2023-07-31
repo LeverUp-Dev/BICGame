@@ -258,7 +258,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3674877081726662753}
-  m_Layer: 0
+  - component: {fileID: 199662314230848869}
+  m_Layer: 12
   m_Name: treasure_box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,6 +286,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &199662314230848869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4157976465779647195}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 1.2820674, z: 1.1661513}
+  m_Center: {x: 1, y: 0.6410337, z: 0.58307564}
 --- !u!1 &5827920612544049086
 GameObject:
   m_ObjectHideFlags: 0

@@ -50,7 +50,8 @@
 			"skills": [],
 			"skillStatuses": [],
 			"effects": [],
-			"effectStatuses": []
+			"effectStatuses": [],
+			"height": 1.2
 		},
 		{
 			"name": "가나다라마바사",
@@ -101,7 +102,8 @@
 			"skills": [],
 			"skillStatuses": [],
 			"effects": [],
-			"effectStatuses": []
+			"effectStatuses": [],
+			"height": 1.2
 		}
 	]
 }
