@@ -96,7 +96,7 @@ namespace Hypocrites.Map
                     throw new System.Exception("그리드 맵의 넓이가 랜덤 맵을 생성하기에 충분하지 않습니다. 그리드를 넓히거나 생성할 방의 수를 줄여주세요.");
                 }
 
-                mazeGenerator = new MazeGenerator(transform, mazeHierarchyRoot, WallNodePrefab);
+                mazeGenerator = new MazeGenerator(transform, mazeHierarchyRoot, WallNodePrefab, FloorNodePrefab);
 
                 mazeGenerator.GetCorner(out CNode mazeLeftBottomNode, out CNode mazeRightTopNode);
                 mazeLeftBottom = new Vector2(mazeLeftBottomNode.GridX, mazeLeftBottomNode.GridY);

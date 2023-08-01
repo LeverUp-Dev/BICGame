@@ -20,11 +20,12 @@ namespace Hypocrites.Player
     [RequireComponent(typeof(Party))]
     public class PlayerController : MonoBehaviour
     {
-        public static bool cameraOn = false;
+        static public bool cameraOn = false;
         public bool smoothTransition = false;
         public float transitionSpeed = 10f;
         public float transitionRotationSpeed = 500f;
         public float transitionMegnification = 2;
+
         [SerializeField]
         Minimap miniMap;
 

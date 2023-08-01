@@ -2,12 +2,12 @@ using Hypocrites.Manager;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Hypocrites.Battle
+namespace Hypocrites
 {
-    public class EnemyShadow : MonoBehaviour
+    public class MonsterVannish : MonoBehaviour
     {
+        // Start is called before the first frame update
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))

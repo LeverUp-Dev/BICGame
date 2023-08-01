@@ -7,6 +7,7 @@ namespace Hypocrites.Maze
 {
     using Defines;
     using Hypocrites.Grid;
+    using UnityEditor.Experimental.GraphView;
 
     public class MazeGenerator
     {
@@ -16,6 +17,7 @@ namespace Hypocrites.Maze
         Transform mapTransform;
         Transform hierarchyRoot;
         GameObject wallPrefab;
+        GameObject floorPrefab;
 
         private int mapSize;
         private int mazeCenter = MAZE_MAP_SIZE / 2, StartSize = 2;
@@ -26,11 +28,12 @@ namespace Hypocrites.Maze
         void Clear(bool[] isBlock) { for (int j = 0; j < isBlock.Length; ++j) isBlock[j] = false; }
         private bool isAllTrue(bool[] isFalse) { for (int i = 0; i < isFalse.Length; i++) if (!isFalse[i]) return false; return true; }
 
-        public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab)
+        public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab, GameObject floorPrefab)
         {
             this.mapTransform = mapTransform;
             this.hierarchyRoot = hierarchyRoot;
             this.wallPrefab = wallPrefab;
+            this.floorPrefab = floorPrefab;
 
             // 미로 정보 초기화
             mapSize = MAZE_MAP_SIZE * 2 + 1;
@@ -170,7 +173,9 @@ namespace Hypocrites.Maze
 
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
                     var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
+                    var floorPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.down * 0.1f;
 
+                    Object.Instantiate(floorPrefab, floorPosition, Quaternion.identity, hierarchyRoot); // 바닥 형성
                     // 외벽에 네 구역과 연결하기 위해 벽 허물기
                     if (i == 0 || i == mapSize - 1 || j == 0 || j == mapSize - 1)
                     {
