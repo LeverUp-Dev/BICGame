@@ -94,7 +94,14 @@ namespace Hypocrites.DB.Data
                     return;
                 }
 
-                /* TODO : 荤噶 贸府 */
+                if (this is Member)
+                {
+                    // TODO : 悼丰 磷澜 贸府
+                }
+                else if (this is Enemy)
+                {
+                    
+                }
             }
 
             Status.Health -= finalDamage;
