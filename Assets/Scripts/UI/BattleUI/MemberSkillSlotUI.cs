@@ -14,7 +14,6 @@ namespace Hypocrites.UI.BattleUI
     public class MemberSkillSlotUI : MonoBehaviour
     {
         public Button[] skillButtons;
-        public TextMeshProUGUI[] skillButtonTexts;
         public Image[] skillCooltimeImages;
 
         Member member;
@@ -45,11 +44,9 @@ namespace Hypocrites.UI.BattleUI
             {
                 if (skillSlot[i] is null)
                 {
-                    skillButtonTexts[i].text = "";
                     continue;
                 }
 
-                skillButtonTexts[i].text = skillSlot[i].Name;
                 skillCooltimes[i] = skillSlot[i].Cooltime / 1000;
             }
         }

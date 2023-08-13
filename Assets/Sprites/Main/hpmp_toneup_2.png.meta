@@ -1,0 +1,477 @@
+fileFormatVersion: 2
+guid: fa948954c2ddf0f4ca674480fa721605
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hpmp_toneup_2_19
+      rect:
+        serializedVersion: 2
+        x: 902
+        y: 885
+        width: 262
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 670b4747300a62a4284155ee758e7aad
+      internalID: -376060472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_20
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 888
+        width: 256
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99be9a57f1d003a4ab3c13c4132aebfb
+      internalID: 1978601273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_39
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 611
+        width: 172
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf02a74f7284b074e86e910d2911fcb9
+      internalID: -1427483732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_40
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 611
+        width: 172
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d20d88297e7d83f4aa25a82a05e3e9dd
+      internalID: -1886018660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_43
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 555
+        width: 168
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56048065a4f86184d9d10519f0756d40
+      internalID: 579258949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_44
+      rect:
+        serializedVersion: 2
+        x: 828
+        y: 555
+        width: 168
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01b8cac2770ee6647bb519af634fd8e8
+      internalID: -1543505942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_45
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 362
+        width: 221
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbc90266fab9cb84cb310c7f4bbd74a0
+      internalID: -1964170232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_46
+      rect:
+        serializedVersion: 2
+        x: 1675
+        y: 362
+        width: 221
+        height: 221
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b686d4863ba3b74dafe56ff8251cf21
+      internalID: -218594566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_58
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 75
+        width: 227
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5fffa2dba2bec14eabcc132ad1e925d
+      internalID: -299414507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_65
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 165
+        width: 222
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38b06e6e7bedb9d4dbdc44cacda8d32d
+      internalID: 936460117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_66
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 165
+        width: 222
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 369bcf4583d7f104ca7bcf5c9e80e597
+      internalID: 982648442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_67
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 40
+        width: 222
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed5d279da4a2f2e4286b2a172cdc39f7
+      internalID: 425933892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hpmp_toneup_2_68
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 40
+        width: 222
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 013a297a5db094340abf339d6b61c654
+      internalID: 854528219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: d7591c0cdb4c9f540bcfbe3dc5808d98
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      hpmp_toneup_2_0: 1896078866
+      hpmp_toneup_2_1: 747265489
+      hpmp_toneup_2_10: -1999740541
+      hpmp_toneup_2_11: 1688062213
+      hpmp_toneup_2_12: 1444795499
+      hpmp_toneup_2_13: -1676687048
+      hpmp_toneup_2_14: 1055394255
+      hpmp_toneup_2_15: -183090634
+      hpmp_toneup_2_16: 183044427
+      hpmp_toneup_2_17: -1294579642
+      hpmp_toneup_2_18: -1028660296
+      hpmp_toneup_2_19: -376060472
+      hpmp_toneup_2_2: 1194376176
+      hpmp_toneup_2_20: 1978601273
+      hpmp_toneup_2_21: -830929719
+      hpmp_toneup_2_22: -1334107705
+      hpmp_toneup_2_23: 1764849334
+      hpmp_toneup_2_24: -1535598093
+      hpmp_toneup_2_25: 1052354325
+      hpmp_toneup_2_26: 1442243510
+      hpmp_toneup_2_27: 1768733524
+      hpmp_toneup_2_28: 133564391
+      hpmp_toneup_2_29: 1567228256
+      hpmp_toneup_2_3: -2111263704
+      hpmp_toneup_2_30: -549040562
+      hpmp_toneup_2_31: -1957148553
+      hpmp_toneup_2_32: 1227535933
+      hpmp_toneup_2_33: 214190908
+      hpmp_toneup_2_34: -574980345
+      hpmp_toneup_2_35: -1789211924
+      hpmp_toneup_2_36: -927267607
+      hpmp_toneup_2_37: 1272648167
+      hpmp_toneup_2_38: 998784979
+      hpmp_toneup_2_39: -1427483732
+      hpmp_toneup_2_4: -479730519
+      hpmp_toneup_2_40: -1886018660
+      hpmp_toneup_2_41: -953907270
+      hpmp_toneup_2_42: 2055314617
+      hpmp_toneup_2_43: 579258949
+      hpmp_toneup_2_44: -1543505942
+      hpmp_toneup_2_45: -1964170232
+      hpmp_toneup_2_46: -218594566
+      hpmp_toneup_2_47: 1195620194
+      hpmp_toneup_2_48: 2060940895
+      hpmp_toneup_2_49: -1130341465
+      hpmp_toneup_2_5: -1225365144
+      hpmp_toneup_2_50: -1231584994
+      hpmp_toneup_2_51: -20473429
+      hpmp_toneup_2_52: 2118354008
+      hpmp_toneup_2_53: -1945265435
+      hpmp_toneup_2_54: -1030932320
+      hpmp_toneup_2_55: 785509237
+      hpmp_toneup_2_56: 1613883370
+      hpmp_toneup_2_57: 496106659
+      hpmp_toneup_2_58: -299414507
+      hpmp_toneup_2_59: -844738592
+      hpmp_toneup_2_6: -1464803127
+      hpmp_toneup_2_60: -1072902062
+      hpmp_toneup_2_61: -400795896
+      hpmp_toneup_2_62: -1047383338
+      hpmp_toneup_2_63: -892519093
+      hpmp_toneup_2_64: -1268207121
+      hpmp_toneup_2_65: 936460117
+      hpmp_toneup_2_66: 982648442
+      hpmp_toneup_2_67: 425933892
+      hpmp_toneup_2_68: 854528219
+      hpmp_toneup_2_7: -133603357
+      hpmp_toneup_2_8: -1537120425
+      hpmp_toneup_2_9: -404404690
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
