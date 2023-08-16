@@ -18,7 +18,7 @@ namespace Hypocrites.MiniMap
         private static GameObject[,] fogGrid;
 
         public Renderer rend;
-        Material material;
+        //Material material;
         public float transparentSpeed;
         float opacity = 1f;
 
@@ -48,7 +48,7 @@ namespace Hypocrites.MiniMap
             /*GameObject floorInstance = Instantiate(floorPrefab);
             floorInstance.transform.SetParent(miniMapFloorParent);*/
 
-            material = rend.sharedMaterial;
+            //material = rend.sharedMaterial;
         }
 
         public void CheckGrid(CNode PlayerNode)
@@ -90,9 +90,9 @@ namespace Hypocrites.MiniMap
             {
                 for (int j = 0; j < i * 2 + 1; j++)
                 {
-                    Color old = material.color;
+                    //Color old = material.color;
                     opacity -= transparentSpeed * Time.deltaTime;
-                    material.color = new Color(old.r, old.g, old.b, opacity);
+                    //material.color = new Color(old.r, old.g, old.b, opacity);
 
                     int startX = PlayerNode.GridX;
                     int startY = PlayerNode.GridY;
