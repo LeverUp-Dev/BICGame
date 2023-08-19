@@ -89,8 +89,7 @@ namespace Hypocrites.Maze
                     if (dir.Count != 0)
                     {
                         int prevX = x, prevY = y;
-                        int randIndex = Random.Range(0, dir.Count);
-                        Directions r = dir[randIndex];
+                        Directions r = dir[Random.Range(0, dir.Count)];
                         switch (r)
                         {
                             case Directions.DOWN: y++; break;
