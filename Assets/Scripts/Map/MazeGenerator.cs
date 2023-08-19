@@ -164,11 +164,11 @@ namespace Hypocrites.Maze
                 case Directions.RIGHT:
                 case Directions.LEFT:
                     xStart += StartSize * ((randDirStart == Directions.RIGHT) ? 1 : -1) + 1;
-                    yStart += Random.Range(-StartSize + 1, StartSize);
+                    yStart += Random.Range(-StartSize + 1, StartSize - 1);
                     break;
                 case Directions.DOWN:
                 case Directions.UP:
-                    xStart += Random.Range(-StartSize + 1, StartSize);
+                    xStart += Random.Range(-StartSize + 1, StartSize - 1);
                     yStart += StartSize * ((randDirStart == Directions.DOWN) ? 1 : -1);
                     break;
             }
