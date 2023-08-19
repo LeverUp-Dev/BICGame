@@ -55,14 +55,14 @@ namespace Hypocrites.Battle
             switch (enemyState)
             {
                 case EnemyState.chase:
-                    print("Chase");
+                    //print("Chase");
                     Vector3 direction = player.transform.position - transform.position;
                     direction.Normalize();
                     transform.forward = direction;
                     transform.position += direction * Time.deltaTime * speed;
                     break;
                 default:
-                    print("idle");
+                    //print("idle");
                     break;
             }
             yield return new WaitForSeconds(1f);
