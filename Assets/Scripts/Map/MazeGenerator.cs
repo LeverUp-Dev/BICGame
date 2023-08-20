@@ -25,9 +25,6 @@ namespace Hypocrites.Maze
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
 
-        void Clear(bool[] isBlock) { for (int j = 0; j < isBlock.Length; ++j) isBlock[j] = false; }
-        private bool isAllTrue(bool[] isFalse) { for (int i = 0; i < isFalse.Length; i++) if (!isFalse[i]) return false; return true; }
-
         public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab, GameObject floorPrefab)
         {
             this.mapTransform = mapTransform;
@@ -57,14 +54,13 @@ namespace Hypocrites.Maze
             rightTop = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + mazeHalfSize + offset);
         }
 
-        private bool StartRange(int x, int y)
+        private bool StartRange(int x, int y, int n = 0)
         {
-            if ((x > mazeCenter - StartSize && x <= mazeCenter + StartSize)
-                && (y > mazeCenter - StartSize && y <= mazeCenter + StartSize)) return true;
+            if ((x > mazeCenter - StartSize && x <= mazeCenter + StartSize - n)
+                && (y > mazeCenter - StartSize + n && y <= mazeCenter + StartSize)) return true;
             else return false;
         }
 
-        //대가리 깨질 뻔
         private void HuntAndKill()
         {
             int x, y;
@@ -156,19 +152,20 @@ namespace Hypocrites.Maze
              * 2. 2차원 배열의 왼쪽 맨 아래부터 위-오른쪽으로 순회하므로 순서 주의
              */
 
+            // 방의 네 면 중 하나를 무작위로 출입구 결정
             int xStart = mazeCenter, yStart = mazeCenter;
             Directions randDirStart = (Directions)(1 << Random.Range(0, 4));
             switch (randDirStart)
             {
                 case Directions.RIGHT:
                 case Directions.LEFT:
-                    xStart += StartSize * ((randDirStart == Directions.RIGHT) ? 1 : -1) + 1;
+                    xStart += StartSize * (randDirStart == Directions.RIGHT ? 1 : -1) + 1;
                     yStart += Random.Range(-StartSize + 1, StartSize - 1);
                     break;
                 case Directions.DOWN:
                 case Directions.UP:
                     xStart += Random.Range(-StartSize + 1, StartSize - 1);
-                    yStart += StartSize * ((randDirStart == Directions.DOWN) ? 1 : -1);
+                    yStart += StartSize * (randDirStart == Directions.DOWN ? 1 : -1);
                     break;
             }
             for (int i = 0; i < mapSize; i++)
@@ -178,7 +175,6 @@ namespace Hypocrites.Maze
                     int x = (i - 1) / 2;
                     int y = (mapSize - j - 1) / 2;
                     bool odd = i % 2 == 1 && j % 2 == 1;
-                    bool startRangeUnblock = x > mazeCenter - StartSize && x < mazeCenter + StartSize && y > mazeCenter - StartSize + 1 && y <= mazeCenter + StartSize;
 
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
                     var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
@@ -189,7 +185,8 @@ namespace Hypocrites.Maze
                     // 방의 출입구 무작위 배치
                     if (x == xStart && y == yStart && odd)
                     {
-                        if (randDirStart == Directions.RIGHT || randDirStart == Directions.LEFT) Object.Destroy(mazeWalls[i - 1, mapSize - j - 1]); //가로
+                        if (randDirStart == Directions.RIGHT || randDirStart == Directions.LEFT) 
+                            Object.Destroy(mazeWalls[i - 1, mapSize - j - 1]); //가로
                         else Object.Destroy(mazeWalls[i, mapSize - j]); // 세로
                     }
                     // 외벽에 네 구역과 연결하기 위해 벽 허물기
@@ -199,7 +196,7 @@ namespace Hypocrites.Maze
                             continue;
                     }
 
-                    if (startRangeUnblock) continue;
+                    if (StartRange(x,y,1)) continue;
                     else if (odd)
                     {
                         /* 벽 허물기 (왼쪽 맨 아래부터 위-오른쪽으로 순회) */
