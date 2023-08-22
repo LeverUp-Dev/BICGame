@@ -1,0 +1,601 @@
+fileFormatVersion: 2
+guid: 88dfd230dbbde894d83cec71b8a0a68f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SkillFrame
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 770
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b319e7fbefe594e9e5f2d7aa368677
+      internalID: 1974696834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: reset
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 731
+        width: 136
+        height: 83
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cee93601894bdd4992304656399b0d6
+      internalID: -946062088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill1
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 469
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974aebeec6342d34fbbe049bf378d2e0
+      internalID: -604561219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill2
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 469
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fbd24d810b6c064cb16c81e68b2d7be
+      internalID: 1625322190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill3
+      rect:
+        serializedVersion: 2
+        x: 1108
+        y: 469
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba7e317a3ab5ba44825fcf2a3acec72
+      internalID: -1659883770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skill4
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 469
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0097f2d926910ad49977118c3766a322
+      internalID: -1415857164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillListIconFrame
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 238
+        width: 173
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e3ca37043876f743aa9803b478a1456
+      internalID: -1379604656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillListIconBackground
+      rect:
+        serializedVersion: 2
+        x: 118
+        y: 69
+        width: 159
+        height: 158
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c9c248937b15de4687b45b5508cb209
+      internalID: -176495172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MemberTabBackground
+      rect:
+        serializedVersion: 2
+        x: 620
+        y: 191
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 374481e91ea228943bd0496243a5f57d
+      internalID: -1312652387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MemberTabFrame
+      rect:
+        serializedVersion: 2
+        x: 1193
+        y: 191
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d44650288c6128b429cd196b5d1bbf42
+      internalID: 1724286566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SkillSettingText
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 963
+        width: 420
+        height: 58
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1c52c5dec3fcd24e9c831517898b385
+      internalID: 1624272083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: playerH
+      rect:
+        serializedVersion: 2
+        x: 618
+        y: 353
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76401b5b6e7c43944911be305bd9b25a
+      internalID: 762827004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member1H
+      rect:
+        serializedVersion: 2
+        x: 816
+        y: 353
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfd7821672fe5b54ea3618837b9013c5
+      internalID: -177864289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member2H
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 353
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2280affdb27d9be46b7a0b971c4afa2c
+      internalID: -1935922898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member3H
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 353
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fee9476001291940ba9c4158dc738ec
+      internalID: 260588493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member3
+      rect:
+        serializedVersion: 2
+        x: 1191
+        y: 271
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cff8eba038eac0e48bf672a014765254
+      internalID: -1623520706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member2
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 271
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e92ce4149ff25b045a04aed0da2e7db2
+      internalID: -452093837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: member1
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 271
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5411b3ec3f63e5e4fbd4db40607fe08c
+      internalID: 293059831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player
+      rect:
+        serializedVersion: 2
+        x: 623
+        y: 271
+        width: 129
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98c549cf6b180304b84587da01294932
+      internalID: 904233708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5b688af03066752468edef0e6f58599d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      MemberTabBackground: -1312652387
+      MemberTabFrame: 1724286566
+      Skill1: -604561219
+      Skill2: 1625322190
+      Skill3: -1659883770
+      Skill4: -1415857164
+      SkillFrame: 1974696834
+      SkillListIconBackground: -176495172
+      SkillListIconFrame: -1379604656
+      SkillSettingText: 1624272083
+      member1: 293059831
+      member1H: -177864289
+      member2: -452093837
+      member2H: -1935922898
+      member3: -1623520706
+      member3H: 260588493
+      player: 904233708
+      playerH: 762827004
+      reset: -946062088
+      skill_10: -523152148
+      skill_12: -142000947
+      skill_13: -1574326941
+      skill_20: -1759468018
+      skill_21: 1351155019
+      skill_22: -1113023871
+      skill_23: -849825256
+      skill_24: -1303562772
+      skill_25: 713876149
+      skill_26: -124762505
+      skill_27: -758863517
+      skill_28: -765710900
+      skill_29: -396259409
+      skill_30: -1259219170
+      skill_31: -2016692995
+      skill_32: 497436803
+      skill_33: 14486859
+      skill_34: 1362961650
+      skill_35: 1353676794
+      skill_36: 1079211438
+      skill_37: -1562737693
+      skill_38: 844989486
+      skill_39: 1241383236
+      skill_40: -1367125202
+      skill_41: 1763323729
+      skill_42: 1019755668
+      skill_43: -1813366159
+      skill_44: -922880910
+      skill_45: 2016227743
+      skill_46: 583728004
+      skill_47: -1623777007
+      skill_48: 603159058
+      skill_49: -1613644827
+      skill_50: -628370182
+      skill_51: -2124084504
+      skill_52: -698950474
+      skill_53: -1753023236
+      skill_54: 570651415
+      skill_55: 837715676
+      skill_56: -1673850949
+      skill_57: 398358559
+      skill_58: 519917837
+      skill_59: -1253918786
+      skill_62: -488529916
+      skill_63: 1634361029
+      skill_65: 1553821343
+      skill_8: 613740940
+      skill_9: -1613012310
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

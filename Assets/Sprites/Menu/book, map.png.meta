@@ -1,0 +1,378 @@
+fileFormatVersion: 2
+guid: cd2e34f9436d3d64299139de61971eb6
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: clueText
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 809
+        width: 533
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155f6cc31d34b794cb479b1e6e4daf9f
+      internalID: -618692090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slot
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 870
+        width: 123
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3188e6fb816d5141b3c232df6350916
+      internalID: 2051276912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: slotFrame
+      rect:
+        serializedVersion: 2
+        x: 826
+        y: 864
+        width: 134
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fa03ac22da2d9c4fbad7506def127ba
+      internalID: -110281983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: parchmentBG
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 82
+        width: 591
+        height: 643
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36fae25ef5743b499ec2f084cd7cf05
+      internalID: -1442980859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemyText
+      rect:
+        serializedVersion: 2
+        x: 693
+        y: 471
+        width: 533
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 150ccfa9ec9a5544ca50a86c1a2d47eb
+      internalID: 302539902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zoomIn
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 242
+        width: 170
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ad57779aad59f34d947b59e77145830
+      internalID: 778605175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zoomOut
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 127
+        width: 170
+        height: 97
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e012be8808cb82e41be35cde2fb25a17
+      internalID: 345692593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      book, map_1: -1823663325
+      book, map_10: 1294520089
+      book, map_11: -1758806968
+      book, map_12: 1322849355
+      book, map_13: 1169850304
+      book, map_14: 2022398305
+      book, map_15: 2096817909
+      book, map_16: 2137508217
+      book, map_17: -1025988999
+      book, map_18: 1248381633
+      book, map_19: -1085701822
+      book, map_2: -1718555775
+      book, map_20: 1079674541
+      book, map_21: 611306961
+      book, map_22: 759800937
+      book, map_23: -1569528500
+      book, map_24: 457127894
+      book, map_25: -1722824844
+      book, map_26: -947937243
+      book, map_27: 688552845
+      book, map_28: 1642205277
+      book, map_29: 549976680
+      book, map_3: 1443771038
+      book, map_30: 2037720583
+      book, map_31: 342218542
+      book, map_32: -982254331
+      book, map_33: -1767532140
+      book, map_34: -549538059
+      book, map_35: 818454086
+      book, map_36: 1541703149
+      book, map_37: -1345841525
+      book, map_38: 50380277
+      book, map_39: 1994823387
+      book, map_40: 2062280294
+      book, map_41: -424833266
+      book, map_42: 534811179
+      book, map_43: -879825140
+      book, map_44: -637669780
+      book, map_45: 1687527742
+      book, map_46: -411362445
+      book, map_47: 226618404
+      book, map_48: 1663756597
+      book, map_49: 967674193
+      book, map_50: 1213839555
+      book, map_51: 179373505
+      book, map_54: -78542107
+      book, map_55: 1262836669
+      book, map_56: 4935286
+      book, map_57: -455637294
+      book, map_58: -1418955539
+      book, map_59: -2038211125
+      book, map_6: 104164184
+      book, map_60: 974596770
+      book, map_61: 960553579
+      book, map_62: -608795214
+      book, map_63: 365034438
+      book, map_64: 339445422
+      book, map_65: 1235024105
+      book, map_66: 1018988246
+      book, map_67: 1809707142
+      book, map_68: -782798533
+      book, map_69: 1976871716
+      book, map_7: -886067467
+      book, map_70: -800522522
+      book, map_71: 266356326
+      book, map_72: 257572530
+      book, map_73: 683809044
+      book, map_74: -292613820
+      book, map_75: -1234837178
+      book, map_76: 446408945
+      book, map_77: 1273791993
+      book, map_78: 609505399
+      book, map_79: -1330235466
+      book, map_8: 538005127
+      book, map_80: -2005437298
+      book, map_81: 2049219881
+      book, map_82: -1364850164
+      book, map_83: 1339551012
+      book, map_84: -116947711
+      book, map_85: 1254114702
+      book, map_86: -228629636
+      book, map_87: 291565969
+      book, map_88: 590210922
+      book, map_89: 2054589445
+      book, map_9: 934432601
+      book, map_90: 1497308064
+      book, map_91: -440827176
+      book, map_92: 1430243677
+      book, map_93: 1208834273
+      clueText: -618692090
+      enemyText: 302539902
+      parchmentBG: -1442980859
+      slot: 2051276912
+      slotFrame: -110281983
+      zoomIn: 778605175
+      zoomOut: 345692593
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
