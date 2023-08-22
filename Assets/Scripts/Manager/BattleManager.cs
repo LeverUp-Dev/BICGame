@@ -77,9 +77,10 @@ namespace Hypocrites.Manager
                 graphicRaycaster.Raycast(ped, results);*/
 
                 if (battleCamera == null)
-                    battleCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+                    battleCamera = GameObject.FindWithTag("BattleCamera").GetComponent<Camera>();
 
                 Ray ray = battleCamera.ScreenPointToRay(Input.mousePosition);
+                Debug.DrawRay(ray.origin, ray.direction * 300);
                 if (Physics.Raycast(ray, out RaycastHit hit, 300, enemyLayer))
                 {
                     Collider collider = hit.collider;
@@ -198,11 +199,13 @@ namespace Hypocrites.Manager
         public void BeginBattle()
         {
             battleUI.Initialize(members.ToArray(), enemies.ToArray());
+            battleUI.gameObject.SetActive(true);
             GameSceneManager.Instance.LoadScene(BattleDefines.BATTLE_SCENE_NAME, true);
         }
 
         public void EndBattle()
         {
+            battleUI.gameObject.SetActive(false);
             GameSceneManager.Instance.UnloadScene(BattleDefines.BATTLE_SCENE_NAME);
         }
         #endregion

@@ -13,7 +13,7 @@ namespace Hypocrites.Manager
 
         public Animator crossFade;
 
-        public GameObject[] activationTargets;
+        public GameObject[] mainSceneActivationTargets;
 
         void Awake()
         {
@@ -70,7 +70,7 @@ namespace Hypocrites.Manager
             else
                 GameStateManager.Instance.state = GameState.OnBattle;
 
-            foreach (GameObject obj in activationTargets)
+            foreach (GameObject obj in mainSceneActivationTargets)
             {
                 if (obj != null)
                     obj.SetActive(!obj.activeSelf);

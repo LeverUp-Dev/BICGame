@@ -8,7 +8,8 @@ namespace Hypocrites.Manager
     public enum GameState
     {
         OnPlay,
-        OnBattle
+        OnBattle,
+        OnMenu
     }
 
     public class GameStateManager : MonoBehaviour

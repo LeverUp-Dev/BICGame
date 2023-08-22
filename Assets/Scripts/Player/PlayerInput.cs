@@ -1,6 +1,8 @@
 using Hypocrites.Defines;
+using Hypocrites.Manager;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Hypocrites.Player
@@ -52,6 +54,8 @@ namespace Hypocrites.Player
             if (dialogueManager.IsTyping)
                 return;
 
+            if (GameStateManager.Instance.state == GameState.OnMenu)
+                return;
 
             if (Input.GetKey(forward) && Input.GetKey(shift))
             {

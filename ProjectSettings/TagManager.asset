@@ -8,6 +8,7 @@ TagManager:
   - Fog
   - Wall
   - Target
+  - BattleCamera
   layers:
   - Default
   - TransparentFX
