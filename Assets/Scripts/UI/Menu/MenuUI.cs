@@ -16,8 +16,6 @@ namespace Hypocrites
             contents[menu].SetActive(true);
 
             currentMenu = menu;
-
-
         }
     }
 }
