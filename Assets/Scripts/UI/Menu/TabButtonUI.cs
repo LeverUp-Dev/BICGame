@@ -16,10 +16,13 @@ namespace Hypocrites
 
         public virtual void SetHighlight(bool highlighting)
         {
-            if (highlighting)
-                tabButton.image.sprite = highlightTextSprite;
-            else
-                tabButton.image.sprite = normalTextSprite;
+            if (tabButton)
+            {
+                if (highlighting)
+                    tabButton.image.sprite = highlightTextSprite;
+                else
+                    tabButton.image.sprite = normalTextSprite;
+            }
 
             if (highlight)
                 highlight.SetActive(highlighting);

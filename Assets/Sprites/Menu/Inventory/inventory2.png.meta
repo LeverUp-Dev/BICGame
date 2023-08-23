@@ -1,0 +1,475 @@
+fileFormatVersion: 2
+guid: f0afe404cecebdb4287a148128221472
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: EquipmentTabN
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 836
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e779276af57fc48bab0c938c75fa36
+      internalID: 2093973273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EtcTabN
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 836
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baadb4a6d209e064f8b53b4419b5aaa7
+      internalID: -1804417152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EquipmentTabH
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 836
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4419a01e72947444bd59bb9088a02cc
+      internalID: 640235923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConsumTabH
+      rect:
+        serializedVersion: 2
+        x: 1402
+        y: 836
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df6fece521a691442832e45c7ff03b95
+      internalID: -1067287778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTabN
+      rect:
+        serializedVersion: 2
+        x: 820
+        y: 723
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6488b24dce7d1f846a885e6ffb291838
+      internalID: 2003754515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ConsumTabN
+      rect:
+        serializedVersion: 2
+        x: 1006
+        y: 723
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e76fbd56bbffda647969e0d406860b24
+      internalID: -388382410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EtcTabH
+      rect:
+        serializedVersion: 2
+        x: 1204
+        y: 723
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d195d66ba6992d3468136eb509aaaaae
+      internalID: 563801005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AllTabH
+      rect:
+        serializedVersion: 2
+        x: 1402
+        y: 723
+        width: 128
+        height: 49
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaa2a0c5f3f50484584da4e85500ee79
+      internalID: -180737083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: trash
+      rect:
+        serializedVersion: 2
+        x: 1655
+        y: 739
+        width: 136
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b67aaa31e2aa144d8ed575e413cf7fc
+      internalID: 421082233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: seperator
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 625
+        width: 754
+        height: 1
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 258e89945e567144aab4419a4b534c96
+      internalID: 1632748449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlot1
+      rect:
+        serializedVersion: 2
+        x: 814
+        y: 447
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cf0870f429c98439f17fda7ab7febc
+      internalID: 61071168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenSlot2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 447
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67373cf591e297b4e9da442ad820ce8d
+      internalID: -1486946964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: bf46f61d2f3ed514bbf1bc2bbab71b46
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      AllTabH: -180737083
+      AllTabN: 2003754515
+      ConsumTabH: -1067287778
+      ConsumTabN: -388382410
+      EquipmentTabH: 640235923
+      EquipmentTabN: 2093973273
+      EtcTabH: 563801005
+      EtcTabN: -1804417152
+      InvenItemTab: -1752604381
+      InvenItemTabFrame: -1732123473
+      InvenSlot1: 61071168
+      InvenSlot2: -1486946964
+      inventory2_0: -566418639
+      inventory2_1: -1254101594
+      inventory2_10: -836583318
+      inventory2_11: 128642705
+      inventory2_12: 1548109595
+      inventory2_13: -991359622
+      inventory2_14: -987474444
+      inventory2_15: -1506716466
+      inventory2_16: 1941939144
+      inventory2_17: -185704464
+      inventory2_18: -634871639
+      inventory2_19: -1241537658
+      inventory2_2: 1338551669
+      inventory2_20: -1204227699
+      inventory2_25: 1738722132
+      inventory2_26: -1123406102
+      inventory2_27: -1915008781
+      inventory2_28: 1742505971
+      inventory2_29: -112168491
+      inventory2_3: -1639115191
+      inventory2_30: 687032192
+      inventory2_31: -1824772448
+      inventory2_32: -896523242
+      inventory2_33: 331396111
+      inventory2_34: -660302792
+      inventory2_35: 604710260
+      inventory2_4: -599226583
+      inventory2_41: 1360697464
+      inventory2_42: -147889291
+      inventory2_43: 135427890
+      inventory2_44: 448888618
+      inventory2_45: 1295895462
+      inventory2_46: 1452109179
+      inventory2_47: 1497323364
+      inventory2_49: -1323520266
+      inventory2_5: 745062277
+      inventory2_50: -1452104031
+      inventory2_51: -942716914
+      inventory2_52: 968540328
+      inventory2_53: -2076105381
+      inventory2_54: 329923793
+      inventory2_55: -1989702022
+      inventory2_56: -1076023227
+      inventory2_57: -1599450634
+      inventory2_58: -2059785459
+      inventory2_59: 1241731026
+      inventory2_6: 1823529449
+      inventory2_60: 951667234
+      inventory2_61: 1464924553
+      inventory2_62: 1977059240
+      inventory2_67: 498665106
+      inventory2_68: -940140177
+      inventory2_69: 1979947083
+      inventory2_7: 2027765407
+      inventory2_70: -214089705
+      inventory2_71: -1803477630
+      inventory2_72: -2079344053
+      inventory2_73: 2026056386
+      inventory2_74: -1638462186
+      inventory2_75: -1182501984
+      inventory2_76: 1410041423
+      inventory2_77: 1682609570
+      inventory2_78: 1348814166
+      inventory2_79: -2052373168
+      inventory2_8: 1249733725
+      inventory2_80: -1428281616
+      inventory2_81: 451024937
+      inventory2_82: 1880459564
+      inventory2_83: 1575596285
+      inventory2_84: -934502804
+      inventory2_85: -324283540
+      inventory2_86: 145094576
+      inventory2_87: 2132732116
+      inventory2_9: 500040292
+      seperator: 1632748449
+      trash: 421082233
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

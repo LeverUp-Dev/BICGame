@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: 2e1d370c7f405ea469338f0c5012d634
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: InvenMemberTabH
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 937
+        width: 134
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3a4bf4a95ccba149b70d11cb5646030
+      internalID: 1875653630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: equipmentBG
+      rect:
+        serializedVersion: 2
+        x: 649
+        y: 70
+        width: 575
+        height: 891
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18dca70cd81d7a347b7a6baadc80c260
+      internalID: -2062292346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: InvenMemberTab
+      rect:
+        serializedVersion: 2
+        x: 1351
+        y: 834
+        width: 134
+        height: 63
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 053d81378cb6f484b9ac2bd42b307c45
+      internalID: -94063051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: eae0504c456e04c4093893b948e631e1
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      InvenMemberTab: -94063051
+      InvenMemberTabH: 1875653630
+      equipmentBG: -2062292346
+      inventory1_0: -597116264
+      inventory1_10: -641191197
+      inventory1_11: 1456898375
+      inventory1_12: -2021860967
+      inventory1_15: 1148018226
+      inventory1_16: -2062382889
+      inventory1_17: -2103224640
+      inventory1_18: -246170572
+      inventory1_19: -1189063163
+      inventory1_2: 144028683
+      inventory1_20: -788413686
+      inventory1_21: -716771444
+      inventory1_22: 2057558960
+      inventory1_23: -93878254
+      inventory1_24: -1600776598
+      inventory1_25: 888992088
+      inventory1_26: 1283559205
+      inventory1_27: -1885396500
+      inventory1_28: 192615342
+      inventory1_29: -1940988117
+      inventory1_3: 1338102447
+      inventory1_30: 685286507
+      inventory1_31: -166370558
+      inventory1_32: -1267236301
+      inventory1_33: 515351678
+      inventory1_34: -1532885597
+      inventory1_35: -91659280
+      inventory1_36: 1336241853
+      inventory1_37: -1667280233
+      inventory1_38: -861441671
+      inventory1_39: 1951101450
+      inventory1_4: 1513006980
+      inventory1_40: 440806153
+      inventory1_41: -1936964841
+      inventory1_42: 1696744788
+      inventory1_43: 1302582767
+      inventory1_44: 36650597
+      inventory1_45: 214343953
+      inventory1_46: 1790131933
+      inventory1_47: 246894660
+      inventory1_48: -1289585177
+      inventory1_49: 240545008
+      inventory1_5: 1243039586
+      inventory1_50: -1637295360
+      inventory1_51: -1512474211
+      inventory1_52: -1694482366
+      inventory1_53: 279088741
+      inventory1_54: 70664251
+      inventory1_55: 1049256482
+      inventory1_56: 1465475749
+      inventory1_57: -933812884
+      inventory1_58: -507332072
+      inventory1_59: 1669233618
+      inventory1_6: 50725985
+      inventory1_60: -1219858354
+      inventory1_61: -1641735682
+      inventory1_62: -1441376621
+      inventory1_63: 1742726726
+      inventory1_7: -1128294888
+      inventory1_8: 1654631011
+      inventory1_9: -997725753
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
