@@ -12,20 +12,13 @@ namespace Hypocrites.Manager
         OnMenu
     }
 
-    public class GameStateManager : MonoBehaviour
+    public class GameStateManager : SingletonMono<GameStateManager>
     {
-        public static GameStateManager Instance { get; private set; }
-
         public GameState state;
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Hypocrites
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : SingletonMono<UIManager>
     {
         public GameObject sceneCrossFadeUI;
         public GameObject menuUI;

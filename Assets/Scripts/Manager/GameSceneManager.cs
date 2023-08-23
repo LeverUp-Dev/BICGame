@@ -7,23 +7,11 @@ namespace Hypocrites.Manager
 {
     using Map;
 
-    public class GameSceneManager : MonoBehaviour
+    public class GameSceneManager : SingletonMono<GameSceneManager>
     {
-        public static GameSceneManager Instance { get; private set; }
-
         public Animator crossFade;
 
         public GameObject[] mainSceneActivationTargets;
-
-        void Awake()
-        {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
-        }
 
         public void LoadScene(string name, bool isAdditive = false)
         {

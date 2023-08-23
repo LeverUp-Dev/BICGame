@@ -6,10 +6,8 @@ using DS.Enumerations;
 using DS.ScriptableObjects;
 using UnityEngine.Events;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : SingletonMono<DialogueManager>
 {
-    public static DialogueManager Instance { get; private set; }
-
     [field: SerializeField] public GameObject DialogueCanvas { get; private set; }
     [field: SerializeField] public TextMeshProUGUI TextDisplay { get; private set; }
     [field: SerializeField] public GameObject ContinueButton { get; private set; }
@@ -21,14 +19,9 @@ public class DialogueManager : MonoBehaviour
     private DSDialogueSO currentDialogue = null;
     private bool isLastDialogue = false;
 
-    private void Awake()
+    protected override void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
 
         IsTyping = false;
     }

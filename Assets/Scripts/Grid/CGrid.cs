@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Hypocrites.Grid
 {
-    public class CGrid : MonoBehaviour
+    public class CGrid : SingletonMono<CGrid>
     {
-        public static CGrid Instance { get; private set; }
-
         public CNode[,] Grid { get; private set; }
 
         public int GridXSize { get; private set; }
@@ -26,15 +24,9 @@ namespace Hypocrites.Grid
         public HashSet<Directions> unBlock = new HashSet<Directions>();
         public readonly bool[] closeWay = new bool[4];
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            // ¾À ÀüÈ¯ ½Ã¿¡ ½Ì±ÛÅæ °´Ã¼°¡ ÆÄ±«µÇÁö ¾Êµµ·Ï À¯Áö
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             GenerateGrid();
         }

@@ -14,10 +14,8 @@ namespace Hypocrites.Manager
     using UI.BattleUI;
     using Skill;
 
-    public class BattleManager : MonoBehaviour
+    public class BattleManager : SingletonMono<BattleManager>
     {
-        public static BattleManager Instance { get; private set; }
-
         public GraphicRaycaster graphicRaycaster;
         public BattleUI battleUI;
 
@@ -34,14 +32,9 @@ namespace Hypocrites.Manager
 
         LayerMask enemyLayer;
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             isTargeting = false;
 

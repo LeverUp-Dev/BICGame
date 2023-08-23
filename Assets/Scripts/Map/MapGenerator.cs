@@ -22,10 +22,8 @@ namespace Hypocrites.Map
     using Defines;
     using Maze;
 
-    public class MapGenerator : MonoBehaviour
+    public class MapGenerator : SingletonMono<MapGenerator>
     {
-        public static MapGenerator Instance { get; private set; }
-
         const RoomType MAXIMUM_ROOM_SIZE = RoomType.R17x17;
         const int MAZE_ROOM_PADDING = (int)MAXIMUM_ROOM_SIZE / 2;
         const int MAXIMUM_GENERATE_TRIAL = 500;
@@ -64,14 +62,9 @@ namespace Hypocrites.Map
         List<GameObject> edges;
 #endif
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             if (CycleHallwayCreationChance < 0 || CycleHallwayCreationChance > 100)
             {

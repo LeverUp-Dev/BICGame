@@ -10,10 +10,8 @@ namespace Hypocrites.DB
     using Defines;
     using Skill;
 
-    public class Database : MonoBehaviour
+    public class Database : SingletonMono<Database>
     {
-        public static Database Instance { get; private set; }
-
         public Transform itemsHierarchyRoot;
         [field: SerializeField] public List<ItemData> Items { get; private set; }
         public List<Enemy> Enemies { get; private set; }
@@ -23,14 +21,9 @@ namespace Hypocrites.DB
         /* Inspector Values */
         public GameObject fieldItemPrefab;
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             /* 아이템 정보 검색 */
             Items = new List<ItemData>();

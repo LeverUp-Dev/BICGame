@@ -11,10 +11,8 @@ namespace Hypocrites.Event {
 
     [RequireComponent(typeof(DSDialogue))]
 
-    public class EventManager : MonoBehaviour
+    public class EventManager : SingletonMono<EventManager>
     {
-        public static EventManager Instance { get; private set; }
-
         /* 다이얼로그 데이터 관련 변수 */
         DSDialogue dialogueComponent;
         DSDialogueContainerSO dialogueContainer;
@@ -53,15 +51,9 @@ namespace Hypocrites.Event {
         [field: SerializeField] public int EnemyEncounterTime { get; private set; }
         [field: SerializeField] public int EnemyEncounterChance { get; private set; }
 
-        void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-                Instance = this;
-            else
-                Destroy(gameObject);
-
-            // 씬 전환 시에 싱글톤 객체가 파괴되지 않도록 유지
-            DontDestroyOnLoad(gameObject);
+            base.Awake();
 
             // 플레이어 정보 검색
             party = GameObject.FindGameObjectWithTag("Player").GetComponent<Party>();
