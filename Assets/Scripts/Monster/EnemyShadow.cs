@@ -10,6 +10,8 @@ using UnityEngine.SceneManagement;
 
 namespace Hypocrites.Battle
 {
+    using Defines;
+
     public class EnemyShadow : MonoBehaviour
     {
         public enum EnemyState { idle, chase, attack }; // 열거형 선언
@@ -31,16 +33,20 @@ namespace Hypocrites.Battle
         }
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Player"))isChase = true;
+            //if (other.CompareTag("Player")) isChase = true;
+            enemyState = EnemyState.chase;
+            anim.SetBool("IsChase", true);
         }
         void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag("Player")) isChase = false;
+            //if (other.CompareTag("Player")) isChase = false;
+            enemyState = EnemyState.idle;
+            anim.SetBool("IsChase", false);
         }
         IEnumerator CheckEnemy()
         {
             float dist = Vector3.Distance(player.transform.position, transform.position);
-
+            /*
             if (isChase)
             {
                 enemyState = EnemyState.chase;
@@ -50,22 +56,39 @@ namespace Hypocrites.Battle
             {
                 enemyState = EnemyState.idle;
                 anim.SetBool("IsChase", false);
-            }
+            }*/
 
+            Vector3 direction;
             switch (enemyState)
             {
                 case EnemyState.chase:
                     //print("Chase");
-                    Vector3 direction = player.transform.position - transform.position;
+                    direction = player.transform.position - transform.position;
                     direction.Normalize();
                     transform.forward = direction;
                     transform.position += direction * Time.deltaTime * speed;
                     break;
                 default:
+                    direction = transform.position;
+                    List<Directions> dir = new List<Directions>();
+                    if (CGrid.Instance.GetNodeFromWorldPosition(direction - Vector3Int.forward * 2).Walkable) dir.Add(Directions.DOWN);
+                    if (CGrid.Instance.GetNodeFromWorldPosition(direction + Vector3Int.right * 2).Walkable) dir.Add(Directions.RIGHT);
+                    if (CGrid.Instance.GetNodeFromWorldPosition(direction + Vector3Int.forward * 2).Walkable) dir.Add(Directions.UP);
+                    if (CGrid.Instance.GetNodeFromWorldPosition(direction - Vector3Int.right * 2).Walkable) dir.Add(Directions.LEFT);
+
+                    Directions rand = dir[Random.Range(0, dir.Count)];
+                    if (rand == Directions.DOWN || rand == Directions.UP) 
+                        direction += Vector3Int.forward * (rand == Directions.UP ? 1 : -1) * 2;
+                    else direction += Vector3Int.right * (rand == Directions.RIGHT ? 1 : -1) * 2;
+
+                    direction -= transform.position;
+                    direction.Normalize();
+                    transform.forward = direction;
+                    transform.position += direction * Time.deltaTime * speed  * 2;
                     //print("idle");
                     break;
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(5f);
 
         }
         /*
