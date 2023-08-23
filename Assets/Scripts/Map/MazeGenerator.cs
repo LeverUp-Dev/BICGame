@@ -21,6 +21,7 @@ namespace Hypocrites.Maze
 
         private int mapSize;
         private int mazeCenter = MAZE_MAP_SIZE / 2, StartSize = 2;
+
         // 해당 방에서 어떤 방향의 벽을 허물 지 저장
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
@@ -153,6 +154,7 @@ namespace Hypocrites.Maze
              */
 
             // 방의 네 면 중 하나를 무작위로 출입구 결정
+            CGrid grid = new CGrid();
             int xStart = mazeCenter, yStart = mazeCenter;
             Directions randDirStart = (Directions)(1 << Random.Range(0, 4));
             switch (randDirStart)
@@ -178,8 +180,7 @@ namespace Hypocrites.Maze
 
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
                     var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
-                    var floorPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.down * 0.1f;
-
+                    var floorPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + (Vector3.back + Vector3.left) * grid.GridNodeRadius;
                     Object.Instantiate(floorPrefab, floorPosition, Quaternion.identity, hierarchyRoot); // 바닥 형성
 
                     // 방의 출입구 무작위 배치

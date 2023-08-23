@@ -90,8 +90,7 @@ namespace Hypocrites.Map
                 }
 
                 mazeGenerator = new MazeGenerator(transform, mazeHierarchyRoot, WallNodePrefab, FloorNodePrefab);
-
-                mazeGenerator.GetCorner(out CNode mazeLeftBottomNode, out CNode mazeRightTopNode);
+                mazeGenerator.GetCorner(out CNode mazeLeftBottomNode, out CNode mazeRightTopNode); 
                 mazeLeftBottom = new Vector2(mazeLeftBottomNode.GridX, mazeLeftBottomNode.GridY);
                 mazeRightTop = new Vector2(mazeRightTopNode.GridX, mazeRightTopNode.GridY);
 
