@@ -13,11 +13,13 @@ namespace Hypocrites.Maze
     {
         public const int MAZE_MAP_SIZE = 15;
         public const int MAZE_ROOM_PADDING = 8;
+        [field: SerializeField] public GameObject[] AlterWallNodePrefab { get; private set; }
 
         Transform mapTransform;
         Transform hierarchyRoot;
         GameObject wallPrefab;
         GameObject floorPrefab;
+        GameObject[] alterwallPrefab;
 
         private int mapSize;
         private int mazeCenter = MAZE_MAP_SIZE / 2, StartSize = 2;
@@ -26,13 +28,13 @@ namespace Hypocrites.Maze
         Directions[,] mazeWallMap;
         GameObject[,] mazeWalls;
 
-        public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab, GameObject floorPrefab)
+        public MazeGenerator(Transform mapTransform, Transform hierarchyRoot, GameObject wallPrefab, GameObject floorPrefab, GameObject[] alt)
         {
             this.mapTransform = mapTransform;
             this.hierarchyRoot = hierarchyRoot;
             this.wallPrefab = wallPrefab;
             this.floorPrefab = floorPrefab;
-
+            this.alterwallPrefab = alt;
             // 미로 정보 초기화
             mapSize = MAZE_MAP_SIZE * 2 + 1;
 
@@ -153,6 +155,7 @@ namespace Hypocrites.Maze
              * 2. 2차원 배열의 왼쪽 맨 아래부터 위-오른쪽으로 순회하므로 순서 주의
              */
 
+            int count = 3;
             // 방의 네 면 중 하나를 무작위로 출입구 결정
             CGrid grid = new CGrid();
             int xStart = mazeCenter, yStart = mazeCenter;
@@ -212,10 +215,11 @@ namespace Hypocrites.Maze
 
                         continue;
                     }
-
-
-                    mazeWalls[i, mapSize - j - 1] = Object.Instantiate(wallPrefab, wallPosition, Quaternion.identity, hierarchyRoot);
+                    //코드 아래에 주석 처리된 구문을 'wallPrefab' 대신 대입할 경우 새로운 오브젝트 반영
+                    mazeWalls[i, mapSize - j - 1] = Object.Instantiate(/*alterwallPrefab[count]*/wallPrefab, wallPosition, Quaternion.identity, hierarchyRoot);
                 }
+                count--;
+                if (count < 0) count = 3;
             }
         }
     }
