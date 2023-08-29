@@ -155,7 +155,7 @@ namespace Hypocrites.Maze
              * 2. 2차원 배열의 왼쪽 맨 아래부터 위-오른쪽으로 순회하므로 순서 주의
              */
 
-            int count = 3;
+            int countX = 3, countY;
             // 방의 네 면 중 하나를 무작위로 출입구 결정
             CGrid grid = new CGrid();
             int xStart = mazeCenter, yStart = mazeCenter;
@@ -175,14 +175,16 @@ namespace Hypocrites.Maze
             }
             for (int i = 0; i < mapSize; i++)
             {
+                countY = countX;
                 for (int j = 0; j < mapSize; j++)
                 {
+                    countY++; if (countY > 3) countY = 0;
                     int x = (i - 1) / 2;
                     int y = (mapSize - j - 1) / 2;
                     bool odd = i % 2 == 1 && j % 2 == 1;
 
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
-                    var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f;
+                    var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left * 0.5f; //구 프리팹은 '* 0.5f' 추가
                     var floorPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + (Vector3.back + Vector3.left) * grid.GridNodeRadius;
                     Object.Instantiate(floorPrefab, floorPosition, Quaternion.identity, hierarchyRoot); // 바닥 형성
 
@@ -215,11 +217,10 @@ namespace Hypocrites.Maze
 
                         continue;
                     }
-                    //코드 아래에 주석 처리된 구문을 'wallPrefab' 대신 대입할 경우 새로운 오브젝트 반영
-                    mazeWalls[i, mapSize - j - 1] = Object.Instantiate(/*alterwallPrefab[count]*/wallPrefab, wallPosition, Quaternion.identity, hierarchyRoot);
+                    //코드 아래에 주석 처리된 구문을 'wallPrefab' 대신 대입할 경우 새로운 오브젝트 반영. alterwallPrefab[countY]
+                    mazeWalls[i, mapSize - j - 1] = Object.Instantiate(wallPrefab, wallPosition, Quaternion.identity, hierarchyRoot);
                 }
-                count--;
-                if (count < 0) count = 3;
+                countX--; if (countX < 0) countX = 3;
             }
         }
     }

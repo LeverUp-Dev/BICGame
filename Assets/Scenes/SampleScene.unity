@@ -6796,7 +6796,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 444148488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.3, z: 0}
   m_LocalScale: {x: 0.86742, y: 0.86742, z: 0.86742}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28339,6 +28339,11 @@ MonoBehaviour:
   <CycleHallwayCreationChance>k__BackingField: 12.5
   <UnitRoomPrefab>k__BackingField: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
   <WallNodePrefab>k__BackingField: {fileID: 1651038059524489522, guid: 1e9db4e4e42a1ef4dafcdf739fd6ad40, type: 3}
+  <AlterWallNodePrefab>k__BackingField:
+  - {fileID: 1248119121195505263, guid: 654dad4f975052647bb9be21bc1d9b29, type: 3}
+  - {fileID: 5237546757762879867, guid: c974cd8283b2d12479bb8ed95865a2d9, type: 3}
+  - {fileID: 2938747366325163290, guid: 05d0cac4a03990e488bccba86670980f, type: 3}
+  - {fileID: 3275467353534157950, guid: ad7b7058f6bc14e48865fd47da24a75d, type: 3}
   <FloorNodePrefab>k__BackingField: {fileID: 2257071114153180819, guid: fd4e3f9bee306a742afb35cc2a5fd41e, type: 3}
   <HallwayFloorNodePrefab>k__BackingField: {fileID: 205556138245513074, guid: f1aa57c97fec0f74fa239cb093da0296, type: 3}
   <DebugLinePrefab>k__BackingField: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
@@ -31643,7 +31648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2558985239013445536, guid: 05d0cac4a03990e488bccba86670980f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2558985239013445536, guid: 05d0cac4a03990e488bccba86670980f, type: 3}
       propertyPath: m_LocalRotation.w
