@@ -4189,6 +4189,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e49444aef5a59448948431b6f7c5eab, type: 3}
+--- !u!1 &284959483 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8e49444aef5a59448948431b6f7c5eab, type: 3}
+  m_PrefabInstance: {fileID: 284959482}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &286149278 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4047168638734246407, guid: bd37bb74106d45d4aa3738b7dbacc454, type: 3}
@@ -4741,6 +4746,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 427bfc7f4eb2e6141a763a5e98b0a11e, type: 3}
+--- !u!1 &316323058 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 427bfc7f4eb2e6141a763a5e98b0a11e, type: 3}
+  m_PrefabInstance: {fileID: 316323057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &318006621
 GameObject:
   m_ObjectHideFlags: 0
@@ -5305,6 +5315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74c9271f7530a4a459e9d6b911985120, type: 3}
+--- !u!1 &345471841 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 74c9271f7530a4a459e9d6b911985120, type: 3}
+  m_PrefabInstance: {fileID: 345471840}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &362330339 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 288300668942373258, guid: d82e5ac2918a06641b3edc14c43f65b5, type: 3}
@@ -24946,6 +24961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca9c6fcf7594f8741ae1ee4c6b3a7a81, type: 3}
+--- !u!1 &1745148518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ca9c6fcf7594f8741ae1ee4c6b3a7a81, type: 3}
+  m_PrefabInstance: {fileID: 1745148517}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1747370614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28584,10 +28604,10 @@ MonoBehaviour:
   <UnitRoomPrefab>k__BackingField: {fileID: 6118573355324799159, guid: 37502527a71fae24c85242b266e5cb72, type: 3}
   <WallNodePrefab>k__BackingField: {fileID: 1651038059524489522, guid: 1e9db4e4e42a1ef4dafcdf739fd6ad40, type: 3}
   <AlterWallNodePrefab>k__BackingField:
-  - {fileID: 1248119121195505263, guid: 654dad4f975052647bb9be21bc1d9b29, type: 3}
-  - {fileID: 5237546757762879867, guid: c974cd8283b2d12479bb8ed95865a2d9, type: 3}
-  - {fileID: 2938747366325163290, guid: 05d0cac4a03990e488bccba86670980f, type: 3}
-  - {fileID: 3275467353534157950, guid: ad7b7058f6bc14e48865fd47da24a75d, type: 3}
+  - {fileID: 345471841}
+  - {fileID: 284959483}
+  - {fileID: 316323058}
+  - {fileID: 1745148518}
   <FloorNodePrefab>k__BackingField: {fileID: 2257071114153180819, guid: fd4e3f9bee306a742afb35cc2a5fd41e, type: 3}
   <HallwayFloorNodePrefab>k__BackingField: {fileID: 205556138245513074, guid: f1aa57c97fec0f74fa239cb093da0296, type: 3}
   <DebugLinePrefab>k__BackingField: {fileID: 7341477472032889896, guid: 0f60b63798176694b94b75a4338baa02, type: 3}
