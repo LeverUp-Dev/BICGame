@@ -51,7 +51,7 @@ namespace Hypocrites.Maze
         public void GetCorner(out CNode leftBottom, out CNode rightTop)
         {
             Vector3 mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
-            Vector3 offset = Vector3.forward * CGrid.Instance.GridNodeDiameter + Vector3.left * 0.5f;
+            Vector3 offset = Vector3.forward * CGrid.Instance.GridNodeDiameter + Vector3.left;
 
             leftBottom = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + -mazeHalfSize + offset);
             rightTop = CGrid.Instance.GetNodeFromWorldPosition(mapTransform.position + mazeHalfSize + offset);
@@ -184,7 +184,7 @@ namespace Hypocrites.Maze
                     bool odd = i % 2 == 1 && j % 2 == 1;
 
                     var mazeHalfSize = new Vector3(mapSize, 0, mapSize) / 2;
-                    var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.left; //구 프리팹은 '* 0.5f' 추가
+                    var wallPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + Vector3.right; //구 프리팹은 '* 0.5f' 추가
                     var floorPosition = new Vector3(i, 0, j) - mazeHalfSize + mapTransform.position + (Vector3.back + Vector3.left) * grid.GridNodeRadius;
                     Object.Instantiate(floorPrefab, floorPosition, Quaternion.identity, hierarchyRoot); // 바닥 형성
 
