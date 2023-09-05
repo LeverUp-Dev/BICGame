@@ -17,11 +17,9 @@ namespace Hypocrites.Battle
         public enum EnemyState { idle, chase, attack }; // 열거형 선언
         public EnemyState enemyState = EnemyState.idle; // 변수 선언 및 초기화
         public Animator anim;
-        bool isChase = false;
 
         public float speed = 1f;
         public GameObject player;
-        Vector3 prevPos;
 
         void Awake()
         {

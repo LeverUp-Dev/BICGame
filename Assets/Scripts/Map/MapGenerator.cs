@@ -614,8 +614,8 @@ namespace Hypocrites.Map
 
                     // TODO : 미로 방에 바닥을 생성하면 위 IF로 처리하면 될 듯
                     // 미로 방 안일 경우 continue
-                    if (node.GridX >= mazeLeftBottom.x && node.GridX <= mazeRightTop.x
-                        && node.GridY <= mazeLeftBottom.y && node.GridY >= mazeRightTop.y)
+                    if (node.GridX > mazeLeftBottom.x && node.GridX < mazeRightTop.x
+                        && node.GridY > mazeLeftBottom.y && node.GridY < mazeRightTop.y)
                         continue;
 
                     // 주변 8개의 노드를 조사해 벽이 필요한 장소에만 생성
